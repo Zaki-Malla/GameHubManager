@@ -1,0 +1,215 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard || GameHub Manager";
+}
+
+<main class="main" id="top">
+    <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+        <div class="collapse navbar-collapse justify-content-between">
+            <div class="navbar-logo">
+                <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse"
+                        aria-controls="navbarVerticalCollapse" aria-expanded="false"
+                        aria-label="Toggle Navigation">
+                    <span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
+                </button>
+                <a class="navbar-brand me-1 me-sm-3" href="">
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center">
+                            <img src="assets/img/icons/logo.png" alt="TheK" width="80">
+                            <p class="logo-text ms-2 d-none d-sm-block">GameHub Manager</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="d-flex align-items-center ms-auto">
+                <span class="text-body fw-bold fs-1 me-3">@User.Identity.Name</span>
+                <a href="@Url.Action("Logout", "Account")" class="btn btn-outline-light fw-semibold">تسجيل خروج</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="container mt-4">
+
+            <!-- عنوان قسم أنواع الأجهزة -->
+            <h3 class="section-title">أنواع الأجهزة</h3>
+            <div class="row g-4">
+                @foreach (var deviceType in Model.DeviceTypes)
+                {
+                    <div class="col-md-3">
+                        <div class="card device-type-card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">@deviceType.Name</h5>
+                                <p class="text-muted">
+                                    السعر: @deviceType.DevicePrice.PricePerHour.ToString("C0")/ساعة
+                                </p>
+                                <p class="text-muted">
+                                    عدد الأجهزة: @deviceType.Devices.Count
+                                </p>
+                                <button class="btn btn-primary w-100">عرض الأجهزة</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- عنوان قسم الأجهزة -->
+            <h3 class="section-title mt-4">الأجهزة</h3>
+            <div class="row g-4">
+                @foreach (var device in Model.Devices)
+                {
+                    <div class="col-md-4">
+                        <div class="card device-card h-100 @(device.ActiveReservation != null ? "reserved-card" : "")">
+                            @if (device.ActiveReservation != null)
+                            {
+                                <span class="reserved-badge">
+                                    <i class="fas fa-clock me-2"></i>
+                                    @(device.ActiveReservation.EndTime.HasValue ? "محجوز" : "حجز مفتوح")
+                                </span>
+                            }
+                            <img src="@device.Device.DeviceType.ImagePath" class="card-img-top" alt="Device Image">
+                            <div class="card-body">
+                                <h5 class="card-title">@device.Device.Name</h5>
+                                <p class="text-muted">
+                                    السعر: @device.Device.DeviceType.DevicePrice.PricePerHour.ToString("C0")/ساعة
+                                </p>
+
+                                @if (device.ActiveReservation?.EndTime != null)
+                                {
+                                    <div class="countdown" data-end="@device.ActiveReservation.EndTime.Value.ToString("o")">
+                                        الوقت المتبقي: <span class="time-remaining"></span>
+                                    </div>
+                                }
+                                else if (device.ActiveReservation == null)
+                                {
+                                    <button class="btn btn-primary w-100 phoenix-button">
+                                        <i class="fas fa-calendar-check me-2"></i>احجز الآن
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</main>
+
+<style>
+    /* عناوين الأقسام */
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    /* تخصيص مظهر مربعات أنواع الأجهزة */
+    .device-type-card {
+        border: 2px solid #00a8ff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+    }
+
+        .device-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .device-type-card .card-body {
+            text-align: center;
+        }
+
+        .device-type-card .card-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .device-type-card .btn {
+            background-color: #00a8ff;
+            color: white;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+            .device-type-card .btn:hover {
+                background-color: #0097e6;
+                color: white;
+            }
+
+    /* تخصيص مظهر مربعات الأجهزة */
+    .device-card {
+        border: 2px solid #00a8ff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+    }
+
+        .device-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .device-card .card-body {
+            text-align: center;
+        }
+
+        .device-card .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .device-card .btn {
+            background-color: #00a8ff;
+            color: white;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+            .device-card .btn:hover {
+                background-color: #0097e6;
+                color: white;
+            }
+
+    /* تخصيص الأزرار */
+    .phoenix-button {
+        background: linear-gradient(135deg, #00a8ff, #0097e6);
+        border: none;
+        transition: 0.3s;
+    }
+
+        .phoenix-button:hover {
+            background: linear-gradient(135deg, #0097e6, #00a8ff);
+        }
+</style>
+
+<script>
+    function updateCountdowns() {
+        document.querySelectorAll('.countdown').forEach(element => {
+            const endTime = new Date(element.dataset.end);
+            const now = new Date();
+
+            if (now >= endTime) {
+                element.innerHTML = "انتهى وقت الحجز";
+                element.closest('.reserved-card').classList.remove('reserved-card');
+                return;
+            }
+
+            const diff = endTime - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            element.querySelector('.time-remaining').innerHTML =
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        });
+    }
+
+    setInterval(updateCountdowns, 1000);
+    updateCountdowns();
+</script>
