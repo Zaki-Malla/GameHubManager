@@ -1,16 +1,15 @@
-MIT License
+Custom License
 
-Copyright (c) [year] [fullname]
+Copyright (c) 2025 Zaki Malla
+
+All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software and associated documentation files (the "Software"), to use
+the Software **only after obtaining explicit written permission from the copyright holder**.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The Software may not be copied, modified, distributed, sublicense, or sold
+without the prior written consent of the copyright holder.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,3 +18,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Liability and Damages
+
+Any unauthorized use, distribution, modification, or sale of this Software without explicit written permission from the copyright holder constitutes a violation of this license.  
+In the event of such a violation, the infringing party shall be liable for damages, including but not limited to:
+
+- Actual damages incurred by the copyright holder.
+- Loss of profits or revenue.
+- Legal fees and court costs associated with enforcing this license.
+
+The copyright holder reserves the right to pursue any and all legal remedies available under applicable law.
