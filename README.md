@@ -27,7 +27,7 @@
 
 ## License
 
-This project is licensed under a [Custom License](LICENSE).  
+This project is licensed under a [Custom License](LICENSE.txt).  
 Unauthorized use, distribution, or sale of this software is strictly prohibited and may result in legal action.
 
 ---
