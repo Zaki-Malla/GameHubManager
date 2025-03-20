@@ -4,6 +4,48 @@
     ViewData["Title"] = "Dashboard || GameHub Manager";
 }
 
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient text-white" style="background-color: #007bff;">
+                <h5 class="modal-title fw-bold" id="reservationModalLabel">حجز الجهاز</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 id="modalDeviceName" class="fw-bold text-center"></h4>
+                <h6 id="modalDeviceType" class="text-muted text-center"></h6>
+                <p class="text-center">
+                    <span class="fw-bold">السعر:</span>
+                    <span id="modalDevicePrice" class="text-primary fw-bold"></span> / ساعة
+                </p>
+                <p class="text-center">
+                    <span class="fw-bold">توقيت البداية:</span>
+                    <span id="modalStartTime" class="text-success fw-bold"></span>
+                </p>
+                <div class="mb-3">
+                    <label for="endTime" class="form-label fw-bold">توقيت النهاية:</label>
+                    <input type="datetime-local" class="form-control" id="endTime">
+                </div>
+
+                <div class="mb-3">
+                    <label for="totalMinutes" class="form-label fw-bold">عدد دقائق اللعب:</label>
+                    <input type="number" class="form-control" id="totalMinutes" min="1">
+                </div>
+
+                <div class="mb-3">
+                    <label for="amountPaid" class="form-label fw-bold">المبلغ المدفوع:</label>
+                    <input type="number" class="form-control" id="amountPaid" min="0">
+                </div>
+
+                <form id="reservationForm">
+                    <input type="hidden" id="deviceId">
+                    <button type="submit" class="btn btn-primary w-100 py-2">تأكيد الحجز</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <main class="main" id="top">
     <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
         <div class="collapse navbar-collapse justify-content-between">
@@ -25,7 +67,9 @@
             </div>
             <div class="d-flex align-items-center ms-auto">
                 <span class="text-body fw-bold fs-1 me-3">@User.Identity.Name</span>
-                <a href="@Url.Action("Logout", "Account")" class="btn btn-outline-light fw-semibold">تسجيل خروج</a>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -33,29 +77,26 @@
     <div class="content">
         <div class="container mt-4">
 
-            <!-- عنوان قسم أنواع الأجهزة -->
             <h3 class="section-title">أنواع الأجهزة</h3>
-            <div class="row g-4">
+            <div class="row g-2">
                 @foreach (var deviceType in Model.DeviceTypes)
                 {
-                    <div class="col-md-3">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
                         <div class="card device-type-card h-100">
                             <div class="card-body">
-                                <h5 class="card-title">@deviceType.Name</h5>
+                                <h6 class="card-title">@deviceType.Name</h6>
                                 <p class="text-muted">
-                                    السعر: @deviceType.DevicePrice.PricePerHour.ToString("C0")/ساعة
+                                    السعر: @deviceType.DevicePrice.PricePerHour.ToString("")/ساعة
                                 </p>
                                 <p class="text-muted">
                                     عدد الأجهزة: @deviceType.Devices.Count
                                 </p>
-                                <button class="btn btn-primary w-100">عرض الأجهزة</button>
                             </div>
                         </div>
                     </div>
                 }
             </div>
 
-            <!-- عنوان قسم الأجهزة -->
             <h3 class="section-title mt-4">الأجهزة</h3>
             <div class="row g-4">
                 @foreach (var device in Model.Devices)
@@ -69,12 +110,10 @@
                                     @(device.ActiveReservation.EndTime.HasValue ? "محجوز" : "حجز مفتوح")
                                 </span>
                             }
-                            <img src="@device.Device.DeviceType.ImagePath" class="card-img-top" alt="Device Image">
+                            <img src="@device.Device.DeviceType.ImagePath" class="card-img-top cropped-img" alt="Device Image">
                             <div class="card-body">
                                 <h5 class="card-title">@device.Device.Name</h5>
-                                <p class="text-muted">
-                                    السعر: @device.Device.DeviceType.DevicePrice.PricePerHour.ToString("C0")/ساعة
-                                </p>
+
 
                                 @if (device.ActiveReservation?.EndTime != null)
                                 {
@@ -84,9 +123,15 @@
                                 }
                                 else if (device.ActiveReservation == null)
                                 {
-                                    <button class="btn btn-primary w-100 phoenix-button">
-                                        <i class="fas fa-calendar-check me-2"></i>احجز الآن
+
+                                    <button class="btn btn-primary w-100 reserve-button"
+                                            data-id="@device.Device.Id"
+                                            data-name="@device.Device.Name"
+                                            data-price="@device.Device.DeviceType.DevicePrice.PricePerHour">
+                                        <i class="fas fa-calendar-check me-2"></i> احجز الآن
                                     </button>
+
+
                                 }
                             </div>
                         </div>
@@ -98,7 +143,6 @@
 </main>
 
 <style>
-    /* عناوين الأقسام */
     .section-title {
         font-size: 1.5rem;
         font-weight: bold;
@@ -106,7 +150,6 @@
         color: #333;
     }
 
-    /* تخصيص مظهر مربعات أنواع الأجهزة */
     .device-type-card {
         border: 2px solid #00a8ff;
         border-radius: 10px;
@@ -141,7 +184,6 @@
                 color: white;
             }
 
-    /* تخصيص مظهر مربعات الأجهزة */
     .device-card {
         border: 2px solid #00a8ff;
         border-radius: 10px;
@@ -176,16 +218,13 @@
                 color: white;
             }
 
-    /* تخصيص الأزرار */
-    .phoenix-button {
-        background: linear-gradient(135deg, #00a8ff, #0097e6);
-        border: none;
-        transition: 0.3s;
+    .cropped-img {
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
     }
 
-        .phoenix-button:hover {
-            background: linear-gradient(135deg, #0097e6, #00a8ff);
-        }
 </style>
 
 <script>
@@ -213,3 +252,107 @@
     setInterval(updateCountdowns, 1000);
     updateCountdowns();
 </script>
+
+<script>
+        var now = new Date();
+        var formattedStartTime = now.toLocaleTimeString([], { hour12: false }) + " - " + now.toLocaleDateString();
+
+        $(document).ready(function () {
+        function formatLocalDateTime(date) {
+            var pad = function(n) { return n.toString().padStart(2, '0'); };
+            return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) +
+                'T' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+        }
+
+        $('.reserve-button').on('click', function () {
+            var deviceId = $(this).data("id"),
+                deviceName = $(this).data("name"),
+                deviceType = $(this).data("type"),
+                devicePrice = parseFloat($(this).data("price"));
+
+            $('#deviceId').val(deviceId);
+            $('#modalDeviceName').text(deviceName);
+            $('#modalDeviceType').text(deviceType);
+            $('#modalDevicePrice').text(devicePrice.toFixed(2));
+
+
+            $('#modalStartTime').text(formattedStartTime);
+
+            $('#reservationModal').data('start-time', now.toISOString());
+            $('#reservationModal').data('hour-price', devicePrice);
+
+            $('#totalMinutes').val('');
+            $('#amountPaid').val('');
+            $('#endTime').val('');
+
+            new bootstrap.Modal($('#reservationModal')[0]).show();
+        });
+
+        function calculateTotalPrice(duration, hourPrice, controllers) {
+            var multiplier = (controllers === 3) ? 1.5 : (controllers === 4) ? 2 : 1;
+            return (hourPrice * (duration / 60)) * multiplier;
+        }
+
+        function updateFromDuration() {
+            var duration = parseInt($('#totalMinutes').val(), 10) || 0;
+            var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
+            var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
+            var totalPrice = calculateTotalPrice(duration, hourPrice, controllers);
+            $('#amountPaid').val(totalPrice.toFixed(2));
+
+            var startTime = new Date($('#reservationModal').data('start-time'));
+            var endTime = new Date(now.getTime() + duration * 60000);
+            $('#endTime').val(formatLocalDateTime(endTime));
+        }
+
+        function updateFromAmount() {
+            var amount = parseFloat($('#amountPaid').val()) || 0;
+            var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
+            var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
+            var multiplier = (controllers === 3) ? 1.5 : (controllers === 4) ? 2 : 1;
+            var duration = Math.floor((amount / (hourPrice * multiplier)) * 60);
+            $('#totalMinutes').val(duration);
+
+            var startTime = new Date($('#reservationModal').data('start-time'));
+            var endTime = new Date(now.getTime() + duration * 60000);
+            $('#endTime').val(formatLocalDateTime(endTime));
+        }
+
+        function updateFromEndTime() {
+            var endTimeStr = $('#endTime').val();
+            if (endTimeStr) {
+                var endTime = new Date(endTimeStr);
+                var startTime = new Date($('#reservationModal').data('start-time'));
+                var duration = Math.floor((endTime - startTime) / 60000);
+                $('#totalMinutes').val(duration);
+
+                var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
+                var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
+                var totalPrice = calculateTotalPrice(duration, hourPrice, controllers);
+                $('#amountPaid').val(totalPrice.toFixed(2));
+            }
+        }
+
+        $('#totalMinutes').on('input', updateFromDuration);
+        $('#amountPaid').on('input', updateFromAmount);
+        $('#endTime').on('change', updateFromEndTime);
+        $('#numberOfControllers').on('change', function () {
+            updateFromDuration();
+            updateFromAmount();
+        });
+
+        $('#reservationForm').on('submit', function (e) {
+            e.preventDefault();
+            alert("تم تأكيد الحجز بنجاح!");
+            $('#reservationModal').modal('hide');
+        });
+    });
+
+    $('#reservationModal').on('hidden.bs.modal', function () {
+        setTimeout(function () {
+            location.reload();
+        }, 300);
+    });
+</script>
+
+

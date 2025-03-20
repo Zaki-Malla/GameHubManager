@@ -35,7 +35,7 @@ Unauthorized use, distribution, or sale of this software is strictly prohibited 
 ## How to Run the Project
 
 ### Prerequisites
-- .NET 8.0 SDK or later
+- .NET 9.0 SDK or later
 - SQLite (or any other database supported by EF Core)
 
 ### Steps to Run
