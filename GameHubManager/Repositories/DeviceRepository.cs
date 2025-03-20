@@ -13,10 +13,32 @@ namespace GameHubManager.Repositories
             _context = context;
         }
 
+        public async Task<List<DeviceViewModel>> GetAllDevicesWithReservationsAsync()
+        {
+            var devices = _context.Devices
+        .Include(d => d.DeviceType)
+            .ThenInclude(dt => dt.DevicePrice)
+        .Include(d => d.Reservations)
+        .Select(d => new DeviceViewModel
+        {
+            Device = new DeviceModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                DeviceType = d.DeviceType,
+            },
+            ActiveReservation = d.Reservations
+                .FirstOrDefault(r => r.EndTime > DateTime.Now || r.EndTime == null)
+        })
+        .ToList();
+            return devices;
+        }
+
        public async Task<List<DeviceModel>> GetAllDevicesAsync()
         {
             return await _context.Devices
                 .Include(p => p.DeviceType)
+                    .ThenInclude(dt => dt.DevicePrice)
                 .Include(p => p.Reservations)
                 .ToListAsync();
         }

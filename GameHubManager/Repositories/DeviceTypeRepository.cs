@@ -17,6 +17,7 @@ namespace GameHubManager.Repositories
         {
             return await _context.DeviceTypes
                 .Include(p => p.DevicePrice)
+                .Include(p => p.Devices)
                 .ToListAsync();
         }
 
@@ -24,6 +25,7 @@ namespace GameHubManager.Repositories
         {
             return await _context.DeviceTypes
                 .Include(p => p.DevicePrice)
+                .Include(p => p.Devices)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 

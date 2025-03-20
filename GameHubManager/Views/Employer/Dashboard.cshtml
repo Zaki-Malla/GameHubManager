@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel || GameHub Manager";
+}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+    .sidebar a:hover {
+        background-color: #495057;
+        color: #f8f9fa;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar {
+        transition: transform 0.3s ease;
+    }
+
+        .sidebar:hover {
+            transform: translateX(5px);
+        }
+
+    .nav-item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+</style>
+
+<form asp-controller="Employer" asp-action="SaveChanges" method="post">
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-gray-800 text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title text-warning" id="settingsModalLabel">تغيير الإيميل وكلمة المرور</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">اختار نوع التغيير</label>
+                        <div>
+                            <input type="radio" class="form-check-input" name="changeOption" id="changeEmail" value="email" checked>
+                            <label class="form-check-label" for="changeEmail">تغيير البريد الإلكتروني</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="form-check-input" name="changeOption" id="changePassword" value="password">
+                            <label class="form-check-label" for="changePassword">تغيير كلمة المرور</label>
+                        </div>
+                    </div>
+
+                    <div id="emailChangeFields" class="change-fields">
+                        <div class="mb-3">
+                            <label for="NewEmail" class="form-label">البريد الإلكتروني الجديد</label>
+                            <input type="email" class="form-control bg-gray-700 text-white border-warning" id="NewEmail" name="NewEmail" placeholder="أدخل الإيميل الجديد" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="OldPassword" class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="OldPassword" name="OldPassword" placeholder="أدخل كلمة المرور" >
+                        </div>
+                    </div>
+
+                    <div id="passwordChangeFields" class="change-fields d-none">
+                        <div class="mb-3">
+                            <label for="OldPassword" class="form-label">كلمة المرور القديمة</label>
+                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="OldPassword" name="OldPassword" placeholder="أدخل كلمة المرور القديمة" >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="NewPassword" class="form-label">كلمة المرور الجديدة</label>
+                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="NewPassword" name="NewPassword" placeholder="أدخل كلمة المرور الجديدة" >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ConfirmPassword" class="form-label">تأكيد كلمة المرور الجديدة</label>
+                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="ConfirmPassword" name="ConfirmPassword" placeholder="تأكيد كلمة المرور" >
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                    <button type="submit" class="btn btn-warning">حفظ التغييرات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.querySelectorAll('input[name="changeOption"]').forEach(function (radio) {
+        radio.addEventListener('change', function () {
+            if (this.value === 'email') {
+                document.getElementById('emailChangeFields').classList.remove('d-none');
+                document.getElementById('passwordChangeFields').classList.add('d-none');
+            } else {
+                document.getElementById('passwordChangeFields').classList.remove('d-none');
+                document.getElementById('emailChangeFields').classList.add('d-none');
+            }
+        });
+    });
+</script>
+
+
+<body class="bg-gray-900 text-white">
+    <div class="d-flex">
+
+        <nav class="sidebar bg-gray-800 text-white vh-100 p-3 shadow-lg">
+            <h4 class="text-center mb-4 text-warning">GameHub Manager</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-person-plus"></i> إضافة حساب جديد</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-laptop"></i> قائمة الأجهزة</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> قائمة اسعار اللعب</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-box-seam"></i> قائمة أنواع الأجهزة</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-bar-chart"></i> الإحصائيات</a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> مبيعات المأكولات والمشروبات</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="content flex-grow-1 p-4">
+            <header class="d-flex justify-content-between align-items-center bg-gray-800 p-3 rounded shadow-sm">
+                <h4 class="m-0 text-warning">لوحة تحكم الأدمن</h4>
+                <a asp-controller="Home" asp-action="Dashboard" class="btn btn-primary me-3">Back to DASHBOARD</a>
+                <button class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#settingsModal"><i class="bi bi-person-circle"></i> إعدادات الحساب</button>
+            </header>
+
+            <div class="mt-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-gray-800 text-black shadow-lg p-3 hover:scale-105 transition-transform duration-300 ease-in-out">
+                            <h5 class="text-warning">إجمالي المبيعات</h5>
+                            <p class="fs-4">$5000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-gray-800 text-black shadow-lg p-3 hover:scale-105 transition-transform duration-300 ease-in-out">
+                            <h5 class="text-warning">عدد الأجهزة</h5>
+                            <p class="fs-4">20 جهاز</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-gray-800 text-black shadow-lg p-3 hover:scale-105 transition-transform duration-300 ease-in-out">
+                            <h5 class="text-warning">عدد المستخدمين</h5>
+                            <p class="fs-4">150 مستخدم</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

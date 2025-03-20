@@ -1,10 +1,18 @@
-﻿using GameHubManager.Models;
+﻿    using GameHubManager.Models;
+using GameHubManager.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
+builder.Services.AddScoped<IDeviceTypeRepository, DeviceTypeRepository>();
+builder.Services.AddScoped<IDevicePriceRepository, DevicePriceRepository>();
+builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
 builder.Services.AddDbContext<DSContext>(options =>
 {
