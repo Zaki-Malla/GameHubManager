@@ -77,5 +77,22 @@ namespace GameHubManager.Controllers
 
              return View("Dashboard",model);
         }
+
+        public IActionResult DevicesTypes()
+        {
+            return View();
+        }
+        public IActionResult DevicesPrices()
+        {
+            return View();
+        }
+        public IActionResult Statistics()
+        {
+            return View();
+        }
+        public IActionResult SnacksStatistics()
+        {
+            return View();
+        }
     }
 }

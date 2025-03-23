@@ -110,19 +110,21 @@
                     <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-person-plus"></i> إضافة حساب جديد</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-laptop"></i> قائمة الأجهزة</a>
+                    <a asp-controller="Employer" asp-action="Devices" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105">
+                        <i class="bi bi-laptop"></i> قائمة الأجهزة
+                    </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> قائمة اسعار اللعب</a>
+                    <a asp-controller="Employer" asp-action="DevicesPrices" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> قائمة اسعار اللعب</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-box-seam"></i> قائمة أنواع الأجهزة</a>
+                    <a asp-controller="Employer" asp-action="DevicesTypes" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-box-seam"></i> قائمة أنواع الأجهزة</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-bar-chart"></i> الإحصائيات</a>
+                    <a asp-controller="Employer" asp-action="Statistics" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-bar-chart"></i> الإحصائيات</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> مبيعات المأكولات والمشروبات</a>
+                    <a asp-controller="Employer" asp-action="SnacksStatistics" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> مبيعات المأكولات والمشروبات</a>
                 </li>
             </ul>
         </nav>
