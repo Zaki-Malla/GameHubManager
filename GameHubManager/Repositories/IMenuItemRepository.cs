@@ -5,9 +5,11 @@ namespace GameHubManager.Repositories
 {
     public interface IMenuItemRepository
     {
-        Task<List<MenuItemModel>> GetAllMenuItemsAsync();
+        Task<List<MenuItemModel>> GetAllMenuItemsAsync(); 
 
-        Task<MenuItemModel> GetMenuItemsByIdAsync(int id);
+        Task<MenuItemModel> GetMenuItemByIdAsync(int id);
+
+        Task<MenuItemModel> GetMenuItemByNameAsync(string name);
 
         Task AddMenuItemAsync(MenuItemModel menuItem);
 

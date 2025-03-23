@@ -20,5 +20,10 @@ namespace GameHubManager.Models
         [Range(0, int.MaxValue, ErrorMessage = "الكمية يجب أن تكون عدد صحيح غير سالب")]
         [Display(Name = "الكمية")]
         public int Quantity { get; set; }
+
+        [Required(ErrorMessage = "السعر مطلوب")]
+        [Range(0.1, double.MaxValue, ErrorMessage = "السعر يجب أن يكون أكبر من 0")]
+        [Display(Name = "السعر")]
+        public decimal Price { get; set; }
     }
 }

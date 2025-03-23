@@ -18,9 +18,14 @@ namespace GameHubManager.Repositories
             return await _context.MenuItems.ToListAsync();
         }
 
-        public async Task<MenuItemModel> GetMenuItemsByIdAsync(int id)
+        public async Task<MenuItemModel> GetMenuItemByIdAsync(int id)
         {
             return await _context.MenuItems.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<MenuItemModel> GetMenuItemByNameAsync(string name)
+        {
+            return await _context.MenuItems.FirstOrDefaultAsync(p => p.Name == name);
         }
 
         public async Task AddMenuItemAsync(MenuItemModel menuItem)

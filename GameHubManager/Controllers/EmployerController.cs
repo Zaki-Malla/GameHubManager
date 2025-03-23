@@ -13,10 +13,14 @@ namespace GameHubManager.Controllers
     {
         private readonly UserManager<UserModel> _userManager;
         private readonly IDeviceTypeRepository _deviceTypeRepository;
-        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository)
+        private readonly ISaleRepository _saleRepository;
+        private readonly IMenuItemRepository _menuItemRepository;
+        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository)
         {
             _userManager = userManager;
             _deviceTypeRepository = deviceTypeRepository;
+            _saleRepository = saleRepository;
+            _menuItemRepository = menuItemRepository;
         }
 
         public IActionResult Dashboard()
@@ -161,9 +165,73 @@ namespace GameHubManager.Controllers
         {
             return View();
         }
-        public IActionResult SnacksStatistics()
+        public async Task<IActionResult> SnacksManage()
         {
-            return View();
+            return View(await _menuItemRepository.GetAllMenuItemsAsync());
         }
+        public async Task<IActionResult> AddMenuItem(MenuItemModel menuItem)
+        {
+            var existingItem = await _menuItemRepository.GetMenuItemByNameAsync(menuItem.Name);
+            if (existingItem != null)
+            {
+                ModelState.AddModelError("Name", "المنتج موجود بالفعل، يجب عليك إعادة تعبئة الكمية.");
+            }
+
+            if (menuItem.Quantity <= 0)
+            {
+                ModelState.AddModelError("Quantity", "الكمية يجب أن تكون أكبر من صفر.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("SnacksManage", await _menuItemRepository.GetAllMenuItemsAsync());
+            }
+
+            await _menuItemRepository.AddMenuItemAsync(menuItem);
+            return RedirectToAction("SnacksManage");
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuantity(int menuItemId2, int newQuantity)
+        {
+            var menuItem = await _menuItemRepository.GetMenuItemByIdAsync(menuItemId2);
+            if (menuItem == null)
+            {
+                return NotFound();
+            }
+
+            if (newQuantity < 1)
+            {
+                ModelState.AddModelError("newQuantity", "يجب إدخال كمية أكبر من 0");
+                return View("SnacksManage",menuItem); 
+            }
+
+            menuItem.Quantity += newQuantity;
+            await _menuItemRepository.UpdateMenuItemAsync(menuItem);
+            return RedirectToAction("SnacksManage");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePrice(int menuItemId, decimal newPrice)
+        {
+            if (newPrice < 0)
+            {
+                ModelState.AddModelError("newPrice", "السعر يجب أن يكون أكبر من 0.");
+                return View("SnacksManage");
+            }
+
+            var menuItem = await _menuItemRepository.GetMenuItemByIdAsync(menuItemId);
+            if (menuItem == null)
+            {
+                return NotFound();
+            }
+
+            menuItem.Price = newPrice;
+            _menuItemRepository.UpdateMenuItemAsync(menuItem);
+
+            return RedirectToAction("SnacksManage");
+        }
+
+
+
     }
 }
