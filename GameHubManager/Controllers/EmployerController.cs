@@ -1,8 +1,10 @@
 ﻿using GameHubManager.Models;
 using GameHubManager.Models.HelperModel;
+using GameHubManager.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GameHubManager.Controllers
 {
@@ -10,9 +12,11 @@ namespace GameHubManager.Controllers
     public class EmployerController : Controller
     {
         private readonly UserManager<UserModel> _userManager;
-        public EmployerController(UserManager<UserModel> userManager)
+        private readonly IDeviceTypeRepository _deviceTypeRepository;
+        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository)
         {
             _userManager = userManager;
+            _deviceTypeRepository = deviceTypeRepository;
         }
 
         public IActionResult Dashboard()
@@ -78,10 +82,77 @@ namespace GameHubManager.Controllers
              return View("Dashboard",model);
         }
 
-        public IActionResult DevicesTypes()
+        public async Task<IActionResult> DevicesTypes()
         {
-            return View();
+            return View(await _deviceTypeRepository.GetAllDevicesTypesAsync());
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddOrUpdate(DeviceTypeModel model, IFormFile ImageFile)
+        {
+            string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            if (model.Id == 0)
+            {
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    model.ImagePath = "/images/" + uniqueFileName;
+                }
+                await _deviceTypeRepository.AddDeviceTypeAsync(model);
+            }
+            else
+            {
+                var existingDeviceType = await _deviceTypeRepository.GetDevicesTypesByIdAsync(model.Id);
+                if (existingDeviceType != null)
+                {
+                    existingDeviceType.Name = model.Name;
+
+                    if (ImageFile != null && ImageFile.Length > 0)
+                    {
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        existingDeviceType.ImagePath = "/images/" + uniqueFileName;
+                    }
+                }
+                await _deviceTypeRepository.UpdateDeviceTypeAsync(existingDeviceType);
+            }
+
+            return RedirectToAction("DevicesTypes");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteDeviceType(int DeviceId)
+        {
+            var deviceType = await _deviceTypeRepository.GetDevicesTypesByIdAsync(DeviceId);
+            if (deviceType == null)
+            {
+                return NotFound();
+            }
+
+            await _deviceTypeRepository.DeleteDeviceTypeAsync(DeviceId); 
+            return RedirectToAction("DevicesTypes");
+        }
+
+
         public IActionResult DevicesPrices()
         {
             return View();

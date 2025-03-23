@@ -90,8 +90,9 @@
                             <div class="card-body">
                                 <h6 class="card-title">@deviceType.Name</h6>
                                 <p class="text-muted">
-                                    السعر: @deviceType.DevicePrice.PricePerHour.ToString("")/ساعة
+                                    السعر: @(deviceType.DevicePrice?.PricePerHour != null ? deviceType.DevicePrice.PricePerHour + " / ساعة" : "لم يتم تحديد السعر بعد")
                                 </p>
+
                                 <p class="text-muted">
                                     عدد الأجهزة: @deviceType.Devices.Count
                                 </p>

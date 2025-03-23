@@ -1,5 +1,88 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<DeviceTypeModel>
+
 @{
+    ViewData["Title"] = "قائمة انواع الأجهزة || GameHub Manager";
 }
+
+<body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
+    <div class="container mt-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeviceTypeModal" onclick="resetModal()">إضافة نوع جديد</button>
+            <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
+        </div>
+
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <th>الصورة</th>
+                    <th>اسم النوع</th>
+                    <th>سعر اللعب</th>
+                    <th>خيارات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var deviceType in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@(string.IsNullOrEmpty(deviceType.ImagePath) ? "/images/default.png" : deviceType.ImagePath)"
+                                 alt="@deviceType.Name" class="rounded-circle" width="50">
+                        </td>
+                        <td>@deviceType.Name</td>
+                        <td>@(deviceType.DevicePrice?.PricePerHour != null ? deviceType.DevicePrice.PricePerHour + " لكل ساعة" : "لم يحدد بعد")</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editDeviceType(@deviceType.Id, '@deviceType.Name', '@deviceType.ImagePath', @deviceType.DevicePrice?.PricePerHour)">تعديل</button>
+                            <form asp-controller="Employer" asp-action="DeleteDeviceType" method="post" style="display:inline;">
+                                <input type="hidden" name="DeviceId" value="@deviceType.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا النوع؟')">حذف</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="addDeviceTypeModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">إضافة نوع جهاز جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Employer" asp-action="AddOrUpdate" id="deviceTypeForm" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="deviceTypeId" name="Id">
+                        <div class="mb-3">
+                            <label class="form-label">اسم النوع</label>
+                            <input type="text" class="form-control" id="deviceTypeName" name="Name" required>
+                        </div>
+                        <div class="mb-3"> 
+                            <label class="form-label">تحميل صورة</label>
+                            <input type="file" class="form-control" id="deviceImage" name="ImageFile">
+                        </div>
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function resetModal() {
+            document.getElementById('deviceTypeId').value = '';
+            document.getElementById('deviceTypeName').value = '';
+            document.getElementById('modalLabel').innerText = 'إضافة نوع جهاز جديد';
+        }
+
+        function editDeviceType(id, name, imagePath, price) {
+            document.getElementById('deviceTypeId').value = id;
+            document.getElementById('deviceTypeName').value = name;
+            document.getElementById('modalLabel').innerText = 'تعديل نوع جهاز';
+            var modal = new bootstrap.Modal(document.getElementById('addDeviceTypeModal'));
+            modal.show();
+        }
+    </script>
+
+</body>
