@@ -7,7 +7,7 @@
 <body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
     <div class="container mt-5 flex-grow-1">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adddeviceModal" onclick="resetModal()">إضافة نوع جديد</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeviceModal" onclick="resetModal()">إضافة جهاز جديد</button>
             <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
         </div>
 
@@ -33,10 +33,11 @@
                         <td>@device.DeviceType.Name</td>
                         <td>@(device.DeviceType.DevicePrice?.PricePerHour != null ? device.DeviceType.DevicePrice.PricePerHour + " لكل ساعة" : "لم يحدد بعد")</td>
                         <td>
+                           
                             <button class="btn btn-warning btn-sm" onclick="editDevice(@device.Id, '@device.Name', '@device.DeviceType.ImagePath', @device.DeviceType.DevicePrice?.PricePerHour)">تعديل</button>
                             <form asp-controller="Employer" asp-action="DeleteDevice" method="post" style="display:inline;">
                                 <input type="hidden" name="DeviceId" value="@device.Id" />
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا النوع؟')">حذف</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا الجهاز؟')">حذف</button>
                             </form>
 
                         </td>
@@ -46,7 +47,7 @@
         </table>
     </div>
 
-    <div class="modal fade" id="adddeviceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="addDeviceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -84,11 +85,11 @@
             document.getElementById('modalLabel').innerText = 'إضافة جهاز جديد';
         }
 
-        function editdevice(id, name, imagePath, price) {
+        function editDevice(id, name, imagePath, price) {
             document.getElementById('deviceId').value = id;
             document.getElementById('deviceName').value = name;
-            document.getElementById('modalLabel').innerText = 'تعديل نوع جهاز';
-            var modal = new bootstrap.Modal(document.getElementById('adddeviceModal'));
+            document.getElementById('modalLabel').innerText = 'تعديل جهاز';
+            var modal = new bootstrap.Modal(document.getElementById('addDeviceModal'));
             modal.show();
         }
     </script>

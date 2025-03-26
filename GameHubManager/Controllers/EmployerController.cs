@@ -242,7 +242,8 @@ namespace GameHubManager.Controllers
             };
             return View(model);
         }
-
+        
+        [HttpPost]
         public async Task<IActionResult> AddOrUpdateDevice(DeviceModel model)
         {
 
@@ -264,6 +265,18 @@ namespace GameHubManager.Controllers
             return RedirectToAction("Devices");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteDevice(int DeviceId)
+        {
+            var device = await _deviceRepository.GetDevicesByIdAsync(DeviceId);
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            await _deviceRepository.DeleteDeviceAsync(DeviceId);
+            return RedirectToAction("Devices");
+        }
 
 
     }
