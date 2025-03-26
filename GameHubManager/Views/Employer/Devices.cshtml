@@ -1,0 +1,96 @@
+﻿@model AddDeviceViewModel
+
+@{
+    ViewData["Title"] = "قائمة الأجهزة || GameHub Manager";
+}
+
+<body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
+    <div class="container mt-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#adddeviceModal" onclick="resetModal()">إضافة نوع جديد</button>
+            <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
+        </div>
+
+        <table class="table table-striped table-hover text-center">
+            <thead>
+                <tr>
+                    <th>الصورة</th>
+                    <th>اسم الجهاز</th>
+                    <th>اسم النوع</th>
+                    <th>سعر ساعة اللعب</th>
+                    <th>خيارات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var device in Model.Devices)
+                {
+                    <tr>
+                        <td>
+                            <img src="@(string.IsNullOrEmpty(device.DeviceType.ImagePath) ? "/images/default.png" : device.DeviceType.ImagePath)"
+                                 alt="@device.DeviceType.Name" class="rounded-circle" width="50">
+                        </td>
+                        <td>@device.Name</td>
+                        <td>@device.DeviceType.Name</td>
+                        <td>@(device.DeviceType.DevicePrice?.PricePerHour != null ? device.DeviceType.DevicePrice.PricePerHour + " لكل ساعة" : "لم يحدد بعد")</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm" onclick="editDevice(@device.Id, '@device.Name', '@device.DeviceType.ImagePath', @device.DeviceType.DevicePrice?.PricePerHour)">تعديل</button>
+                            <form asp-controller="Employer" asp-action="DeleteDevice" method="post" style="display:inline;">
+                                <input type="hidden" name="DeviceId" value="@device.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا النوع؟')">حذف</button>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="adddeviceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Employer" asp-action="AddOrUpdateDevice" id="deviceForm" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="deviceId" name="Id">
+                        <div class="mb-3">
+                            <label class="form-label">اسم الجهاز</label>
+                            <input type="text" class="form-control" id="deviceName" name="Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">نوع الجهاز</label>
+                            <select class="form-select" name="DeviceTypeId" required>
+                                <option value="">اختر نوع الجهاز</option>
+                                @foreach(var deviceType in Model.DeviceTypes)
+                                {
+                                    <option value="@deviceType.Id">@deviceType.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function resetModal() {
+            document.getElementById('deviceId').value = '';
+            document.getElementById('deviceName').value = '';
+            document.getElementById('modalLabel').innerText = 'إضافة جهاز جديد';
+        }
+
+        function editdevice(id, name, imagePath, price) {
+            document.getElementById('deviceId').value = id;
+            document.getElementById('deviceName').value = name;
+            document.getElementById('modalLabel').innerText = 'تعديل نوع جهاز';
+            var modal = new bootstrap.Modal(document.getElementById('adddeviceModal'));
+            modal.show();
+        }
+    </script>
+
+</body>

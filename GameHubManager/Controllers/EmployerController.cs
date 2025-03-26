@@ -15,12 +15,15 @@ namespace GameHubManager.Controllers
         private readonly IDeviceTypeRepository _deviceTypeRepository;
         private readonly ISaleRepository _saleRepository;
         private readonly IMenuItemRepository _menuItemRepository;
-        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository)
+        private readonly IDeviceRepository _deviceRepository;
+
+        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository, IDeviceRepository deviceRepository)
         {
             _userManager = userManager;
             _deviceTypeRepository = deviceTypeRepository;
             _saleRepository = saleRepository;
             _menuItemRepository = menuItemRepository;
+            _deviceRepository = deviceRepository;
         }
 
         public IActionResult Dashboard()
@@ -92,7 +95,7 @@ namespace GameHubManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOrUpdate(DeviceTypeModel model, IFormFile ImageFile)
+        public async Task<IActionResult> AddOrUpdateDeviceType(DeviceTypeModel model, IFormFile ImageFile)
         {
             string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
 
@@ -229,6 +232,36 @@ namespace GameHubManager.Controllers
             _menuItemRepository.UpdateMenuItemAsync(menuItem);
 
             return RedirectToAction("SnacksManage");
+        }
+
+        public async Task<IActionResult> Devices()
+        {
+            AddDeviceViewModel model = new AddDeviceViewModel { 
+                Devices = await _deviceRepository.GetAllDevicesAsync(),
+                DeviceTypes = await _deviceTypeRepository.GetAllDevicesTypesAsync()
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> AddOrUpdateDevice(DeviceModel model)
+        {
+
+            if (model.Id == 0)
+            {
+                await _deviceRepository.AddDeviceAsync(model);
+            }
+            else
+            {
+                var existingDevice = await _deviceRepository.GetDevicesByIdAsync(model.Id);
+                if (existingDevice != null)
+                {
+                    existingDevice.Name = model.Name;
+                    existingDevice.DeviceType = await _deviceTypeRepository.GetDevicesTypesByIdAsync(model.DeviceTypeId);
+                }
+                await _deviceRepository.UpdateDeviceAsync(existingDevice);
+            }
+
+            return RedirectToAction("Devices");
         }
 
 
