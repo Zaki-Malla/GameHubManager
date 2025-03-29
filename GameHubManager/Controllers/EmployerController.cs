@@ -18,15 +18,19 @@ namespace GameHubManager.Controllers
         private readonly ISaleRepository _saleRepository;
         private readonly IMenuItemRepository _menuItemRepository;
         private readonly IDeviceRepository _deviceRepository;
+        private readonly IDevicePriceRepository _devicePriceRepository;
 
-        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository, IDeviceRepository deviceRepository, SignInManager<UserModel> signInManager)
+        public EmployerController(UserManager<UserModel> userManager, SignInManager<UserModel> signInManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository, IDeviceRepository deviceRepository, IDevicePriceRepository devicePriceRepository)
         {
-            _userManager = userManager;
+
+            
+                _userManager = userManager;
             _deviceTypeRepository = deviceTypeRepository;
             _saleRepository = saleRepository;
             _menuItemRepository = menuItemRepository;
             _deviceRepository = deviceRepository;
             _signInManager = signInManager;
+            _devicePriceRepository = devicePriceRepository;
         }
 
         public IActionResult Dashboard()
@@ -159,10 +163,41 @@ namespace GameHubManager.Controllers
         }
 
 
-        public IActionResult DevicesPrices()
+        public async Task<IActionResult> DevicesPrices()
         {
-            return View();
+            AddDevicePriceViewModel model = new AddDevicePriceViewModel
+            {
+                DevicePrices = await _devicePriceRepository.GetAllDevicesPricesAsync(),
+                DeviceTypes = await _deviceTypeRepository.GetAllDevicesTypesAsync()
+            };
+
+            return View(model);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddOrUpdateDevicePrice(DevicePriceModel model)
+        {
+
+            if (model.Id == 0)
+            {
+                await _devicePriceRepository.AddDevicePriceAsync(model);
+            }
+            else
+            {
+                var existingDevicePrice = await _devicePriceRepository.GetDevicesPricesByIdAsync(model.Id);
+                if (existingDevicePrice != null)
+                {
+                    existingDevicePrice.PricePerHour = model.PricePerHour;
+
+
+                }
+                await _devicePriceRepository.UpdateDevicePriceAsync(existingDevicePrice);
+            }
+
+            return RedirectToAction("DevicesPrices");
+        }
+
         public IActionResult Statistics()
         {
             return View();

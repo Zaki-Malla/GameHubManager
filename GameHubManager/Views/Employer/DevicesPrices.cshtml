@@ -1,5 +1,103 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model AddPriceViewModel
 @{
+    ViewData["Title"] = "قائمة اسعار الأجهزة|| GameHub Manager";
 }
+
+<body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
+    <div class="container mt-5 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
+        </div>
+        <h3>اسعار الأجهزة </h3>
+        <div class="row g-4">
+            @foreach (var device in Model.DeviceTypes)
+            {
+                <div class="col-lg-3 col-md-3 col-sm-4 col-6">
+                    <div class="card device-card h-100 ">
+
+                        <img src="@device.ImagePath" class="card-img-top cropped-img" alt="Device Image">
+                        <div class="card-body">
+                            <h5 class="card-title">@device.Name</h5>
+
+
+                            <button class="btn btn-primary w-100 reserve-button" data-bs-toggle="modal" data-bs-target="#addDevicePriceModal" onclick="resetModal(@device.DevicePrice?.Id,@device.Id,'@device.Name')">
+                                @if (@device.DevicePrice?.PricePerHour != null)
+                                {
+                                    <h5>تعديل سعر جهاز</h5>
+
+                                }
+                                else
+                                {
+                                    <h5>إضافة سعر جهاز</h5>
+                                }
+                            </button>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="modal fade" id="addDevicePriceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Employer" asp-action="AddOrUpdateDevicePrice" id="devicePrice" method="post" enctype="multipart/form-data">
+
+                        <input type="hidden" id="priceId" name="Id">
+                        <input type="hidden" id="deviceTypeId" name="DeviceTypeId">
+                        <input type="hidden" id="deviceType" name="DeviceType">
+
+
+                        <div class="mb-3">
+                            <label class="form-label">سعر الساعة</label>
+                            <input type="text" class="form-control" id="devicePrice" name="PricePerHour" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">حفظ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //         function addDevicePrice(devicePrice) {
+        //     $('#devicePriceId').val(devicePrice.id);
+        //     $('#DeviceType').val(devicePrice.deviceTypeId);
+        //     $('#DeviceTypeId').val(devicePrice.deviceTypeId);
+        //     $('#PricePerHour').val(devicePrice.pricePerHour);
+        //     $('#addDevicePriceModal').modal('show');
+        // }
+        //         function resetModal(deviceId) {
+        //     document.getElementById('deviceTypeId').value = deviceId;
+        //     document.getElementById('priceId').value = '';
+        //     document.getElementById('priceForm').reset();
+        // }
+        function resetModal(id,diveTypeId,deviceType) {
+            document.getElementById('priceId').value = id;
+            document.getElementById('deviceTypeId').value = diveTypeId;
+            document.getElementById('deviceType').value = deviceType;
+            document.getElementById('modalLabel').innerText = 'إضافة سعر جديد';
+
+        }
+
+
+        // function editPrice(id, name, imagePath, price) {
+        //     document.getElementById('deviceId').value = id;
+        //     document.getElementById('devicePrice').value = name;
+        //     document.getElementById('modalLabel').innerText = 'تعديل سعر';
+        //     var modal = new bootstrap.Modal(document.getElementById('editDevicePriceModal'));
+        //     modal.show();
+        // }
+    </script>
+
+</body>
