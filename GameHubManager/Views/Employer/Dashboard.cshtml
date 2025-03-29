@@ -25,80 +25,155 @@
     .nav-item:hover {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
+
+    .top-bar {
+        padding: 15px 20px;
+        border-radius: 10px;
+    }
+
 </style>
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-gray-800 text-white">
+            <div class="modal-header">
+                <h5 class="modal-title text-warning" id="settingsModalLabel">إعدادات الحساب</h5>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="UpdateAccount" asp-controller="Employer" method="post" id="accountSettingsForm">
+                    @Html.AntiForgeryToken()
 
-<form asp-controller="Employer" asp-action="SaveChanges" method="post">
-    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content bg-gray-800 text-white">
-                <div class="modal-header">
-                    <h5 class="modal-title text-warning" id="settingsModalLabel">تغيير الإيميل وكلمة المرور</h5>
-                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">اختار نوع التغيير</label>
-                        <div>
-                            <input type="radio" class="form-check-input" name="changeOption" id="changeEmail" value="email" checked>
-                            <label class="form-check-label" for="changeEmail">تغيير البريد الإلكتروني</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="form-check-input" name="changeOption" id="changePassword" value="password">
-                            <label class="form-check-label" for="changePassword">تغيير كلمة المرور</label>
+                        <label for="option" class="form-label">اختيار التعديل</label>
+                        <select class="form-control" id="option" name="Option">
+                            <option value="email">تغيير البريد الإلكتروني</option>
+                            <option value="password">تغيير كلمة المرور</option>
+                        </select>
+                    </div>
+
+                    <div id="emailSection">
+                        <div class="mb-3">
+                            <label for="newEmail" class="form-label">البريد الإلكتروني الجديد</label>
+                            <input type="email" class="form-control" id="newEmail" name="NewEmail">
                         </div>
                     </div>
 
-                    <div id="emailChangeFields" class="change-fields">
+                    <div id="passwordSection" style="display: none;">
                         <div class="mb-3">
-                            <label for="NewEmail" class="form-label">البريد الإلكتروني الجديد</label>
-                            <input type="email" class="form-control bg-gray-700 text-white border-warning" id="NewEmail" name="NewEmail" placeholder="أدخل الإيميل الجديد" >
+                            <label for="newPassword" class="form-label">كلمة المرور الجديدة</label>
+                            <input type="password" class="form-control" id="newPassword" name="NewPassword">
                         </div>
                         <div class="mb-3">
-                            <label for="OldPassword" class="form-label">كلمة المرور</label>
-                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="OldPassword" name="OldPassword" placeholder="أدخل كلمة المرور" >
-                        </div>
-                    </div>
-
-                    <div id="passwordChangeFields" class="change-fields d-none">
-                        <div class="mb-3">
-                            <label for="OldPassword" class="form-label">كلمة المرور القديمة</label>
-                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="OldPassword" name="OldPassword" placeholder="أدخل كلمة المرور القديمة" >
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="NewPassword" class="form-label">كلمة المرور الجديدة</label>
-                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="NewPassword" name="NewPassword" placeholder="أدخل كلمة المرور الجديدة" >
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="ConfirmPassword" class="form-label">تأكيد كلمة المرور الجديدة</label>
-                            <input type="password" class="form-control bg-gray-700 text-white border-warning" id="ConfirmPassword" name="ConfirmPassword" placeholder="تأكيد كلمة المرور" >
+                            <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                    <button type="submit" class="btn btn-warning">حفظ التغييرات</button>
-                </div>
+
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">كلمة المرور الحالية</label>
+                        <input type="password" class="form-control" id="currentPassword" name="CurrentPassword">
+                    </div>
+
+                    <button type="submit" class="btn btn-warning text-dark">حفظ التغييرات</button>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
 
 <script>
-    document.querySelectorAll('input[name="changeOption"]').forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            if (this.value === 'email') {
-                document.getElementById('emailChangeFields').classList.remove('d-none');
-                document.getElementById('passwordChangeFields').classList.add('d-none');
+    document.addEventListener("DOMContentLoaded", function () {
+        let optionSelect = document.getElementById("option");
+        let emailSection = document.getElementById("emailSection");
+        let passwordSection = document.getElementById("passwordSection");
+
+        function updateSections() {
+            if (optionSelect.value === "password") {
+                emailSection.style.display = "none";
+                passwordSection.style.display = "block";
             } else {
-                document.getElementById('passwordChangeFields').classList.remove('d-none');
-                document.getElementById('emailChangeFields').classList.add('d-none');
+                emailSection.style.display = "block";
+                passwordSection.style.display = "none";
             }
+        }
+
+        updateSections();
+
+        optionSelect.addEventListener("change", updateSections);
+
+        document.getElementById("accountSettingsForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch(this.action, {
+                method: "POST",
+                body: new URLSearchParams(formData),
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                }
+            })
+            .then(response => response.text()) 
+            .then(message => {
+                alert(message); 
+                if (message.includes("تم التحديث بنجاح")) {
+                    setTimeout(() => location.reload(), 1000); 
+                }
+            })
+            .catch(() => alert("حدث خطأ أثناء المعالجة!"));
         });
     });
 </script>
 
+<div class="modal fade" id="addAccountModal" tabindex="-1" aria-labelledby="addAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAccountModalLabel">إضافة حساب جديد</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="AddAccount" asp-controller="Employer" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">كلمة المرور</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">الدور</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="Employer">مدير</option>
+                            <option value="Employee">مستخدم</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">إضافة الحساب</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
 
 <body class="bg-gray-900 text-white">
     <div class="d-flex">
@@ -107,7 +182,9 @@
             <h4 class="text-center mb-4 text-warning">GameHub Manager</h4>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2">
-                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-person-plus"></i> إضافة حساب جديد</a>
+                    <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105" data-bs-toggle="modal" data-bs-target="#addAccountModal">
+                        <i class="bi bi-person-plus"></i> إضافة حساب جديد
+                    </a>
                 </li>
                 <li class="nav-item mb-2">
                     <a asp-controller="Employer" asp-action="Devices" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105">
@@ -130,11 +207,15 @@
         </nav>
 
         <div class="content flex-grow-1 p-4">
-            <header class="d-flex justify-content-between align-items-center bg-gray-800 p-3 rounded shadow-sm">
+            <div class="top-bar d-flex justify-content-between align-items-center">
                 <h4 class="m-0 text-warning">لوحة تحكم الأدمن</h4>
-                <a asp-controller="Home" asp-action="Dashboard" class="btn btn-primary me-3">Back to DASHBOARD</a>
-                <button class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#settingsModal"><i class="bi bi-person-circle"></i> إعدادات الحساب</button>
-            </header>
+                <div>
+                    <a asp-controller="Home" asp-action="Dashboard" class="btn btn-primary">Back to DASHBOARD</a>
+                    <button class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                        <i class="bi bi-person-circle"></i> إعدادات الحساب
+                    </button>
+                </div>
+            </div>
 
             <div class="mt-4">
                 <div class="row">

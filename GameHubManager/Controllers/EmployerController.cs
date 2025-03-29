@@ -4,6 +4,7 @@ using GameHubManager.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameHubManager.Controllers
@@ -12,18 +13,20 @@ namespace GameHubManager.Controllers
     public class EmployerController : Controller
     {
         private readonly UserManager<UserModel> _userManager;
+        private readonly SignInManager<UserModel> _signInManager;
         private readonly IDeviceTypeRepository _deviceTypeRepository;
         private readonly ISaleRepository _saleRepository;
         private readonly IMenuItemRepository _menuItemRepository;
         private readonly IDeviceRepository _deviceRepository;
 
-        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository, IDeviceRepository deviceRepository)
+        public EmployerController(UserManager<UserModel> userManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository, IDeviceRepository deviceRepository, SignInManager<UserModel> signInManager)
         {
             _userManager = userManager;
             _deviceTypeRepository = deviceTypeRepository;
             _saleRepository = saleRepository;
             _menuItemRepository = menuItemRepository;
             _deviceRepository = deviceRepository;
+            _signInManager = signInManager;
         }
 
         public IActionResult Dashboard()
@@ -32,62 +35,58 @@ namespace GameHubManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveChanges(ChangeEmailPasswordModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAccount([FromForm] UpdateAccountViewModel model)
         {
-            if (ModelState.IsValid)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                if (model.ChangeEmail)
+                return Content("المستخدم غير موجود.");
+            }
+
+            var checkPassword = await _userManager.CheckPasswordAsync(user, model.CurrentPassword);
+            if (!checkPassword)
+            {
+                return Content("كلمة المرور الحالية غير صحيحة.");
+            }
+
+            if (model.Option == "email")
+            {
+                if (string.IsNullOrWhiteSpace(model.NewEmail))
                 {
-                   
-                    var user = _userManager.GetUserAsync(User).Result;
-                    var isPasswordValid = _userManager.CheckPasswordAsync(user, model.OldPassword).Result;
-
-                    if (!isPasswordValid)
-                    {
-                        ModelState.AddModelError(string.Empty, "كلمة المرور غير صحيحة.");
-                        return View("Dashboard",model);
-                    }
-
-                    user.Email = model.NewEmail;
-                    var result = _userManager.UpdateAsync(user).Result;
-
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Success");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "فشل تغيير البريد الإلكتروني.");
-                        return View("Dashboard", model);
-                    }
+                    return Content("يرجى إدخال البريد الإلكتروني الجديد.");
                 }
-                else
+
+                var setEmailResult = await _userManager.SetEmailAsync(user, model.NewEmail);
+                var setUserResult = await _userManager.SetUserNameAsync(user, model.NewEmail);
+                if (!setEmailResult.Succeeded || !setUserResult.Succeeded)
                 {
-                    var user = _userManager.GetUserAsync(User).Result;
-                    var isPasswordValid = _userManager.CheckPasswordAsync(user, model.OldPassword).Result;
+                    return Content("حدث خطأ أثناء تغيير البريد الإلكتروني.");
+                }
+            }
+            else if (model.Option == "password")
+            {
+                if (string.IsNullOrWhiteSpace(model.NewPassword) || string.IsNullOrWhiteSpace(model.ConfirmPassword))
+                {
+                    return Content("يرجى إدخال كلمة المرور الجديدة وتأكيدها.");
+                }
 
-                    if (!isPasswordValid)
-                    {
-                        ModelState.AddModelError(string.Empty, "كلمة المرور القديمة غير صحيحة.");
-                        return View("Dashboard", model);
-                    }
+                if (model.NewPassword != model.ConfirmPassword)
+                {
+                    return Content("كلمة المرور الجديدة غير متطابقة.");
+                }
 
-                    var changePasswordResult = _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword).Result;
-
-                    if (changePasswordResult.Succeeded)
-                    {
-                        return RedirectToAction("Success");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "فشل تغيير كلمة المرور.");
-                        return View("Dashboard", model);
-                    }
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                if (!changePasswordResult.Succeeded)
+                {
+                    return Content("حدث خطأ أثناء تغيير كلمة المرور.");
                 }
             }
 
-             return View("Dashboard",model);
+            return Content("تم التحديث بنجاح!");
         }
+
+
 
         public async Task<IActionResult> DevicesTypes()
         {
@@ -278,6 +277,29 @@ namespace GameHubManager.Controllers
             return RedirectToAction("Devices");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddAccount(AddAccountViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new UserModel {FullName="User", UserName = model.Email, Email = model.Email };
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    TempData["SuccessMessage"] = "تم إضافة الحساب بنجاح!";
+                    return RedirectToAction("Dashboard"); 
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "حدث خطأ أثناء إضافة الحساب. الرجاء المحاولة مرة أخرى.";
+                    return RedirectToAction("Dashboard"); 
+                }
+            }
+
+            TempData["ErrorMessage"] = "حدث خطأ أثناء إضافة الحساب. الرجاء المحاولة مرة أخرى.";
+            return RedirectToAction("Dashboard");
+        }
 
     }
 }

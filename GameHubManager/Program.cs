@@ -67,7 +67,9 @@ using (var scope = app.Services.CreateScope())
             }
         }
 
-        if (!userManager.Users.Any(u => u.UserName == "admin@admin.com"))
+        var employerRoleExists = await userManager.GetUsersInRoleAsync("Employer");
+
+        if (!employerRoleExists.Any())
         {
             var defaultEmployer = new UserModel
             {
