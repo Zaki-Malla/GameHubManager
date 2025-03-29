@@ -165,38 +165,37 @@ namespace GameHubManager.Controllers
 
         public async Task<IActionResult> DevicesPrices()
         {
-            AddDevicePriceViewModel model = new AddDevicePriceViewModel
-            {
-                DevicePrices = await _devicePriceRepository.GetAllDevicesPricesAsync(),
-                DeviceTypes = await _deviceTypeRepository.GetAllDevicesTypesAsync()
-            };
-
-            return View(model);
+            return View(await _deviceTypeRepository.GetAllDevicesTypesAsync());
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddOrUpdateDevicePrice(DevicePriceModel model)
+        public async Task<IActionResult> AddOrUpdateDevicePrice(int deviceTypeId, decimal pricePerHour)
         {
-
-            if (model.Id == 0)
+            if (pricePerHour <= 0 || deviceTypeId == 0)
             {
-                await _devicePriceRepository.AddDevicePriceAsync(model);
+                return RedirectToAction("DevicesPrices");
+            }
+
+            var existingPrice = await _devicePriceRepository.GetDevicesPricesByTypeIdAsync(deviceTypeId);
+
+            if (existingPrice != null)
+            {
+                existingPrice.PricePerHour = pricePerHour;
+                await _devicePriceRepository.UpdateDevicePriceAsync(existingPrice);
             }
             else
             {
-                var existingDevicePrice = await _devicePriceRepository.GetDevicesPricesByIdAsync(model.Id);
-                if (existingDevicePrice != null)
+                await _devicePriceRepository.AddDevicePriceAsync(new DevicePriceModel
                 {
-                    existingDevicePrice.PricePerHour = model.PricePerHour;
-
-
-                }
-                await _devicePriceRepository.UpdateDevicePriceAsync(existingDevicePrice);
+                    DeviceTypeId = deviceTypeId,
+                    PricePerHour = pricePerHour
+                });
             }
 
             return RedirectToAction("DevicesPrices");
         }
+
 
         public IActionResult Statistics()
         {

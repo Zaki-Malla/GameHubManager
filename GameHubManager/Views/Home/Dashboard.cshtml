@@ -128,16 +128,23 @@
                                 }
                                 else if (device.ActiveReservation == null)
                                 {
-
-                                    <button class="btn btn-primary w-100 reserve-button"
-                                            data-id="@device.Device.Id"
-                                            data-name="@device.Device.Name"
-                                            data-price="@device.Device?.DeviceType?.DevicePrice?.PricePerHour">
-                                        <i class="fas fa-calendar-check me-2"></i> احجز الآن
-                                    </button>
-
-
+                                    @if (device.Device?.DeviceType?.DevicePrice?.PricePerHour == null || device.Device.DeviceType.DevicePrice.PricePerHour == 0)
+                                    {
+                                        <div class="alert alert-warning text-center">
+                                            يجب تحديد سعر اللعب أولاً قبل الحجز.
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-primary w-100 reserve-button"
+                                                data-id="@device.Device.Id"
+                                                data-name="@device.Device.Name"
+                                                data-price="@device.Device.DeviceType.DevicePrice.PricePerHour">
+                                            <i class="fas fa-calendar-check me-2"></i> احجز الآن
+                                        </button>
+                                    }
                                 }
+
                             </div>
                         </div>
                     </div>
@@ -232,6 +239,7 @@
 
 </style>
 
+@section Scripts {
 <script>
     function updateCountdowns() {
         document.querySelectorAll('.countdown').forEach(element => {
@@ -359,5 +367,5 @@
         }, 300);
     });
 </script>
-
+}
 

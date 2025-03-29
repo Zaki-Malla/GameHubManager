@@ -8,7 +8,9 @@ namespace GameHubManager.Repositories
         Task<List<DevicePriceModel>> GetAllDevicesPricesAsync();
         
         Task<DevicePriceModel> GetDevicesPricesByIdAsync(int id);
-       
+        Task<DevicePriceModel> GetDevicesPricesByTypeIdAsync(int typeId);
+
+
         Task AddDevicePriceAsync(DevicePriceModel deviceprice);
        
         Task UpdateDevicePriceAsync(DevicePriceModel deviceprice);

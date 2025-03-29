@@ -1,68 +1,68 @@
-﻿@model AddPriceViewModel
+﻿@model List<DeviceTypeModel>
 @{
-    ViewData["Title"] = "قائمة اسعار الأجهزة|| GameHub Manager";
+    ViewData["Title"] = "قائمة اسعار انواع الأجهزة || GameHub Manager";
 }
 
-<body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
-    <div class="container mt-5 flex-grow-1">
+<body class="d-flex flex-column min-vh-100">
+    <div class="container mt-4 flex-grow-1">
         <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="fw-bold text-primary"> قائمة أسعار انواع الأجهزة</h3>
             <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
         </div>
-        <h3>اسعار الأجهزة </h3>
-        <div class="row g-4">
-            @foreach (var device in Model.DeviceTypes)
+
+        <div class="row g-3">
+            @foreach (var device in Model)
             {
-                <div class="col-lg-3 col-md-3 col-sm-4 col-6">
-                    <div class="card device-card h-100 ">
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="card device-card shadow-sm border-light text-white">
+                        <img src="@device.ImagePath" class="card-img-top rounded-top" style="height: 140px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">@device.Name</h5>
 
-                        <img src="@device.ImagePath" class="card-img-top cropped-img" alt="Device Image">
-                        <div class="card-body">
-                            <h5 class="card-title">@device.Name</h5>
+                            @if (device.DevicePrice?.PricePerHour != null)
+                            {
+                                <p class="text-success fw-bold fs-1">@device.DevicePrice.PricePerHour بالساعة</p>
 
+                                <button class="btn btn-warning w-100"
+                                        onclick="resetModal('@device.Id', '@device.DevicePrice?.PricePerHour')">
+                                    <i class="fas fa-edit me-2"></i> تحديث السعر
+                                </button>
+                            }
+                            else
+                            {
+                                <p class="text-danger fw-bold"> لم يتم التحديد بعد</p>
 
-                            <button class="btn btn-primary w-100 reserve-button" data-bs-toggle="modal" data-bs-target="#addDevicePriceModal" onclick="resetModal(@device.DevicePrice?.Id,@device.Id,'@device.Name')">
-                                @if (@device.DevicePrice?.PricePerHour != null)
-                                {
-                                    <h5>تعديل سعر جهاز</h5>
-
-                                }
-                                else
-                                {
-                                    <h5>إضافة سعر جهاز</h5>
-                                }
-                            </button>
-
-
-
-
-
+                                <button class="btn btn-success w-100"
+                                        onclick="resetModal('@device.Id')">
+                                    <i class="fas fa-plus me-2"></i> تحديد السعر
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>
             }
         </div>
     </div>
+
     <div class="modal fade" id="addDevicePriceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            <div class="modal-content ">
+                <div class="modal-header border-bottom border-light">
+                    <h5 class="modal-title fw-bold" id="modalLabel">إضافة سعر جديد</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
                 </div>
                 <div class="modal-body">
-                    <form asp-controller="Employer" asp-action="AddOrUpdateDevicePrice" id="devicePrice" method="post" enctype="multipart/form-data">
-
-                        <input type="hidden" id="priceId" name="Id">
-                        <input type="hidden" id="deviceTypeId" name="DeviceTypeId">
-                        <input type="hidden" id="deviceType" name="DeviceType">
-
+                    <form asp-controller="Employer" asp-action="AddOrUpdateDevicePrice" method="post">
+                        <input type="hidden" id="deviceTypeId" name="deviceTypeId">
 
                         <div class="mb-3">
                             <label class="form-label">سعر الساعة</label>
-                            <input type="text" class="form-control" id="devicePrice" name="PricePerHour" required>
+                            <input type="number" class="form-control border-light" id="PricePerHour" name="pricePerHour" required placeholder="أدخل السعر">
                         </div>
 
-                        <button type="submit" class="btn btn-primary">حفظ</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary w-100">حفظ السعر</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -70,34 +70,14 @@
     </div>
 
     <script>
-        //         function addDevicePrice(devicePrice) {
-        //     $('#devicePriceId').val(devicePrice.id);
-        //     $('#DeviceType').val(devicePrice.deviceTypeId);
-        //     $('#DeviceTypeId').val(devicePrice.deviceTypeId);
-        //     $('#PricePerHour').val(devicePrice.pricePerHour);
-        //     $('#addDevicePriceModal').modal('show');
-        // }
-        //         function resetModal(deviceId) {
-        //     document.getElementById('deviceTypeId').value = deviceId;
-        //     document.getElementById('priceId').value = '';
-        //     document.getElementById('priceForm').reset();
-        // }
-        function resetModal(id,diveTypeId,deviceType) {
-            document.getElementById('priceId').value = id;
-            document.getElementById('deviceTypeId').value = diveTypeId;
-            document.getElementById('deviceType').value = deviceType;
-            document.getElementById('modalLabel').innerText = 'إضافة سعر جديد';
+        function resetModal(deviceTypeId, price = '') {
+            document.getElementById('deviceTypeId').value = deviceTypeId;
+            document.getElementById('PricePerHour').value = price;
+            document.getElementById('modalLabel').innerText = price ? 'تحديث سعر الجهاز' : 'إضافة سعر جديد';
 
+            var modal = new bootstrap.Modal(document.getElementById('addDevicePriceModal'));
+            modal.show();
         }
-
-
-        // function editPrice(id, name, imagePath, price) {
-        //     document.getElementById('deviceId').value = id;
-        //     document.getElementById('devicePrice').value = name;
-        //     document.getElementById('modalLabel').innerText = 'تعديل سعر';
-        //     var modal = new bootstrap.Modal(document.getElementById('editDevicePriceModal'));
-        //     modal.show();
-        // }
     </script>
 
 </body>

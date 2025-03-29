@@ -26,6 +26,12 @@ namespace GameHubManager.Repositories
                 .Include(p => p.DeviceType)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
+        public async Task<DevicePriceModel> GetDevicesPricesByTypeIdAsync(int typeId)
+        {
+            return await _context.DevicePrices
+                .Include(p => p.DeviceType)
+                .FirstOrDefaultAsync(p => p.DeviceTypeId == typeId);
+        }
 
         public async Task AddDevicePriceAsync(DevicePriceModel deviceprice)
         {
