@@ -14,6 +14,7 @@ namespace GameHubManager.Repositories
         Task UpdateReservationAsync(ReservationModel reservation);
 
         Task DeleteReservationAsync(int id);
+        Task<bool> IsDeviceReservedAsync(int deviceId);
 
     }
 }

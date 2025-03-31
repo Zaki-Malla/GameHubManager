@@ -3,6 +3,7 @@ using System;
 using GameHubManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSV2.Migrations
 {
     [DbContext(typeof(DSContext))]
-    partial class DSContextModelSnapshot : ModelSnapshot
+    [Migration("20250330093348_ReservationModelEdit")]
+    partial class ReservationModelEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -124,6 +127,9 @@ namespace DSV2.Migrations
                     b.Property<int>("DeviceId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("DeviceModelId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");
 
@@ -139,6 +145,8 @@ namespace DSV2.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DeviceId");
+
+                    b.HasIndex("DeviceModelId");
 
                     b.HasIndex("UserId");
 
@@ -402,10 +410,14 @@ namespace DSV2.Migrations
             modelBuilder.Entity("GameHubManager.Models.ReservationModel", b =>
                 {
                     b.HasOne("GameHubManager.Models.DeviceModel", "Device")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("DeviceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("GameHubManager.Models.DeviceModel", null)
+                        .WithMany("Reservations")
+                        .HasForeignKey("DeviceModelId");
 
                     b.HasOne("GameHubManager.Models.UserModel", "User")
                         .WithMany()

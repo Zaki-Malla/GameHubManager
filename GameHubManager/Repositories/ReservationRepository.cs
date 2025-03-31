@@ -51,5 +51,12 @@ namespace GameHubManager.Repositories
             }
         }
 
+        public async Task<bool> IsDeviceReservedAsync(int deviceId)
+        {
+            return await _context.Reservations
+                .AnyAsync(r => r.DeviceId == deviceId && r.EndTime > DateTime.Now);
+        }
+
+
     }
 }

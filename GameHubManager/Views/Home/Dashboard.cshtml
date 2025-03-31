@@ -22,23 +22,25 @@
                     <span class="fw-bold">توقيت البداية:</span>
                     <span id="modalStartTime" class="text-success fw-bold"></span>
                 </p>
-                <div class="mb-3">
-                    <label for="endTime" class="form-label fw-bold">توقيت النهاية:</label>
-                    <input type="datetime-local" class="form-control" id="endTime">
-                </div>
+                <form asp-action="ReserveDevice" asp-controller="Reservation" method="post" id="reservationForm">
+                    <input type="hidden" id="deviceId" name="deviceId">
+                    <input type="hidden" id="startTime" name="startTime">
 
-                <div class="mb-3">
-                    <label for="totalMinutes" class="form-label fw-bold">عدد دقائق اللعب:</label>
-                    <input type="number" class="form-control" id="totalMinutes" min="1">
-                </div>
+                    <div class="mb-3">
+                        <label for="endTime" class="form-label fw-bold">توقيت النهاية:</label>
+                        <input type="datetime-local" class="form-control" id="endTime" name="endTime">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="amountPaid" class="form-label fw-bold">المبلغ المدفوع:</label>
-                    <input type="number" class="form-control" id="amountPaid" min="0">
-                </div>
+                    <div class="mb-3">
+                        <label for="totalMinutes" class="form-label fw-bold">عدد دقائق اللعب:</label>
+                        <input type="number" class="form-control" id="totalMinutes" name="totalMinutes" min="1">
+                    </div>
 
-                <form id="reservationForm">
-                    <input type="hidden" id="deviceId">
+                    <div class="mb-3">
+                        <label for="amountPaid" class="form-label fw-bold">المبلغ المدفوع:</label>
+                        <input type="number" class="form-control" id="amountPaid" name="amountPaid" min="0">
+                    </div>
+
                     <button type="submit" class="btn btn-primary w-100 py-2">تأكيد الحجز</button>
                 </form>
             </div>
@@ -108,13 +110,7 @@
                 {
                     <div class="col-md-4">
                         <div class="card device-card h-100 @(device.ActiveReservation != null ? "reserved-card" : "")">
-                            @if (device.ActiveReservation != null)
-                            {
-                                <span class="reserved-badge">
-                                    <i class="fas fa-clock me-2"></i>
-                                    @(device.ActiveReservation.EndTime.HasValue ? "محجوز" : "حجز مفتوح")
-                                </span>
-                            }
+                            
                             <img src="@device.Device.DeviceType.ImagePath" class="card-img-top cropped-img" alt="Device Image">
                             <div class="card-body">
                                 <h5 class="card-title">@device.Device.Name</h5>
@@ -240,59 +236,98 @@
 </style>
 
 @section Scripts {
-<script>
-    function updateCountdowns() {
+    <script>
+        let notificationSent = false; 
+
+        function playNotificationSound() {
+            var audio = new Audio("../../../sounds/alarm.mp3"); 
+            audio.play().catch(function(error) {
+                console.log("لم يتم تشغيل الصوت بسبب: ", error);
+            });
+        }
+
+           function updateCountdowns() {
         document.querySelectorAll('.countdown').forEach(element => {
             const endTime = new Date(element.dataset.end);
             const now = new Date();
 
-            if (now >= endTime) {
-                element.innerHTML = "انتهى وقت الحجز";
-                element.closest('.reserved-card').classList.remove('reserved-card');
-                return;
+            if (now >= endTime && !element.dataset.notified) {
+                element.dataset.notified = "true";
+
+                playNotificationSound();
+
+                const deviceName = element.closest('.device-card').querySelector('.card-title').innerText;
+
+                setTimeout(() => {
+                    alert(`انتهى حجز الجهاز: ${deviceName}`);
+                    location.reload();
+                }, 100); 
+            } else if (now < endTime) {
+                const diff = endTime - now;
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                element.querySelector('.time-remaining').innerHTML =
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
-
-            const diff = endTime - now;
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            element.querySelector('.time-remaining').innerHTML =
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        });
-    }
-
-    setInterval(updateCountdowns, 1000);
-    updateCountdowns();
-</script>
-
-<script>
-        var now = new Date();
-        var formattedStartTime = now.toLocaleTimeString([], { hour12: false }) + " - " + now.toLocaleDateString();
-
-        $(document).ready(function () {
-        function formatLocalDateTime(date) {
-            var pad = function(n) { return n.toString().padStart(2, '0'); };
-            return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) +
-                'T' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+            });
         }
 
-        $('.reserve-button').on('click', function () {
-            var deviceId = $(this).data("id"),
-                deviceName = $(this).data("name"),
-                deviceType = $(this).data("type"),
-                devicePrice = parseFloat($(this).data("price"));
-
-            $('#deviceId').val(deviceId);
-            $('#modalDeviceName').text(deviceName);
-            $('#modalDeviceType').text(deviceType);
-            $('#modalDevicePrice').text(devicePrice.toFixed(2));
+        setInterval(updateCountdowns, 1000);
+        updateCountdowns();
+    </script>
 
 
-            $('#modalStartTime').text(formattedStartTime);
 
-            $('#reservationModal').data('start-time', now.toISOString());
-            $('#reservationModal').data('hour-price', devicePrice);
+    <script>
+                $(document).ready(function () {
+            $('.reserve-button').on('click', function () {
+                var now = new Date();
+                var formattedStartTime = now.toISOString(); 
+
+                $('#startTime').val(formattedStartTime); 
+            });
+
+            $('#reservationForm').on('submit', function () {
+                var now = new Date();
+                $('#startTime').val(now.toISOString()); 
+            });
+        });
+
+                $(document).ready(function () {
+            var now = new Date();
+            var formattedStartTime = now.toLocaleTimeString([], { hour12: false }) + " - " + now.toLocaleDateString();
+
+            function formatLocalDateTime(date) {
+                var pad = function(n) { return n.toString().padStart(2, '0'); };
+                return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) +
+                    'T' + pad(date.getHours()) + ':' + pad(date.getMinutes());
+            }
+
+            $('.reserve-button').on('click', function () {
+                var deviceId = $(this).data("id"),
+                    deviceName = $(this).data("name"),
+                    deviceType = $(this).data("type"),
+                    devicePrice = parseFloat($(this).data("price"));
+
+                $('#deviceId').val(deviceId);
+                $('#modalDeviceName').text(deviceName);
+                $('#modalDeviceType').text(deviceType);
+                $('#modalDevicePrice').text(devicePrice.toFixed(2));
+
+                $('#modalStartTime').text(formattedStartTime);
+
+                $('#reservationModal').data('start-time', now.getTime());
+                  $('.reserve-button').on('click', function () {
+            var now = new Date();
+            var formattedStartTime = now.toLocaleTimeString([], { hour12: false }) + " - " + now.toLocaleDateString();
+
+            $('#modalStartTime').text(formattedStartTime); 
+            $('#startTime').val(now.toISOString()); 
+
+            $('#reservationModal').removeData('start-time'); 
+            $('#reservationModal').data('start-time', now.getTime()); 
 
             $('#totalMinutes').val('');
             $('#amountPaid').val('');
@@ -301,71 +336,102 @@
             new bootstrap.Modal($('#reservationModal')[0]).show();
         });
 
-        function calculateTotalPrice(duration, hourPrice, controllers) {
-            var multiplier = (controllers === 3) ? 1.5 : (controllers === 4) ? 2 : 1;
-            return (hourPrice * (duration / 60)) * multiplier;
-        }
+                $('#reservationModal').data('hour-price', devicePrice);
 
-        function updateFromDuration() {
-            var duration = parseInt($('#totalMinutes').val(), 10) || 0;
-            var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
-            var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
-            var totalPrice = calculateTotalPrice(duration, hourPrice, controllers);
-            $('#amountPaid').val(totalPrice.toFixed(2));
+                $('#totalMinutes').val('');
+                $('#amountPaid').val('');
+                $('#endTime').val('');
 
-            var startTime = new Date($('#reservationModal').data('start-time'));
-            var endTime = new Date(now.getTime() + duration * 60000);
-            $('#endTime').val(formatLocalDateTime(endTime));
-        }
+                new bootstrap.Modal($('#reservationModal')[0]).show();
+            });
 
-        function updateFromAmount() {
-            var amount = parseFloat($('#amountPaid').val()) || 0;
-            var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
-            var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
-            var multiplier = (controllers === 3) ? 1.5 : (controllers === 4) ? 2 : 1;
-            var duration = Math.floor((amount / (hourPrice * multiplier)) * 60);
-            $('#totalMinutes').val(duration);
+            function calculateTotalPrice(duration, hourPrice, controllers) {
+                var multiplier = (controllers === 3) ? 1.5 : (controllers === 4) ? 2 : 1;
+                return (hourPrice * (duration / 60)) * multiplier;
+            }
 
-            var startTime = new Date($('#reservationModal').data('start-time'));
-            var endTime = new Date(now.getTime() + duration * 60000);
-            $('#endTime').val(formatLocalDateTime(endTime));
-        }
-
-        function updateFromEndTime() {
-            var endTimeStr = $('#endTime').val();
-            if (endTimeStr) {
-                var endTime = new Date(endTimeStr);
-                var startTime = new Date($('#reservationModal').data('start-time'));
-                var duration = Math.floor((endTime - startTime) / 60000);
-                $('#totalMinutes').val(duration);
-
+            function updateFromDuration() {
+                var duration = parseInt($('#totalMinutes').val(), 10) || 0;
                 var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
                 var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
                 var totalPrice = calculateTotalPrice(duration, hourPrice, controllers);
                 $('#amountPaid').val(totalPrice.toFixed(2));
+
+                var startTime = new Date($('#reservationModal').data('start-time'));
+                var endTime = new Date(startTime.getTime() + duration * 60000);
+                $('#endTime').val(formatLocalDateTime(endTime));
             }
-        }
 
-        $('#totalMinutes').on('input', updateFromDuration);
-        $('#amountPaid').on('input', updateFromAmount);
-        $('#endTime').on('change', updateFromEndTime);
-        $('#numberOfControllers').on('change', function () {
-            updateFromDuration();
-            updateFromAmount();
+            function updateFromAmount() {
+                var amount = parseFloat($('#amountPaid').val()) || 0;
+                var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
+                var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
+                var multiplier = (controllers === 3) ? 1.5 : (controllers === 4) ? 2 : 1;
+                var duration = Math.floor((amount / (hourPrice * multiplier)) * 60);
+                $('#totalMinutes').val(duration);
+
+                var startTime = new Date($('#reservationModal').data('start-time'));
+                var endTime = new Date(startTime.getTime() + duration * 60000);
+                $('#endTime').val(formatLocalDateTime(endTime));
+            }
+
+            function updateFromEndTime() {
+                var endTimeStr = $('#endTime').val();
+                if (endTimeStr) {
+                    var endTime = new Date(endTimeStr);
+                    var startTime = new Date($('#reservationModal').data('start-time'));
+                    var duration = Math.floor((endTime - startTime) / 60000);
+                    $('#totalMinutes').val(duration);
+
+                    var hourPrice = parseFloat($('#reservationModal').data('hour-price')) || 0;
+                    var controllers = parseInt($('#numberOfControllers').val(), 10) || 1;
+                    var totalPrice = calculateTotalPrice(duration, hourPrice, controllers);
+                    $('#amountPaid').val(totalPrice.toFixed(2));
+                }
+            }
+
+            $('#totalMinutes').on('input', updateFromDuration);
+            $('#amountPaid').on('input', updateFromAmount);
+            $('#endTime').on('change', updateFromEndTime);
+            $('#numberOfControllers').on('change', function () {
+                updateFromDuration();
+                updateFromAmount();
+            });
+
+            $('#reservationForm').on('submit', function (e) {
+                e.preventDefault();
+
+                var formData = {
+                    deviceId: $('#deviceId').val(),
+                    totalMinutes: $('#totalMinutes').val(),
+                    amountPaid: $('#amountPaid').val(),
+                    endTime: $('#endTime').val(),
+                    numberOfControllers: $('#numberOfControllers').val()
+                };
+
+                console.log("📤 البيانات المُرسلة:", formData); 
+
+                $.ajax({
+                    url: '/Reservation/ReserveDevice',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function (response) {
+                        alert("✅ تم تأكيد الحجز بنجاح!");
+                        $('#reservationModal').modal('hide');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 500);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("❌ خطأ في الحجز:", xhr.responseText);
+                        alert("حدث خطأ أثناء تأكيد الحجز. الرجاء المحاولة مرة أخرى.");
+                    }
+                });
+            });
         });
 
-        $('#reservationForm').on('submit', function (e) {
-            e.preventDefault();
-            alert("تم تأكيد الحجز بنجاح!");
-            $('#reservationModal').modal('hide');
-        });
-    });
+    </script>
 
-    $('#reservationModal').on('hidden.bs.modal', function () {
-        setTimeout(function () {
-            location.reload();
-        }, 300);
-    });
-</script>
 }
 

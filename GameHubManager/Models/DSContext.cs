@@ -42,7 +42,6 @@ namespace GameHubManager.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<DeviceModel>()
         .HasOne(d => d.DeviceType)
@@ -52,7 +51,7 @@ namespace GameHubManager.Models
 
             modelBuilder.Entity<ReservationModel>()
                 .HasOne(r => r.Device)
-                .WithMany()
+                .WithMany(d => d.Reservations)
                 .HasForeignKey(r => r.DeviceId)
                 .OnDelete(DeleteBehavior.Restrict);
 

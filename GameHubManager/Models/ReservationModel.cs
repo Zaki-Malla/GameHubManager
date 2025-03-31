@@ -14,6 +14,18 @@ namespace GameHubManager.Models
         [Required]
         public DateTime? EndTime { get; set; }
 
+        [Required]
+        public int? TotalMinutes { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal AmountDue { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal AmountPaid { get; set; }
+
+        [Required]
         public int DeviceId { get; set; }
         [ForeignKey("DeviceId")]
 

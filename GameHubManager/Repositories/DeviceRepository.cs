@@ -26,6 +26,7 @@ namespace GameHubManager.Repositories
                 Id = d.Id,
                 Name = d.Name,
                 DeviceType = d.DeviceType,
+                Reservations = d.Reservations
             },
             ActiveReservation = d.Reservations
                 .FirstOrDefault(r => r.EndTime > DateTime.Now || r.EndTime == null)
