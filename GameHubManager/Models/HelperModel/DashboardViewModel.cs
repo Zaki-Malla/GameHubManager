@@ -6,5 +6,6 @@ namespace GameHubManager.Models.HelperModel
     {
         public List<DeviceViewModel> Devices { get; set; }
         public List<DeviceTypeModel> DeviceTypes { get; set; }
+        public List<MenuItemModel> MenuItems { get; set; }
     }
 }

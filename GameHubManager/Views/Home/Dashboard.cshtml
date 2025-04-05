@@ -165,6 +165,82 @@
     </div>
 </div>
 
+<template id="itemTemplate">
+    <div class="item-group border rounded p-3 mb-3">
+        <!-- اختيار التصنيف -->
+        <div class="mb-2">
+            <label class="form-label">التصنيف</label>
+            <select class="form-select category-select">
+                <option value="">اختر التصنيف</option>
+                @foreach (var category in Model.MenuItems.Select(m => m.Category).Distinct())
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
+        </div>
+
+        <!-- اختيار العنصر -->
+        <div class="mb-2">
+            <label class="form-label">اسم العنصر</label>
+            <select class="form-select item-select">
+                <option value="">اختر العنصر</option>
+                @foreach (var item in Model.MenuItems)
+                {
+                    <option value="@item.Id" data-category="@item.Category" data-price="@item.Price" data-quantity="@item.Quantity">
+                        @item.Name
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- السعر والكمية -->
+        <p><strong>السعر للقطعة:</strong> <span class="unit-price">-</span></p>
+        <p><strong>الكمية المتاحة:</strong> <span class="available-quantity">-</span></p>
+
+        <!-- عدد القطع -->
+        <div class="mb-2">
+            <label class="form-label">عدد القطع</label>
+            <input type="number" class="form-control quantity-input" value="1" min="1">
+        </div>
+
+        <!-- السعر المستحق -->
+        <div class="mb-2">
+            <label class="form-label">السعر المستحق</label>
+            <input type="text" class="form-control total-price" readonly>
+        </div>
+
+        <!-- السعر المدفوع -->
+        <div class="mb-2">
+            <label class="form-label">السعر المدفوع</label>
+            <input type="number" class="form-control paid-price" min="0">
+        </div>
+    </div>
+</template>
+
+<div class="modal fade" id="sellItemModal" tabindex="-1" aria-labelledby="sellItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="sellItemForm">
+                <div class="modal-header">
+                    <h5 class="modal-title">بيع عناصر متعددة</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="itemsContainer">
+                        <!-- سيتم نسخ هذا العنصر ديناميكيًا -->
+                    </div>
+
+                    <button type="button" class="btn btn-primary mt-2" id="addItemBtn">إضافة عنصر آخر</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">تأكيد البيع</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 <main class="main" id="top">
     <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
@@ -201,6 +277,7 @@
     <div class="content">
         <div class="container mt-4">
             <h3 class="section-title">أنواع الأجهزة</h3>
+
             <div class="row g-2">
                 @foreach (var deviceType in Model.DeviceTypes)
                 {
@@ -219,6 +296,13 @@
                     </div>
                 }
             </div>
+
+            <div class="my-4">
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#sellItemModal">
+                    <i class="fas fa-cash-register me-2"></i> بيع عنصر جديد من البراد
+                </button>
+            </div>
+
 
             <h3 class="section-title">الأجهزة</h3>
             <div class="row g-4">
@@ -498,4 +582,157 @@
             }
         });
     </script>
+
+    <script>
+        const allItems = @Html.Raw(Json.Serialize(Model.MenuItems));
+
+        function updateFields(group) {
+            const itemSelect = group.find('.item-select');
+            const categorySelect = group.find('.category-select');
+            const quantityInput = group.find('.quantity-input');
+            const unitPriceText = group.find('.unit-price');
+            const availableQuantityText = group.find('.available-quantity');
+            const totalPriceInput = group.find('.total-price');
+            const paidPriceInput = group.find('.paid-price');
+
+            function filterAvailableOptions() {
+                const selectedIds = [];
+                const currentCategory = categorySelect.val();
+
+                $('#itemsContainer .item-select').not(itemSelect).each(function () {
+                    const val = $(this).val();
+                    if (val) selectedIds.push(val);
+                });
+
+                itemSelect.find('option').each(function () {
+                    const option = $(this);
+                    const val = option.val();
+                    if (!val) {
+                        option.prop('hidden', false);
+                        return;
+                    }
+                    const optionCategory = option.data('category');
+                    option.prop('hidden', (currentCategory && optionCategory !== currentCategory) || selectedIds.includes(val));
+                });
+            }
+
+            itemSelect.on('change', function () {
+                const selectedOption = $(this).find('option:selected');
+                const price = selectedOption.data('price');
+                const quantity = selectedOption.data('quantity');
+                const category = selectedOption.data('category');
+
+                availableQuantityText.text(quantity !== undefined ? quantity : '-');
+                unitPriceText.text(price !== undefined ? price : '-');
+
+                if (category) {
+                    categorySelect.val(category).trigger('change');
+                }
+
+                const count = parseInt(quantityInput.val()) || 1;
+                const total = price * count;
+                totalPriceInput.val(total);
+                paidPriceInput.val(total);
+
+                categorySelect.trigger('change');
+                filterAvailableOptions();
+            });
+
+            quantityInput.on('input', function () {
+                const selectedOption = itemSelect.find('option:selected');
+                const price = selectedOption.data('price') || 0;
+                const count = parseInt($(this).val()) || 1;
+                const total = price * count;
+                totalPriceInput.val(total);
+                paidPriceInput.val(total);
+            });
+
+            categorySelect.on('change', function () {
+                const selectedCategory = $(this).val();
+                const itemOptions = itemSelect.find('option');
+
+                itemOptions.each(function () {
+                    const option = $(this);
+                    const itemCategory = option.data('category');
+                    if (!option.val()) {
+                        option.prop('hidden', false);
+                        return;
+                    }
+                    option.prop('hidden', selectedCategory && itemCategory !== selectedCategory);
+                });
+
+                filterAvailableOptions();
+
+                const selectedOption = itemSelect.find('option:selected');
+                if (selectedOption.val() && selectedOption.data('category') !== selectedCategory) {
+                    itemSelect.val('');
+                    quantityInput.val('');
+                    unitPriceText.text('-');
+                    availableQuantityText.text('-');
+                    totalPriceInput.val('');
+                    paidPriceInput.val('');
+                }
+            });
+
+            filterAvailableOptions();
+        }
+
+        $('#addItemBtn').on('click', function () {
+            const template = $('#itemTemplate').html();
+            const newGroup = $(template);
+            $('#itemsContainer').append(newGroup);
+            updateFields(newGroup);
+        });
+
+        $(document).ready(function () {
+            $('#addItemBtn').click();
+        });
+
+        $('#sellItemForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const items = [];
+
+            $('#itemsContainer .item-group').each(function () {
+                const group = $(this);
+                const itemId = group.find('.item-select').val();
+                const quantity = group.find('.quantity-input').val();
+                const paid = group.find('.paid-price').val();
+
+                if (itemId && quantity) {
+                    for (let i = 0; i < quantity; i++) {
+                        items.push({
+                            itemId: parseInt(itemId),
+                            itemName: group.find('.item-select option:selected').text(),
+                            category: group.find('.category-select').val(),
+                            paid: parseFloat(paid),
+                            quantity: 1
+                        });
+                    }
+                }
+            });
+
+                    $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SellItems", "Sale")',
+            data: JSON.stringify(items),
+            contentType: 'application/json',
+            success: function (response) {
+                alert('تم البيع بنجاح!');
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                alert('حدث خطأ أثناء البيع!');
+                location.reload();
+            }
+        });
+
+        });
+    </script>
+
+
+
+
+
+
 }

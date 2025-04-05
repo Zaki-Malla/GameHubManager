@@ -3,6 +3,7 @@ using System;
 using GameHubManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSV2.Migrations
 {
     [DbContext(typeof(DSContext))]
-    partial class DSContextModelSnapshot : ModelSnapshot
+    [Migration("20250405122425_EditSaleModel")]
+    partial class EditSaleModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -194,9 +197,6 @@ namespace DSV2.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MenuItemId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("ReservationId")
                         .HasColumnType("INTEGER");
 
@@ -210,8 +210,6 @@ namespace DSV2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MenuItemId");
 
                     b.HasIndex("ReservationId");
 
@@ -431,12 +429,6 @@ namespace DSV2.Migrations
 
             modelBuilder.Entity("GameHubManager.Models.SaleModel", b =>
                 {
-                    b.HasOne("GameHubManager.Models.MenuItemModel", "MenuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GameHubManager.Models.ReservationModel", "Reservation")
                         .WithMany()
                         .HasForeignKey("ReservationId");
@@ -446,8 +438,6 @@ namespace DSV2.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("MenuItem");
 
                     b.Navigation("Reservation");
 

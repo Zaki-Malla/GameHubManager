@@ -13,11 +13,13 @@ namespace GameHubManager.Controllers
         private readonly SignInManager<UserModel> _signInManager;
         private readonly IDeviceRepository deviceRepository;
         private readonly IDeviceTypeRepository deviceTypeRepository;
-        public HomeController(SignInManager<UserModel> signInManager, IDeviceRepository _deviceRepository, IDeviceTypeRepository _deviceTypeRepository)
+        private readonly IMenuItemRepository menuItemRepository;
+        public HomeController(SignInManager<UserModel> signInManager, IDeviceRepository _deviceRepository, IDeviceTypeRepository _deviceTypeRepository, IMenuItemRepository _menuItemRepository)
         {
             _signInManager = signInManager;
             deviceRepository = _deviceRepository;
             deviceTypeRepository = _deviceTypeRepository;
+            menuItemRepository = _menuItemRepository;
         }
 
         [Authorize]
@@ -27,7 +29,8 @@ namespace GameHubManager.Controllers
             var dashboardViewModel = new DashboardViewModel
             {
                 Devices = await deviceRepository.GetAllDevicesWithReservationsAsync(),
-                DeviceTypes = await deviceTypeRepository.GetAllDevicesTypesAsync()
+                DeviceTypes = await deviceTypeRepository.GetAllDevicesTypesAsync(),
+                MenuItems = await menuItemRepository.GetAllMenuItemsAsync()
             };
 
             return View(dashboardViewModel);

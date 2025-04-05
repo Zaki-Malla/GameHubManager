@@ -26,6 +26,8 @@ namespace GameHubManager.Models
         [Range(0.01, 1000, ErrorMessage = "السعر يجب أن يكون بين 0.01 و 1000")]
         [Display(Name = "سعر البيع")]
         public decimal SoldPrice { get; set; }
+        public decimal DuePrice { get; set; }
+
 
         [Display(Name = "رقم الحجز")]
         public int? ReservationId { get; set; }
@@ -40,5 +42,9 @@ namespace GameHubManager.Models
         [Display(Name = "المستخدم")]
         [ForeignKey("UserId")]
         public virtual UserModel User { get; set; }
+
+        public int MenuItemId { get; set; }
+        [ForeignKey("MenuItemId")]
+        public virtual MenuItemModel MenuItem { get; set; }
     }
 }
