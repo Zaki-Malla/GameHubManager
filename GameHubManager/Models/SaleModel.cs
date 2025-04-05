@@ -28,13 +28,6 @@ namespace GameHubManager.Models
         public decimal SoldPrice { get; set; }
         public decimal DuePrice { get; set; }
 
-
-        [Display(Name = "رقم الحجز")]
-        public int? ReservationId { get; set; }
-
-        [Display(Name = "الحجز")]
-        public ReservationModel? Reservation { get; set; }
-
         [Required(ErrorMessage = "المستخدم مطلوب")]
         [Display(Name = "المستخدم")]
         public int UserId { get; set; }

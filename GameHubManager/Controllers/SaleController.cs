@@ -31,7 +31,6 @@ namespace GameHubManager.Controllers
                     SoldPrice = item.Paid,
                     DuePrice = theItem.Price,
                     UserId = user.Id,
-                    ReservationId = null,
                     SaleDate = DateTime.Now,
                     MenuItemId = item.ItemId,
                 };

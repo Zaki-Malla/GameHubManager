@@ -608,7 +608,7 @@
                     const option = $(this);
                     const val = option.val();
                     if (!val) {
-                        option.prop('hidden', false);
+                        option.prop('hidden', false); 
                         return;
                     }
                     const optionCategory = option.data('category');
@@ -700,39 +700,35 @@
                 const paid = group.find('.paid-price').val();
 
                 if (itemId && quantity) {
-                    for (let i = 0; i < quantity; i++) {
+                    const q = parseInt(quantity);
+                    const totalPaid = parseFloat(paid);
+                    const paidPerItem = totalPaid / q;
+                    for (let i = 0; i < q; i++) {
                         items.push({
                             itemId: parseInt(itemId),
                             itemName: group.find('.item-select option:selected').text(),
                             category: group.find('.category-select').val(),
-                            paid: parseFloat(paid),
+                            paid: paidPerItem,
                             quantity: 1
                         });
                     }
                 }
             });
 
-                    $.ajax({
-            type: 'POST',
-            url: '@Url.Action("SellItems", "Sale")',
-            data: JSON.stringify(items),
-            contentType: 'application/json',
-            success: function (response) {
-                alert('تم البيع بنجاح!');
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-                alert('حدث خطأ أثناء البيع!');
-                location.reload();
-            }
-        });
-
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SellItems", "Sale")',
+                data: JSON.stringify(items),
+                contentType: 'application/json',
+                success: function (response) {
+                    alert('تم البيع بنجاح!');
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    alert('حدث خطأ أثناء البيع!');
+                    location.reload();
+                }
+            });
         });
     </script>
-
-
-
-
-
-
 }
