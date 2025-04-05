@@ -17,6 +17,7 @@
                     <th>الصورة</th>
                     <th>اسم النوع</th>
                     <th>سعر اللعب</th>
+                    <th>قبضات اللعب</th>
                     <th>خيارات</th>
                 </tr>
             </thead>
@@ -30,8 +31,12 @@
                         </td>
                         <td>@deviceType.Name</td>
                         <td>@(deviceType.DevicePrice?.PricePerHour != null ? deviceType.DevicePrice.PricePerHour + " لكل ساعة" : "لم يحدد بعد")</td>
+                        <td>@(deviceType.HasControllers ? "يوجد قبضات" : "لا يوجد قبضات")</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" onclick="editDeviceType(@deviceType.Id, '@deviceType.Name', '@deviceType.ImagePath', @deviceType.DevicePrice?.PricePerHour)">تعديل</button>
+                            <button class="btn btn-warning btn-sm"
+                                    onclick="editDeviceType(@deviceType.Id, '@deviceType.Name', '@deviceType.ImagePath', @deviceType.DevicePrice?.PricePerHour, @(deviceType.HasControllers.ToString().ToLower()))">
+                                تعديل
+                            </button>
                             <form asp-controller="Employer" asp-action="DeleteDeviceType" method="post" style="display:inline;">
                                 <input type="hidden" name="DeviceId" value="@deviceType.Id" />
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا النوع؟')">حذف</button>
@@ -58,6 +63,13 @@
                             <label class="form-label">اسم النوع</label>
                             <input type="text" class="form-control" id="deviceTypeName" name="Name" required>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label">هل يحتوي على قبضات؟</label>
+                            <select class="form-control" id="hasControllers" name="HasControllers" required>
+                                <option value="true">نعم</option>
+                                <option value="false">لا</option>
+                            </select>
+                        </div>
                         <div class="mb-3"> 
                             <label class="form-label">تحميل صورة</label>
                             <input type="file" class="form-control" id="deviceImage" name="ImageFile">
@@ -74,15 +86,18 @@
             document.getElementById('deviceTypeId').value = '';
             document.getElementById('deviceTypeName').value = '';
             document.getElementById('modalLabel').innerText = 'إضافة نوع جهاز جديد';
+            document.getElementById('hasControllers').value = "true";
         }
 
-        function editDeviceType(id, name, imagePath, price) {
+        function editDeviceType(id, name, imagePath, price, hasControllers) {
             document.getElementById('deviceTypeId').value = id;
             document.getElementById('deviceTypeName').value = name;
             document.getElementById('modalLabel').innerText = 'تعديل نوع جهاز';
+            document.getElementById('hasControllers').value = hasControllers.toString();
             var modal = new bootstrap.Modal(document.getElementById('addDeviceTypeModal'));
             modal.show();
         }
     </script>
+
 
 </body>

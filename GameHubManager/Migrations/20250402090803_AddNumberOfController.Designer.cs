@@ -3,6 +3,7 @@ using System;
 using GameHubManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSV2.Migrations
 {
     [DbContext(typeof(DSContext))]
-    partial class DSContextModelSnapshot : ModelSnapshot
+    [Migration("20250402090803_AddNumberOfController")]
+    partial class AddNumberOfController
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -115,25 +118,25 @@ namespace DSV2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal?>("AmountDue")
+                    b.Property<decimal>("AmountDue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("AmountPaid")
+                    b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("DeviceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("NumberOfControllers")
+                    b.Property<int>("NumberOfControllers")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("TotalMinutes")
+                    b.Property<int>("TotalMinutes")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")

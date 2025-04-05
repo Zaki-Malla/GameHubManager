@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GameHubManager.Models
 {
@@ -11,19 +12,22 @@ namespace GameHubManager.Models
         [Required]
         public DateTime StartTime { get; set; } = DateTime.Now;
 
-        [Required]
+        [AllowNull]
         public DateTime? EndTime { get; set; }
 
-        [Required]
+        [AllowNull]
         public int? TotalMinutes { get; set; }
 
-        [Required]
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal AmountDue { get; set; }
+        [AllowNull]
+        public int? NumberOfControllers { get; set; }
 
-        [Required]
+        [AllowNull]
         [Column(TypeName = "decimal(18,2)")]
-        public decimal AmountPaid { get; set; }
+        public decimal? AmountDue { get; set; }
+
+        [AllowNull]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal? AmountPaid { get; set; }
 
         [Required]
         public int DeviceId { get; set; }

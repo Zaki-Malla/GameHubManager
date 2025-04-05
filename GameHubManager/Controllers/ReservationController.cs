@@ -20,55 +20,101 @@ namespace GameHubManager.Controllers
             _reservationRepository = reservationRepository;
         }
         [HttpPost]
-        public async Task<IActionResult> ReserveDevice([FromBody] ReservationRequest request)
+        public async Task<IActionResult> ReserveDevice(ReservationRequestModel request)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized();
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
             }
 
             var device = await _deviceRepository.GetDevicesByIdAsync(request.deviceId);
             if (device == null)
             {
-                return NotFound();
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
             }
 
+            if (request.IsOpenReservation)
+            {
+                var reservation = new ReservationModel
+                {
+                    UserId = user.Id,
+                    StartTime = DateTime.Now,
+                    DeviceId = request.deviceId,
+                    NumberOfControllers = request.NumberOfControllers,
+                };
+                await _reservationRepository.AddReservationAsync(reservation);
+
+            }
+            else { 
             if (request.endTime <= DateTime.Now)
             {
-                return BadRequest("يجب أن يكون وقت الانتهاء بعد وقت البداية.");
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
             }
 
             if (request.totalMinutes <= 0)
             {
-                return BadRequest("عدد الدقائق يجب أن يكون أكبر من صفر.");
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
             }
 
             if (request.amountPaid < 0)
             {
-                return BadRequest("المبلغ المدفوع لا يمكن أن يكون سالباً.");
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
             }
 
             if (await _reservationRepository.IsDeviceReservedAsync(request.deviceId))
             {
-                return BadRequest("هذا الجهاز محجوز حالياً.");
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
             }
 
             var reservation = new ReservationModel
             {
                 StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddMinutes(request.totalMinutes),
+                EndTime = DateTime.Now.AddMinutes(request.totalMinutes.Value),
                 TotalMinutes = request.totalMinutes,
-                AmountDue = request.amountPaid,
-                AmountPaid = request.amountPaid,
+                AmountDue = request.amountPaid.Value,
+                AmountPaid = request.amountPaid.Value,
                 DeviceId = request.deviceId,
-                UserId = user.Id
+                UserId = user.Id,
+                NumberOfControllers = request.NumberOfControllers
             };
 
             await _reservationRepository.AddReservationAsync(reservation);
+            }
 
-            return Ok(new { message = "تم الحجز بنجاح!" });
+            TempData["Message"] = "Success";
+            return RedirectToAction("Dashboard", "Home");
         }
+
+        [HttpPost("Reservation/CloseReservation")]
+        public async Task<IActionResult> CloseReservation(int reservationId, double amountPaid, double amountDue)
+        {
+            var reservation = await _reservationRepository.GetReservationsByIdAsync(reservationId);
+
+            if (reservation == null)
+            {
+                return Json(new { status = "Error", message = "الجهاز غير موجود" });
+            }
+
+            reservation.EndTime = DateTime.Now;
+            if (reservation.EndTime != null)
+            {
+                TimeSpan duration = reservation.EndTime.Value - reservation.StartTime;
+                reservation.TotalMinutes = (int)duration.TotalMinutes;
+            }
+            reservation.AmountPaid = (decimal)amountPaid;
+            reservation.AmountDue = (decimal)amountDue;
+
+            await _reservationRepository.UpdateReservationAsync(reservation);
+            return Json(new { status = "OK", message = "تمت العملية بنجاح" });
+        }
+
 
     }
 }

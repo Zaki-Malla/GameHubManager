@@ -25,6 +25,8 @@ namespace GameHubManager.Repositories
         {
             return await _context.Reservations
                 .Include(p => p.Device)
+                .ThenInclude(d => d.DeviceType)
+                .ThenInclude(x => x.DevicePrice)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }

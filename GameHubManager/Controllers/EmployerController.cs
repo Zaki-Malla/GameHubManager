@@ -121,6 +121,7 @@ namespace GameHubManager.Controllers
 
                     model.ImagePath = "/images/" + uniqueFileName;
                 }
+
                 await _deviceTypeRepository.AddDeviceTypeAsync(model);
             }
             else
@@ -129,6 +130,7 @@ namespace GameHubManager.Controllers
                 if (existingDeviceType != null)
                 {
                     existingDeviceType.Name = model.Name;
+                    existingDeviceType.HasControllers = model.HasControllers;
 
                     if (ImageFile != null && ImageFile.Length > 0)
                     {
@@ -148,6 +150,7 @@ namespace GameHubManager.Controllers
 
             return RedirectToAction("DevicesTypes");
         }
+
 
         [HttpPost]
         public async Task<IActionResult> DeleteDeviceType(int DeviceId)
