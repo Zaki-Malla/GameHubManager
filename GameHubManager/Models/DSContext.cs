@@ -24,6 +24,9 @@ namespace GameHubManager.Models
         public DbSet<DevicePriceModel> DevicePrices { get; set; }
         public DbSet<MenuItemModel> MenuItems { get; set; }
         public DbSet<SaleModel> MenuSales { get; set; }
+        public DbSet<GroupReservationModel> GroupReservations { get; set; }
+
+
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

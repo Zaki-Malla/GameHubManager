@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Dashboard || GameHub Manager";
+    var pcDeviceType = Model.DeviceTypes.FirstOrDefault(dt => dt.Name == "PC");
+    var pcHourlyRate = pcDeviceType?.DevicePrice?.PricePerHour ?? 0;
 }
 
 <style>
@@ -167,7 +169,6 @@
 
 <template id="itemTemplate">
     <div class="item-group border rounded p-3 mb-3">
-        <!-- اختيار التصنيف -->
         <div class="mb-2">
             <label class="form-label">التصنيف</label>
             <select class="form-select category-select">
@@ -179,7 +180,6 @@
             </select>
         </div>
 
-        <!-- اختيار العنصر -->
         <div class="mb-2">
             <label class="form-label">اسم العنصر</label>
             <select class="form-select item-select">
@@ -193,23 +193,19 @@
             </select>
         </div>
 
-        <!-- السعر والكمية -->
         <p><strong>السعر للقطعة:</strong> <span class="unit-price">-</span></p>
         <p><strong>الكمية المتاحة:</strong> <span class="available-quantity">-</span></p>
 
-        <!-- عدد القطع -->
         <div class="mb-2">
             <label class="form-label">عدد القطع</label>
             <input type="number" class="form-control quantity-input" value="1" min="1">
         </div>
 
-        <!-- السعر المستحق -->
         <div class="mb-2">
             <label class="form-label">السعر المستحق</label>
             <input type="text" class="form-control total-price" readonly>
         </div>
 
-        <!-- السعر المدفوع -->
         <div class="mb-2">
             <label class="form-label">السعر المدفوع</label>
             <input type="number" class="form-control paid-price" min="0">
@@ -227,7 +223,6 @@
                 </div>
                 <div class="modal-body">
                     <div id="itemsContainer">
-                        <!-- سيتم نسخ هذا العنصر ديناميكيًا -->
                     </div>
 
                     <button type="button" class="btn btn-primary mt-2" id="addItemBtn">إضافة عنصر آخر</button>
@@ -240,7 +235,131 @@
     </div>
 </div>
 
+<div class="modal fade" id="groupReservationModal" tabindex="-1" aria-labelledby="groupReservationModalLabel" aria-hidden="true" data-hourly-rate="@pcHourlyRate">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <form id="groupReservationForm" method="post" asp-action="GroupReserveDevices" asp-controller="Reservation">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="groupReservationModalLabel">حجز جماعي لأجهزة الكمبيوتر</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                </div>
+                <div class="modal-body">
+                    <p>الرجاء اختيار الأجهزة المتاحة (أجهزة الكمبيوتر غير المحجوزة):</p>
+                    <div id="groupDevicesList" class="mb-3">
+                        @{
+                            var availableDevices = Model.Devices.Where(d => d.Device.DeviceType.Name == "PC" && d.ActiveReservation == null).ToList();
+                        }
+                        @if (availableDevices.Any())
+                        {
+                            <p class="available-count">عدد الأجهزة المتاحة: <strong>@availableDevices.Count()</strong></p>
+                            @foreach (var device in availableDevices)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input group-device-checkbox" type="checkbox" value="@device.Device.Id" id="device_@device.Device.Id">
+                                    <label class="form-check-label" for="device_@device.Device.Id">
+                                        @device.Device.Name (السعر: @device.Device.DeviceType.DevicePrice.PricePerHour / ساعة)
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-danger">لا يوجد أجهزة متاحة</p>
+                        }
+                    </div>
+                    <hr />
+                    <div class="mb-3" id="divStartTime">
+                        <label for="groupStartTime" class="form-label">توقيت البداية</label>
+                        <input type="datetime-local" class="form-control" id="groupStartTime" name="StartTime" required>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="openReservation" name="IsOpenReservation" value="true">
+                        <input type="hidden" name="IsOpenReservation" value="false" />
+                        <label class="form-check-label" for="openReservation">هل الحجز مفتوح؟</label>
+                    </div>
+                    <div class="mb-3" id="divEndTime">
+                        <label for="groupEndTime" class="form-label">توقيت النهاية</label>
+                        <input type="datetime-local" class="form-control" id="groupEndTime" name="EndTime">
+                    </div>
+                    <div class="mb-3" id="divTotalMinutes">
+                        <label for="groupTotalMinutes" class="form-label">عدد دقائق اللعب</label>
+                        <input type="number" class="form-control" id="groupTotalMinutes" name="TotalMinutes" min="1">
+                    </div>
+                    <div class="mb-3" id="divAmountPaid">
+                        <label for="groupAmountPaid" class="form-label">المبلغ المستحق لكل جهاز</label>
+                        <input type="number" class="form-control" id="groupAmountPaid" name="AmountPaid" min="0" step="0.01" required>
+                    </div>
+                    <div class="mb-3" id="divTotalAmount">
+                        <label for="groupTotalAmount" class="form-label">المبلغ المستحق لجميع الأجهزة</label>
+                        <input type="number" class="form-control" id="groupTotalAmount" readonly>
+                    </div>
+                    <input type="hidden" id="selectedDeviceIds" name="SelectedDeviceIds">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">تأكيد الحجز الجماعي</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="groupReservationsModal" tabindex="-1" aria-labelledby="groupReservationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="groupReservationsModalLabel">اختر حجز جماعي</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+                <form id="groupReservationForm">
+                    @foreach (var reservation in Model.activeGroupReservations)
+                    {
+                        <div class="form-check mb-2">
+                            <input class="form-check-input reservation-radio"
+                                   type="radio"
+                                   name="selectedReservation"
+                                   id="reservation_@reservation.Id"
+                                   value="@reservation.Id"
+                                   data-devices="@reservation.TotalDevices"
+                                   data-start="@reservation.StartTime.ToString("yyyy-MM-dd HH:mm")"
+                                   data-end="@(reservation.EndTime.HasValue ? reservation.EndTime.Value.ToString("yyyy-MM-dd HH:mm") : "")"
+                                   data-hourrate="@reservation.Reservations[0].Device.DeviceType.DevicePrice.PricePerHour" />
+                            <label class="form-check-label" for="reservation_@reservation.Id">
+                                🕒 <strong>@reservation.StartTime.ToString("g")</strong> — عدد الأجهزة: <strong>@reservation.TotalDevices</strong>
+                            </label>
+                        </div>
+                    }
+                </form>
+
+                <div id="reservationDetails" class="mt-4 d-none">
+                    <h6 class="text-primary">تفاصيل الحجز المحدد:</h6>
+                    <p><strong>عدد الأجهزة:</strong> <span id="selectedDevices"></span></p>
+                    <p><strong>وقت البداية:</strong> <span id="selectedStart"></span></p>
+                    <p><strong>وقت النهاية:</strong> <span id="selectedEnd"></span></p>
+                    <p><strong>عدد الدقائق المحجوزة:</strong> <span id="reservedMinutes"></span></p>
+                    <p><strong>عدد الدقائق الملعوبة حتى الآن:</strong> <span id="playedMinutes"></span></p>
+                    <hr />
+                    <p><strong>سعر الساعة للجهاز:</strong> <span id="hourRate"></span> </p>
+                    <p><strong>المبلغ المستحق لكل جهاز:</strong> <span id="amountPerDevice"></span> </p>
+                    <p><strong>المبلغ الكلي لكافة الأجهزة:</strong> <span id="amountTotal"></span> </p>
+
+                    <div class="mt-3">
+                        <label for="paidAmountPerDevice">المبلغ المدفوع لكل جهاز</label>
+                        <input type="number" class="form-control" id="paidAmountPerDevice" name="paidAmountPerDevice" value="0" step="0.01" />
+                    </div>
+                    <div class="mt-3">
+                        <label for="paidAmountTotal">المبلغ المدفوع لكافة الأجهزة</label>
+                        <input type="number" class="form-control" id="paidAmountTotal" value="0" step="0.01" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                <button type="button" class="btn btn-danger" id="endReservationNowBtn" disabled>إنهاء الحجز الآن</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <main class="main" id="top">
     <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
@@ -303,6 +422,18 @@
                 </button>
             </div>
 
+            <div class="my-4">
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#groupReservationModal">
+                    <i class="fas fa-users me-2"></i> حجز جماعي لأجهزة الكمبيوتر
+                </button>
+            </div>
+
+            @if (Model.activeGroupReservations != null && Model.activeGroupReservations.Any())
+            {
+                <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#groupReservationsModal">
+                    عرض الحجوزات الجماعية
+                </button>
+            }
 
             <h3 class="section-title">الأجهزة</h3>
             <div class="row g-4">
@@ -731,4 +862,240 @@
             });
         });
     </script>
-}
+
+    <script>
+        $(document).ready(function() {
+
+          function formatLocalDateTime(date) {
+            const pad = n => n.toString().padStart(2, '0');
+            return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+          }
+
+          function calculateMinutes(start, end) {
+            return Math.round((end - start) / 60000);
+          }
+
+          function updateTotalAmount() {
+            const amountPerDevice = parseFloat($('#groupAmountPaid').val()) || 0;
+            const selectedDevices = $('.group-device-checkbox:checked').length;
+            const totalAmount = amountPerDevice * selectedDevices;
+            $('#groupTotalAmount').val(totalAmount.toFixed(2));
+          }
+
+          function bindGroupReservationFields() {
+            const modal = $('#groupReservationModal');
+            const hourlyRate = parseFloat(modal.data('hourly-rate')) || 0;
+            const now = new Date();
+            $('#groupStartTime').val(formatLocalDateTime(now));
+
+            $('#groupEndTime').off('change').on('change', function() {
+              if ($('#openReservation').is(':checked')) return;
+              const startTime = new Date($('#groupStartTime').val());
+              const endTimeVal = $(this).val();
+              if (endTimeVal) {
+                const endTime = new Date(endTimeVal);
+                const minutes = calculateMinutes(startTime, endTime);
+                $('#groupTotalMinutes').val(minutes);
+                const amount = (minutes / 60) * hourlyRate;
+                $('#groupAmountPaid').val(amount.toFixed(2));
+                updateTotalAmount();
+              }
+            });
+
+            $('#groupTotalMinutes').off('input').on('input', function() {
+              if ($('#openReservation').is(':checked')) return;
+              const minutes = parseInt($(this).val()) || 0;
+              const startTime = new Date($('#groupStartTime').val());
+              const endTime = new Date(startTime.getTime() + minutes * 60000);
+              $('#groupEndTime').val(formatLocalDateTime(endTime));
+              const amount = (minutes / 60) * hourlyRate;
+              $('#groupAmountPaid').val(amount.toFixed(2));
+              updateTotalAmount();
+            });
+
+            $('#groupAmountPaid').off('input').on('input', function() {
+              if ($('#openReservation').is(':checked')) return;
+              const amount = parseFloat($(this).val()) || 0;
+              if (hourlyRate > 0) {
+                const minutes = (amount * 60) / hourlyRate;
+                $('#groupTotalMinutes').val(Math.round(minutes));
+                const startTime = new Date($('#groupStartTime').val());
+                const endTime = new Date(startTime.getTime() + minutes * 60000);
+                $('#groupEndTime').val(formatLocalDateTime(endTime));
+                updateTotalAmount();
+              }
+            });
+          }
+
+          function updateGroupDevicesList() {
+            $('#groupDevicesList .available-count').remove();
+            const availableDevices = $('.group-device-checkbox');
+            if (availableDevices.length > 0) {
+              $('#groupDevicesList').prepend(`<p class="available-count">عدد الأجهزة المتاحة: <strong>${availableDevices.length}</strong></p>`);
+            } else {
+              $('#groupDevicesList').html(`<p class="text-danger">لا يوجد أجهزة متاحة</p>`);
+            }
+          }
+
+          function toggleFieldsForOpenReservationNew() {
+            if ($('#openReservation').is(':checked')) {
+              $("#divEndTime, #divTotalMinutes, #divAmountPaid, #divTotalAmount").slideUp(300, function(){
+                $(this).find("input").val('').prop("disabled", true);
+              });
+            } else {
+              $("#divEndTime, #divTotalMinutes, #divAmountPaid, #divTotalAmount").slideDown(300, function(){
+                $(this).find("input").prop("disabled", false);
+              });
+            }
+          }
+
+          $("#openReservation").on("change", toggleFieldsForOpenReservationNew);
+
+          $("#groupReservationModal").on("shown.bs.modal", function() {
+            const now = new Date();
+            $('#groupStartTime').val(formatLocalDateTime(now));
+            bindGroupReservationFields();
+            updateGroupDevicesList();
+            updateTotalAmount();
+            toggleFieldsForOpenReservationNew();
+          });
+
+          $("#groupReservationForm").on("submit", function(e) {
+            const selectedIds = [];
+            $('.group-device-checkbox:checked').each(function() {
+              selectedIds.push($(this).val());
+            });
+            if (selectedIds.length === 0) {
+              e.preventDefault();
+              alert("يجب اختيار جهاز واحد على الأقل.");
+              return;
+            }
+            $("#selectedDeviceIds").val(selectedIds.join(','));
+            if ($("#openReservation").is(":checked")) {
+              $("#groupEndTime").val('');
+              $("#groupTotalMinutes").val('');
+              $("#groupAmountPaid").val('');
+              $("#groupTotalAmount").val('');
+            }
+          });
+
+          toggleFieldsForOpenReservationNew();
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const radios = document.querySelectorAll(".reservation-radio");
+            const detailsDiv = document.getElementById("reservationDetails");
+            const devicesSpan = document.getElementById("selectedDevices");
+            const startSpan = document.getElementById("selectedStart");
+            const endSpan = document.getElementById("selectedEnd");
+            const reservedSpan = document.getElementById("reservedMinutes");
+            const playedSpan = document.getElementById("playedMinutes");
+
+            const hourRateSpan = document.getElementById("hourRate");
+            const amountPerDeviceSpan = document.getElementById("amountPerDevice");
+            const amountTotalSpan = document.getElementById("amountTotal");
+
+            const endBtn = document.getElementById("endReservationNowBtn");
+
+            const paidAmountPerDeviceInput = document.getElementById("paidAmountPerDevice");
+
+            let selectedReservationId = null;
+            let amountPerDevice = 0; 
+
+            radios.forEach(radio => {
+                radio.addEventListener("change", function () {
+                    const devices = parseInt(this.getAttribute("data-devices"));
+                    const startStr = this.getAttribute("data-start");
+                    const endStr = this.getAttribute("data-end");
+                    const hourRate = parseFloat(this.getAttribute("data-hourrate"));
+
+                    const start = new Date(startStr);
+                    const now = new Date();
+
+                    selectedReservationId = this.value;
+
+                    let reservedMinutes = 0;
+                    let playedMinutes = Math.round((now - start) / 60000);
+
+                    if (endStr) {
+                        const end = new Date(endStr);
+                        reservedMinutes = Math.round((end - start) / 60000);
+                        endSpan.textContent = end.toLocaleString();
+                    } else {
+                        reservedMinutes = 0;
+                        endSpan.textContent = "الحجز مفتوح";
+                    }
+
+                    const ratePerMinute = hourRate / 60;
+                    amountPerDevice = playedMinutes * ratePerMinute;
+                    const amountTotal = amountPerDevice * devices;
+
+                    devicesSpan.textContent = devices;
+                    startSpan.textContent = start.toLocaleString();
+                    reservedSpan.textContent = reservedMinutes > 0 ? reservedMinutes + " دقيقة" : "غير محدد";
+                    playedSpan.textContent = playedMinutes + " دقيقة";
+
+                    hourRateSpan.textContent = hourRate.toFixed(2);
+                    amountPerDeviceSpan.textContent = amountPerDevice.toFixed(2);
+                    amountTotalSpan.textContent = amountTotal.toFixed(2);
+
+                    paidAmountPerDeviceInput.value = amountPerDevice.toFixed(2);
+
+                    endBtn.disabled = false;
+                    detailsDiv.classList.remove("d-none");
+                });
+            });
+
+            endBtn.addEventListener("click", function () {
+                if (!selectedReservationId) return;
+
+                const paidAmountPerDevice = parseFloat(paidAmountPerDeviceInput.value);
+
+                fetch('/Reservation/EndGroupReservationNow', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+                    },
+                    body: JSON.stringify({
+                        groupReservationId: selectedReservationId,
+                        paidAmountPerDevice: paidAmountPerDevice,
+                        duoAmountPerDevice: amountPerDevice 
+                    })
+                })
+                .then(res => {
+                    if (res.ok) {
+                        location.reload();
+                    } else {
+                        alert("حدث خطأ أثناء إنهاء الحجز.");
+                    }
+                });
+            });
+        });
+             document.getElementById('paidAmountTotal').addEventListener('input', function () {
+            const total = parseFloat(this.value);
+            const deviceCount = parseInt(document.getElementById('selectedDevices').textContent) || 1;
+
+            const perDevice = total / deviceCount;
+
+            document.getElementById('paidAmountPerDevice').value = perDevice.toFixed(2);
+        });
+
+        function updatePaidTotalToMatchAmountTotal() {
+            const totalDue = parseFloat(document.getElementById('amountTotal').textContent) || 0;
+            const deviceCount = parseInt(document.getElementById('selectedDevices').textContent) || 1;
+
+            document.getElementById('paidAmountTotal').value = totalDue.toFixed(2);
+            document.getElementById('paidAmountPerDevice').value = (totalDue / deviceCount).toFixed(2);
+        }
+
+        document.querySelectorAll('.reservation-radio').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                setTimeout(updatePaidTotalToMatchAmountTotal, 100);
+            });
+        });
+    </script>
+
+    }

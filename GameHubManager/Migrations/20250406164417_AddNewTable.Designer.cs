@@ -3,6 +3,7 @@ using System;
 using GameHubManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSV2.Migrations
 {
     [DbContext(typeof(DSContext))]
-    partial class DSContextModelSnapshot : ModelSnapshot
+    [Migration("20250406164417_AddNewTable")]
+    partial class AddNewTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -455,7 +458,7 @@ namespace DSV2.Migrations
                         .IsRequired();
 
                     b.HasOne("GameHubManager.Models.GroupReservationModel", "GroupReservation")
-                        .WithMany("Reservations")
+                        .WithMany()
                         .HasForeignKey("GroupReservationId");
 
                     b.HasOne("GameHubManager.Models.UserModel", "User")
@@ -552,11 +555,6 @@ namespace DSV2.Migrations
                         .IsRequired();
 
                     b.Navigation("Devices");
-                });
-
-            modelBuilder.Entity("GameHubManager.Models.GroupReservationModel", b =>
-                {
-                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

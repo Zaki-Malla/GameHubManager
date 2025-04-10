@@ -12,12 +12,14 @@ namespace GameHubManager.Controllers
         private readonly UserManager<UserModel> _userManager;
         private readonly IDeviceRepository _deviceRepository;
         private readonly IReservationRepository _reservationRepository;
+        private readonly IGroupReservationRepository _groupReservationRepository;
 
-        public ReservationController(UserManager<UserModel> userManager, IDeviceRepository deviceRepository, IReservationRepository reservationRepository)
+        public ReservationController(UserManager<UserModel> userManager, IDeviceRepository deviceRepository, IReservationRepository reservationRepository , IGroupReservationRepository groupReservationRepository)
         {
             _userManager = userManager;
             _deviceRepository = deviceRepository;
             _reservationRepository = reservationRepository;
+            _groupReservationRepository = groupReservationRepository;
         }
         [HttpPost]
         public async Task<IActionResult> ReserveDevice(ReservationRequestModel request)
@@ -115,6 +117,101 @@ namespace GameHubManager.Controllers
             return Json(new { status = "OK", message = "تمت العملية بنجاح" });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> GroupReserveDevices(GroupReservationViewModel model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                TempData["Message"] = "Error";
+                return RedirectToAction("Dashboard", "Home");
+            }
+
+            if (string.IsNullOrWhiteSpace(model.SelectedDeviceIds))
+            {
+                TempData["Message"] = "لم يتم اختيار أي جهاز.";
+                return RedirectToAction("Dashboard", "Home");
+            }
+
+            var deviceIds = model.SelectedDeviceIds
+                                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(id => int.Parse(id))
+                                .ToList();
+
+            if (!deviceIds.Any())
+            {
+                TempData["Message"] = "يجب اختيار جهاز واحد على الأقل.";
+                return RedirectToAction("Dashboard", "Home");
+            }
+
+            var groupReservation = new GroupReservationModel
+            {
+                StartTime = model.StartTime,
+                EndTime = model.IsOpenReservation ? (DateTime?)null : DateTime.Now.AddMinutes(model.TotalMinutes ?? 0),
+                TotalDevices = deviceIds.Count,
+                UserId = user.Id
+            };
+
+            await _groupReservationRepository.AddGroupReservationAsync(groupReservation);
+
+            foreach (var deviceId in deviceIds)
+            {
+                var reservation = new ReservationModel
+                {
+                    DeviceId = deviceId,
+                    StartTime = model.StartTime,
+                    EndTime = model.IsOpenReservation ? (DateTime?)null : DateTime.Now.AddMinutes(model.TotalMinutes ?? 0),
+                    TotalMinutes = model.IsOpenReservation ? null : model.TotalMinutes,
+                    AmountPaid = model.IsOpenReservation ? null : model.AmountPaid,
+                    AmountDue = model.IsOpenReservation ? null : model.AmountPaid,
+                    NumberOfControllers = 2,
+                    GroupReservationId = groupReservation.Id,
+                    UserId = user.Id
+                };
+
+                await _reservationRepository.AddReservationAsync(reservation);
+            }
+
+            TempData["Message"] = "Success";
+            return RedirectToAction("Dashboard", "Home");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EndGroupReservationNow([FromBody] EndReservationRequest request)
+        {
+            var group = await _groupReservationRepository.GetGroupReservationsByIdAsync(request.GroupReservationId);
+
+            if (group == null)
+                return NotFound();
+
+            var now = DateTime.Now;
+
+            group.EndTime = now;
+
+            await _groupReservationRepository.UpdateReservationAsync(group);
+
+            foreach (var res in group.Reservations)
+            {
+                res.EndTime = now;
+                if (res.StartTime != null && res.EndTime != null)
+                {
+                    var totalMinutes = (res.EndTime.Value - res.StartTime).TotalMinutes;
+                    res.TotalMinutes = (int?)Math.Round(totalMinutes);
+                }
+                res.AmountDue = request.duoAmountPerDevice;
+                res.AmountPaid = request.paidAmountPerDevice;
+                await _reservationRepository.UpdateReservationAsync(res);
+            }
+
+            return Ok();
+        }
 
     }
 }

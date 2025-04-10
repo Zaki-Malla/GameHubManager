@@ -29,6 +29,12 @@ namespace GameHubManager.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal? AmountPaid { get; set; }
 
+        [AllowNull]
+        public int? GroupReservationId { get; set; }
+        [ForeignKey("GroupReservationId")]
+
+        public virtual GroupReservationModel GroupReservation { get; set; }
+
         [Required]
         public int DeviceId { get; set; }
         [ForeignKey("DeviceId")]
