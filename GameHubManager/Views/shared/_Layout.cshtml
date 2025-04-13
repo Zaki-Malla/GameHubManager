@@ -30,6 +30,20 @@
 
   </head>
 <body>
+    <style>
+        .footer {
+            position: absolute;
+            bottom: -30px;
+            left: 0;
+            width: 100%;
+            padding: 1rem 0;    
+            border-top: 1px solid;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+
     <div>
         @RenderBody()
         <a class="card setting-toggle" href="#settings-offcanvas" data-bs-toggle="offcanvas">
@@ -70,16 +84,19 @@
 
     </div>
 
-        <footer class="footer position-absolute">
-          <div class="row g-0 justify-content-between align-items-center h-100">
+    <footer class="footer">
+        <div class="row g-0 justify-content-between align-items-center h-100">
             <div class="col-12 col-sm-auto text-center">
-                    <p class="mb-0 mt-2 mt-sm-0 text-900">© 2025 Zaki Malla. All rights reserved. Unauthorized use or distribution is prohibited.</p>
+                <p class="mb-0 mt-2 mt-sm-0 text-900">
+                    © 2025 Zaki Malla. All rights reserved. Unauthorized use or distribution is prohibited.
+                </p>
             </div>
             <div class="col-12 col-sm-auto text-center">
-              <p class="mb-0 text-600">v2.0</p>
+                <p class="mb-0 text-600">v2.0</p>
             </div>
-          </div>
-        </footer>
+        </div>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="../../vendors/list.js/list.min.js"></script>

@@ -150,10 +150,12 @@ namespace GameHubManager.Controllers
                 return RedirectToAction("Dashboard", "Home");
             }
 
+            var now = DateTime.Now;
+
             var groupReservation = new GroupReservationModel
             {
-                StartTime = model.StartTime,
-                EndTime = model.IsOpenReservation ? (DateTime?)null : DateTime.Now.AddMinutes(model.TotalMinutes ?? 0),
+                StartTime = now,
+                EndTime = model.IsOpenReservation ? (DateTime?)null : now.AddMinutes(model.TotalMinutes ?? 0),
                 TotalDevices = deviceIds.Count,
                 UserId = user.Id
             };
@@ -165,8 +167,8 @@ namespace GameHubManager.Controllers
                 var reservation = new ReservationModel
                 {
                     DeviceId = deviceId,
-                    StartTime = model.StartTime,
-                    EndTime = model.IsOpenReservation ? (DateTime?)null : DateTime.Now.AddMinutes(model.TotalMinutes ?? 0),
+                    StartTime = now,
+                    EndTime = model.IsOpenReservation ? (DateTime?)null : now.AddMinutes(model.TotalMinutes ?? 0),
                     TotalMinutes = model.IsOpenReservation ? null : model.TotalMinutes,
                     AmountPaid = model.IsOpenReservation ? null : model.AmountPaid,
                     AmountDue = model.IsOpenReservation ? null : model.AmountPaid,
