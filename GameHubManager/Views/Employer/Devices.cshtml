@@ -4,52 +4,81 @@
     ViewData["Title"] = "قائمة الأجهزة || GameHub Manager";
 }
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
 <body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
+
     <div class="container mt-5 flex-grow-1">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeviceModal" onclick="resetModal()">إضافة جهاز جديد</button>
-            <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
+
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <button class="btn btn-soft-success px-4" data-bs-toggle="modal" data-bs-target="#addDeviceModal" onclick="resetModal()">
+                <i class="bi bi-plus-circle me-1"></i> إضافة جهاز جديد
+            </button>
+            <a asp-controller="Employer" asp-action="Dashboard" class="btn btn-soft-info me-2">العودة للشاشة الرئيسية</a>
         </div>
 
-        <table class="table table-striped table-hover text-center">
-            <thead>
-                <tr>
-                    <th>الصورة</th>
-                    <th>اسم الجهاز</th>
-                    <th>اسم النوع</th>
-                    <th>سعر ساعة اللعب</th>
-                    <th>خيارات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var device in Model.Devices)
-                {
-                    <tr>
-                        <td>
-                            <img src="@(string.IsNullOrEmpty(device.DeviceType.ImagePath) ? "/images/default.png" : device.DeviceType.ImagePath)"
-                                 alt="@device.DeviceType.Name" class="rounded-circle" width="50">
-                        </td>
-                        <td>@device.Name</td>
-                        <td>@device.DeviceType.Name</td>
-                        <td>@(device.DeviceType.DevicePrice?.PricePerHour != null ? device.DeviceType.DevicePrice.PricePerHour + " لكل ساعة" : "لم يحدد بعد")</td>
-                        <td>
-                           
-                            <button class="btn btn-warning btn-sm" onclick="editDevice(@device.Id, '@device.Name', '@device.DeviceType.ImagePath', @device.DeviceType.DevicePrice?.PricePerHour)">تعديل</button>
-                            <form asp-controller="Employer" asp-action="DeleteDevice" method="post" style="display:inline;">
-                                <input type="hidden" name="DeviceId" value="@device.Id" />
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من حذف هذا الجهاز؟')">حذف</button>
-                            </form>
+        <h3 class="section-title text-center mb-4">قائمة الأجهزة</h3>
 
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div id="deviceTable" data-list='{"valueNames":["index","image","name","type","price"],"page":10,"pagination":{"innerWindow":2,"left":1,"right":1}}'>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm fs--1 mb-0">
+                    <thead>
+                        <tr>
+                            <th class="sort border-top" data-sort="index">#</th>
+                            <th class="border-top">الصورة</th>
+                            <th class="sort border-top" data-sort="name">اسم الجهاز</th>
+                            <th class="sort border-top" data-sort="type">نوع الجهاز</th>
+                            <th class="sort border-top" data-sort="price">سعر ساعة اللعب</th>
+                            <th class="border-top text-end">خيارات</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @for (int i = 0; i < Model.Devices.Count; i++)
+                        {
+                            var device = Model.Devices[i];
+                            var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                            <tr class="@rowClass">
+                                <td class="index align-middle">@(i + 1)</td>
+                                <td class="image align-middle">
+                                    <img src="@(string.IsNullOrEmpty(device.DeviceType.ImagePath) ? "/images/default.png" : device.DeviceType.ImagePath)"
+                                         alt="@device.DeviceType.Name" class="rounded-circle" width="50" height="50">
+                                </td>
+                                <td class="name align-middle">@device.Name</td>
+                                <td class="type align-middle">@device.DeviceType.Name</td>
+                                <td class="price align-middle">
+                                    @(device.DeviceType.DevicePrice?.PricePerHour != null
+                                        ? device.DeviceType.DevicePrice.PricePerHour + " لكل ساعة"
+                                        : "لم يحدد بعد")
+                                </td>
+                                <td class="align-middle text-end">
+                                    <button class="btn btn-soft-warning btn-sm me-1"
+                                            onclick="editDevice(@device.Id, '@device.Name', '@device.DeviceType.ImagePath', @device.DeviceType.DevicePrice?.PricePerHour)">
+                                        تعديل
+                                    </button>
+                                    <form asp-controller="Employer" asp-action="DeleteDevice" method="post" class="d-inline">
+                                        <input type="hidden" name="DeviceId" value="@device.Id" />
+                                        <button type="submit" class="btn btn-soft-danger btn-sm"
+                                                onclick="return confirm('هل أنت متأكد من حذف هذا الجهاز؟')">
+                                            حذف
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                <ul class="mb-0 pagination"></ul>
+                <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+            </div>
+        </div>
     </div>
 
     <div class="modal fade" id="addDeviceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content shadow-sm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
@@ -65,13 +94,15 @@
                             <label class="form-label">نوع الجهاز</label>
                             <select class="form-select" name="DeviceTypeId" required>
                                 <option value="">اختر نوع الجهاز</option>
-                                @foreach(var deviceType in Model.DeviceTypes)
+                                @foreach (var deviceType in Model.DeviceTypes)
                                 {
                                     <option value="@deviceType.Id">@deviceType.Name</option>
                                 }
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">حفظ</button>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">حفظ</button>
+                        </div>
                     </form>
                 </div>
             </div>
