@@ -199,11 +199,6 @@ namespace GameHubManager.Controllers
             return RedirectToAction("DevicesPrices");
         }
 
-
-        public IActionResult Statistics()
-        {
-            return View();
-        }
         public async Task<IActionResult> SnacksManage()
         {
             return View(await _menuItemRepository.GetAllMenuItemsAsync());

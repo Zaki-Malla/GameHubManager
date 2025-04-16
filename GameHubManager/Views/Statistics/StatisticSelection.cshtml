@@ -1,0 +1,186 @@
+﻿@{
+}
+<title>إحصائيات النظام</title>
+<style>
+    :root {
+        --primary-color: #0d6efd;
+        --info-color: #0dcaf0;
+        --success-color: #198754;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 1200px;
+        padding-bottom: 60px;
+    }
+
+    .stats-header {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .card-group {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: var(--info-color);
+        color: white;
+        padding: 12px 20px;
+        font-size: 1.1rem;
+    }
+
+        .card-header.success {
+            background-color: var(--success-color);
+        }
+
+    .btn-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 15px;
+    }
+
+    .btn {
+        display: block;
+        padding: 8px 15px;
+        text-decoration: none;
+        color: white;
+        border-radius: 5px;
+        transition: all 0.2s;
+        font-size: 0.9rem;
+    }
+
+    .btn-info {
+        background-color: var(--info-color);
+        border: 1px solid #0dcaf0;
+    }
+
+    .btn-infos {
+        background-color: var(--info-color);
+        border: 1px solid;
+        color: khaki;
+    }
+
+    .btn-success {
+        background-color: var(--success-color);
+        border: 1px solid #198754;
+    }
+
+    .btn:hover {
+        filter: brightness(90%);
+        transform: translateX(-3px);
+    }
+
+    footer {
+        margin-top: auto;
+    }
+
+</style>
+
+
+<div class="container">
+    <h2 class="stats-header">إحصائيات النظام</h2>
+    <a href="/Statistics/GeneralStatistics" class="btn btn-infos">احصائيات عامة</a>
+
+    <div class="card-group">
+        <!-- Profit Statistics -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line"></i> إحصائيات الأرباح
+            </div>
+            <div class="btn-list">
+
+                <a href="/Statistics/ProfitByCurrentMonth" class="btn btn-info">ربح هذا الشهر</a>
+                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ProfitByCertainPeroid">ربح خلال فترة معينة</a>
+                <a href="/Statistics/ProfitByToday" class="btn btn-info">ربح اليوم</a>
+            </div>
+        </div>
+
+        <!-- Reservation Statistics -->
+        <div class="card">
+            <div class="card-header success">
+                <i class="fas fa-calendar-check"></i> إحصائيات الحجوزات
+            </div>
+            <div class="btn-list">
+                <a href="/Statistics/ReservationByCurrentMonth" class="btn btn-success">حجوزات هذا الشهر</a>
+                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reservationPeriodModal"> حجوزات خلال فترة معينة </a>
+                <a href="/Statistics/ReservationByToday" class="btn btn-success">حجوزات اليوم</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="reservationPeriodModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Statistics" asp-action="ReservationByCertainPeriod" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">تاريخ الأول:</label>
+                        <input type="datetime-local" class="form-control" name="firstDate">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">تاريخ ثاني:</label>
+                        <input type="datetime-local" class="form-control" name="SecondDate">
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-filter me-2"></i>إظهار
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ProfitByCertainPeroid" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Statistics" asp-action="ProfitByCertainPeroid" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">تاريخ الأول:</label>
+                        <input type="datetime-local" class="form-control" name="firstDate">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">تاريخ ثاني:</label>
+                        <input type="datetime-local" class="form-control" name="SecondDate">
+                    </div>
+
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-filter me-2"></i>إظهار
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

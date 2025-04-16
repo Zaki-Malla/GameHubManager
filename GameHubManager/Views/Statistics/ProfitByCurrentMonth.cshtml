@@ -1,0 +1,42 @@
+﻿@model List<SaleModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="table-dark" id="table">
+            <tr>
+                <th class="text-center">اسم المنتج</th>
+                <th class="text-center">تاريخ الشراء</th>
+                <th class="text-center">سعر المنتج</th>
+
+            </tr>
+        </thead>
+
+        <tbody id="table">
+            @foreach (var Sales in Model)
+            {
+                <tr>
+                    <td>@Sales.ItemName</td>
+                    <td>@Sales.SaleDate.ToString("yyyy/MM/dd HH:mm")</td>
+                    <td>@Sales.SoldPrice</td>
+
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-group-divider" id="table">
+            <tr class="table-active">
+                <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                <td class="fw-bold text-danger">@Model.Sum(s => s.SoldPrice)</td>
+
+            </tr>
+            <tr>
+                <td colspan="4" class="text-center small text-muted">
+                    تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

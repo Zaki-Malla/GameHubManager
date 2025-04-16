@@ -1,0 +1,42 @@
+﻿@model List<ReservationModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="table-dark" id="table">
+            <tr>
+                <th class="text-center">اسم الجهاز</th>
+                <th class="text-center">تاريخ الحجز</th>
+                <th class="text-center">سعر الحجز</th>
+                <th class="text-center">المبلغ المأخوذ</th>
+            </tr>
+        </thead>
+
+        <tbody id="table">
+            @foreach (var statistics in Model)
+            {
+                <tr>
+                    <td>@statistics.Device.Name</td>
+                    <td>@statistics.StartTime.ToString("yyyy/MM/dd HH:mm")</td>
+                    <td>@statistics.AmountDue</td>
+                    <td>@statistics.AmountPaid</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-group-divider" id="table">
+            <tr class="table-active">
+                <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                <td class="fw-bold text-danger">@Model.Sum(s => s.AmountDue)</td>
+                <td class="fw-bold text-success">@Model.Sum(r => r.AmountPaid)</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-center small text-muted">
+                    تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

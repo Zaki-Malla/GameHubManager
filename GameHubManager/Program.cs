@@ -19,6 +19,7 @@ builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 builder.Services.AddScoped<IGroupReservationRepository, GroupReservationRepository>();
+builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 
 
 builder.Services.AddDbContext<DSContext>(options =>
