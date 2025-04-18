@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAnotherItem" xml:space="preserve">
+    <value>إضافة عنصر آخر</value>
+  </data>
+  <data name="addNewDevice" xml:space="preserve">
+    <value>إضافة جهاز جديد</value>
+  </data>
+  <data name="addNewDeviceType" xml:space="preserve">
+    <value>إضافة نوع جديد</value>
+  </data>
+  <data name="addNewItem" xml:space="preserve">
+    <value>إضافة عنصر جديد</value>
+  </data>
+  <data name="addNewPrice" xml:space="preserve">
+    <value>إضافة سعر جديد</value>
+  </data>
+  <data name="adminDashboard" xml:space="preserve">
+    <value>لوحة الآدمن</value>
+  </data>
+  <data name="AmountDue" xml:space="preserve">
+    <value>السعر المستحق</value>
+  </data>
+  <data name="amountDueForEachDevice" xml:space="preserve">
+    <value>المبلغ المستحق لكل جهاز:</value>
+  </data>
+  <data name="AmountDuePerDevice" xml:space="preserve">
+    <value>المبلغ المستحق لكل جهاز</value>
+  </data>
+  <data name="AmountPaid" xml:space="preserve">
+    <value>السعر المدفوع</value>
+  </data>
+  <data name="amountPaidForAllDevices" xml:space="preserve">
+    <value>المبلغ المدفوع لكافة الأجهزة</value>
+  </data>
+  <data name="amountPaidForEachDevice" xml:space="preserve">
+    <value>المبلغ المدفوع لكل جهاز</value>
+  </data>
+  <data name="amountToBeRefunded" xml:space="preserve">
+    <value>المبلغ الواجب إرجاعه:</value>
+  </data>
+  <data name="amountToBeRefundedForAllDevices" xml:space="preserve">
+    <value>المبلغ الواجب إرجاعه لكافة الأجهزة:</value>
+  </data>
+  <data name="amountToBeRefundedPerDevice" xml:space="preserve">
+    <value>المبلغ الواجب إرجاعه لكل جهاز:</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteThisDevice" xml:space="preserve">
+    <value>هل أنت متأكد من حذف هذا الجهاز؟</value>
+  </data>
+  <data name="audioNotPlayedReason" xml:space="preserve">
+    <value>لم يتم تشغيل الصوت بسبب:</value>
+  </data>
+  <data name="availableDevices" xml:space="preserve">
+    <value>عدد الأجهزة المتاحة:</value>
+  </data>
+  <data name="AvailableQuantity" xml:space="preserve">
+    <value>الكمية المتاحة:</value>
+  </data>
+  <data name="backToHomeScreen" xml:space="preserve">
+    <value>العودة للشاشة الرئيسية</value>
+  </data>
+  <data name="biscuits" xml:space="preserve">
+    <value>بسكويت</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>التصنيف</value>
+  </data>
+  <data name="chooseCategory" xml:space="preserve">
+    <value>اختر التصنيف</value>
+  </data>
+  <data name="chooseDeviceType" xml:space="preserve">
+    <value>اختر نوع الجهاز</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="closeReservation" xml:space="preserve">
+    <value>إغلاق الحجز</value>
+  </data>
+  <data name="coldDrinks" xml:space="preserve">
+    <value>مشاريب باردة</value>
+  </data>
+  <data name="colorScheme" xml:space="preserve">
+    <value>نظام الألوان</value>
+  </data>
+  <data name="completeReservationNow" xml:space="preserve">
+    <value>إنهاء الحجز الآن</value>
+  </data>
+  <data name="ConfirmClose" xml:space="preserve">
+    <value>تأكيد الإغلاق</value>
+  </data>
+  <data name="ConfirmGroupReservation" xml:space="preserve">
+    <value>تأكيد الحجز الجماعي </value>
+  </data>
+  <data name="ConfirmReservation" xml:space="preserve">
+    <value>تأكيد الحجز</value>
+  </data>
+  <data name="ConfirmSale" xml:space="preserve">
+    <value>تأكيد البيع</value>
+  </data>
+  <data name="containsControllers" xml:space="preserve">
+    <value>هل يحتوي على قبضات؟</value>
+  </data>
+  <data name="controllers" xml:space="preserve">
+    <value>قبضات اللعب</value>
+  </data>
+  <data name="copyrightNotice" xml:space="preserve">
+    <value>© 2025 زكي ملا. جميع الحقوق محفوظة. استخدام أو توزيع غير مصرح به محظور.</value>
+  </data>
+  <data name="currentQuantity" xml:space="preserve">
+    <value>الكمية الحالية</value>
+  </data>
+  <data name="customize" xml:space="preserve">
+    <value>تخصيص</value>
+  </data>
+  <data name="dark" xml:space="preserve">
+    <value>داكن</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="deleteDeviceTypeConfirmation" xml:space="preserve">
+    <value>هل أنت متأكد من حذف هذا النوع؟</value>
+  </data>
+  <data name="deviceList" xml:space="preserve">
+    <value>قائمة الأجهزة</value>
+  </data>
+  <data name="DeviceName" xml:space="preserve">
+    <value>اسم الجهاز</value>
+  </data>
+  <data name="devicePriceList" xml:space="preserve">
+    <value>قائمة انواع الأجهزة</value>
+  </data>
+  <data name="deviceReservationEnded" xml:space="preserve">
+    <value>انتهى حجز الجهاز:</value>
+  </data>
+  <data name="devices" xml:space="preserve">
+    <value>الأجهزة</value>
+  </data>
+  <data name="deviceType" xml:space="preserve">
+    <value>نوع الجهاز</value>
+  </data>
+  <data name="deviceTypeList" xml:space="preserve">
+    <value>قائمة انواع الأجهزة</value>
+  </data>
+  <data name="deviceTypeName" xml:space="preserve">
+    <value>اسم النوع</value>
+  </data>
+  <data name="deviceTypes" xml:space="preserve">
+    <value>أنواع الأجهزة</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="editDevice" xml:space="preserve">
+    <value>تعديل جهاز</value>
+  </data>
+  <data name="editDeviceType" xml:space="preserve">
+    <value>تعديل نوع الجهاز</value>
+  </data>
+  <data name="editPrice" xml:space="preserve">
+    <value>تعديل السعر</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="endTime" xml:space="preserve">
+    <value>وقت النهاية:</value>
+  </data>
+  <data name="errorClosingReservation" xml:space="preserve">
+    <value>حدث خطأ أثناء إغلاق الحجز</value>
+  </data>
+  <data name="errorCompletingReservation" xml:space="preserve">
+    <value>حدث خطأ أثناء إنهاء الحجز.</value>
+  </data>
+  <data name="errorConnectingToServer" xml:space="preserve">
+    <value>حدث خطأ أثناء الاتصال بالخادم</value>
+  </data>
+  <data name="errorDuringSale" xml:space="preserve">
+    <value>حدث خطأ أثناء البيع!</value>
+  </data>
+  <data name="errorPriceMessage" xml:space="preserve">
+    <value>يجب إدخال سعر أكبر من 0</value>
+  </data>
+  <data name="errorQuantityMessage" xml:space="preserve">
+    <value>يجب إدخال كمية أكبر من 0</value>
+  </data>
+  <data name="exploreStyles" xml:space="preserve">
+    <value>استكشف الأنماط المختلفة حسب تفضيلاتك</value>
+  </data>
+  <data name="gameHourPrice" xml:space="preserve">
+    <value>سعر ساعة اللعب</value>
+  </data>
+  <data name="groupReservationForPCs" xml:space="preserve">
+    <value>حجز جماعي لأجهزة الكمبيوتر</value>
+  </data>
+  <data name="hotDrinks" xml:space="preserve">
+    <value>مشاريب ساخنة</value>
+  </data>
+  <data name="hour" xml:space="preserve">
+    <value>ساعة</value>
+  </data>
+  <data name="hourlyRate" xml:space="preserve">
+    <value>سعر الساعة</value>
+  </data>
+  <data name="hourlyRateForDevice" xml:space="preserve">
+    <value>سعر الساعة للجهاز:</value>
+  </data>
+  <data name="hourlyRateNotSet" xml:space="preserve">
+    <value>سعر الساعة غير محدد</value>
+  </data>
+  <data name="image" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="indomi" xml:space="preserve">
+    <value>اندومي</value>
+  </data>
+  <data name="IsReservationOpen" xml:space="preserve">
+    <value>هل الحجز مفتوح؟</value>
+  </data>
+  <data name="ItemName" xml:space="preserve">
+    <value>اسم العنصر</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="light" xml:space="preserve">
+    <value>إضاءة</value>
+  </data>
+  <data name="lira" xml:space="preserve">
+    <value>ليرة</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="loginAccessDashboard" xml:space="preserve">
+    <value>قم بتسجيل الدخول للوصول إلى لوحة التحكم الخاصة بك.</value>
+  </data>
+  <data name="loginWithEmail" xml:space="preserve">
+    <value>الدخول بالبريد الإلكتروني</value>
+  </data>
+  <data name="logOut" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="manageMenuItemTypes" xml:space="preserve">
+    <value>إدارة أنواع الوجبات</value>
+  </data>
+  <data name="mealName" xml:space="preserve">
+    <value>اسم الوجبة</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>دقيقة</value>
+  </data>
+  <data name="mustSelectAtLeastOneDevice" xml:space="preserve">
+    <value>يجب اختيار جهاز واحد على الأقل.</value>
+  </data>
+  <data name="newQuantity" xml:space="preserve">
+    <value>أدخل الكمية المراد إضافتها</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="NoAvailableDevices" xml:space="preserve">
+    <value>لا يوجد أجهزة متاحة</value>
+  </data>
+  <data name="noControllers" xml:space="preserve">
+    <value>لا يوجد قبضات</value>
+  </data>
+  <data name="noDevicesAvailable" xml:space="preserve">
+    <value>لا توجد أجهزة متاحة حالياً.</value>
+  </data>
+  <data name="notSpecifiedYet" xml:space="preserve">
+    <value>لم يحدد بعد</value>
+  </data>
+  <data name="noTypesRegistered" xml:space="preserve">
+    <value>لا يوجد أنواع مسجلة</value>
+  </data>
+  <data name="NumberOfAvailableDevices" xml:space="preserve">
+    <value>عدد الأجهزة المتاحة: </value>
+  </data>
+  <data name="NumberOfControllers" xml:space="preserve">
+    <value>عدد القبضات</value>
+  </data>
+  <data name="numberOfDevices" xml:space="preserve">
+    <value>عدد الأجهزة:</value>
+  </data>
+  <data name="numberOfMinutesPlayedSoFar" xml:space="preserve">
+    <value>عدد الدقائق الملعوبة حتى الآن:</value>
+  </data>
+  <data name="numberOfMinutesReserved" xml:space="preserve">
+    <value>عدد الدقائق المحجوزة:</value>
+  </data>
+  <data name="NumberOfMinutesUsed" xml:space="preserve">
+    <value>عدد الدقائق المستخدمة:</value>
+  </data>
+  <data name="NumberOfPlayMinutes" xml:space="preserve">
+    <value>عدد دقائق اللعب</value>
+  </data>
+  <data name="NumberOfSelectedControllers" xml:space="preserve">
+    <value>عدد القبضات المختارة:</value>
+  </data>
+  <data name="NumberOfUnits" xml:space="preserve">
+    <value>عدد القطع</value>
+  </data>
+  <data name="openReservation" xml:space="preserve">
+    <value>حجز مفتوح</value>
+  </data>
+  <data name="operationFailed" xml:space="preserve">
+    <value>فشلت العملية!</value>
+  </data>
+  <data name="operationSuccessful" xml:space="preserve">
+    <value>تمت العملية بنجاح!</value>
+  </data>
+  <data name="options" xml:space="preserve">
+    <value>خيارات</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="perHour" xml:space="preserve">
+    <value>لكل ساعة</value>
+  </data>
+  <data name="pleaseEnterValidPaymentAmount" xml:space="preserve">
+    <value>يرجى إدخال قيمة صحيحة للمبلغ المدفوع.</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>السعر</value>
+  </data>
+  <data name="priceListOfDeviceTypes" xml:space="preserve">
+    <value>قائمة اسعار انواع الأجهزة</value>
+  </data>
+  <data name="PricePerUnit" xml:space="preserve">
+    <value>السعر للقطعة:</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="quantityAfterAddition" xml:space="preserve">
+    <value>الكمية بعد الإضافة</value>
+  </data>
+  <data name="remainingTime" xml:space="preserve">
+    <value>الوقت المتبقي:</value>
+  </data>
+  <data name="renewQuantity" xml:space="preserve">
+    <value>تجديد الكمية</value>
+  </data>
+  <data name="reservationIsOpen" xml:space="preserve">
+    <value>الحجز مفتوح</value>
+  </data>
+  <data name="ReserveDevice" xml:space="preserve">
+    <value>حجز الجهاز</value>
+  </data>
+  <data name="reserveNow" xml:space="preserve">
+    <value>احجز الآن</value>
+  </data>
+  <data name="resetToDefault" xml:space="preserve">
+    <value>إعادة تعيين إلى الإعدادات الافتراضية</value>
+  </data>
+  <data name="saleCompletedSuccessfully" xml:space="preserve">
+    <value>تم البيع بنجاح!</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SelectAvailableDevices" xml:space="preserve">
+    <value>الرجاء اختيار الأجهزة المتاحة (أجهزة الكمبيوتر غير المحجوزة):</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>اختر التصنيف</value>
+  </data>
+  <data name="selectedReservationDetails" xml:space="preserve">
+    <value>تفاصيل الحجز المحدد:</value>
+  </data>
+  <data name="selectGroupReservation" xml:space="preserve">
+    <value>اختر حجز جماعي</value>
+  </data>
+  <data name="SelectItem" xml:space="preserve">
+    <value>اختر العنصر</value>
+  </data>
+  <data name="SellMultipleItems" xml:space="preserve">
+    <value>بيع عناصر متعددة</value>
+  </data>
+  <data name="sellNewItemFromFridge" xml:space="preserve">
+    <value>بيع عنصر جديد من البراد</value>
+  </data>
+  <data name="setPlayPriceFirst" xml:space="preserve">
+    <value>يجب تحديد سعر اللعب أولاً قبل الحجز.</value>
+  </data>
+  <data name="setThePrice" xml:space="preserve">
+    <value>تحديد السعر</value>
+  </data>
+  <data name="startTime" xml:space="preserve">
+    <value>وقت البداية:</value>
+  </data>
+  <data name="themeCustomizer" xml:space="preserve">
+    <value>مخصص المظهر</value>
+  </data>
+  <data name="thereAreControllers" xml:space="preserve">
+    <value>يوجد قبضات</value>
+  </data>
+  <data name="TotalAmountDueForAllDevices" xml:space="preserve">
+    <value>المبلغ المستحق لجميع الأجهزة</value>
+  </data>
+  <data name="totalAmountForAllDevices" xml:space="preserve">
+    <value>المبلغ الكلي لكافة الأجهزة:</value>
+  </data>
+  <data name="updatePrice" xml:space="preserve">
+    <value>تحديث السعر</value>
+  </data>
+  <data name="uploadImage" xml:space="preserve">
+    <value>تحميل صورة</value>
+  </data>
+  <data name="viewGroupReservations" xml:space="preserve">
+    <value>عرض الحجوزات الجماعية</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>مرحبًا بعودتك! 🎉😊</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+</root>

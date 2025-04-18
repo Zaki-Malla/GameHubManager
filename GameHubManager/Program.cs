@@ -2,6 +2,7 @@
 using GameHubManager.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -110,6 +111,21 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.Use(async (context, next) =>
+{
+    string cookie = string.Empty;
+    if(context.Request.Cookies.TryGetValue("Language",out cookie))
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie);
+    }
+    else
+    {
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+        Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+    }
+    await next.Invoke();
+});
 app.UseSession();
 app.UseAuthentication(); 
 app.UseAuthorization();

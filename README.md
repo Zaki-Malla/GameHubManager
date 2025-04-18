@@ -13,6 +13,8 @@
 - **Financial Reports**: Generates detailed daily income reports and sales statistics.
 - **User Management**: Supports roles for owners and employees with different permissions.
 - **User-Friendly Interface**: Modern design using the Phoenix theme for an intuitive experience.
+- **Language Support**: Supports both **Arabic** and **English** languages through resource files for easy translation and localization.
+- **Localization**: The system dynamically adapts to the selected language (Arabic or English), providing a seamless user experience in both languages.
 
 ---
 
@@ -40,7 +42,7 @@ Unauthorized use, distribution, or sale of this software is strictly prohibited 
 
 ### Steps to Run
 
-
+```bash
 # 1. **Clone the Repository**
 git clone https://github.com/Zaki-Malla/GameHubManager.git
 cd GameHubManager
@@ -55,4 +57,4 @@ dotnet ef database update
 dotnet run
 
 # 5. **Open your browser and navigate to:**
-# https://localhost:7093
+https://localhost:7093

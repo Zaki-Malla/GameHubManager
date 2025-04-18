@@ -1,16 +1,12 @@
 ﻿@model List<DeviceTypeModel>
 @{
-    ViewData["Title"] = "قائمة اسعار انواع الأجهزة || GameHub Manager";
+    ViewData["Title"] = SharedResource.priceListOfDeviceTypes + " || GameHub Manager";
 }
 
 <body class="d-flex flex-column min-vh-100">
     <div class="container mt-4 flex-grow-1">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="fw-bold text-primary"> قائمة أسعار انواع الأجهزة</h3>
-            <a href="/Employer/Dashboard" class="btn btn-secondary">العودة للشاشة الرئيسية</a>
-        </div>
-
-        <div class="row g-3">
+        <h3 class="section-title text-center mb-4">@SharedResource.priceListOfDeviceTypes</h3>
+        <div class="row g-3 justify-content-center">
             @foreach (var device in Model)
             {
                 <div class="col-lg-3 col-md-4 col-sm-6">
@@ -21,47 +17,51 @@
 
                             @if (device.DevicePrice?.PricePerHour != null)
                             {
-                                <p class="text-success fw-bold fs-1">@device.DevicePrice.PricePerHour بالساعة</p>
+                                <p class="text-success fw-bold fs-1">@device.DevicePrice.PricePerHour @SharedResource.perHour</p>
 
-                                <button class="btn btn-warning w-100"
+                                <button class="btn btn-soft-warning btn-sm me-1"
                                         onclick="resetModal('@device.Id', '@device.DevicePrice?.PricePerHour')">
-                                    <i class="fas fa-edit me-2"></i> تحديث السعر
+                                    <i class="fas fa-edit me-2"></i> @SharedResource.updatePrice
                                 </button>
                             }
                             else
                             {
-                                <p class="text-danger fw-bold"> لم يتم التحديد بعد</p>
+                                <p class="text-danger fw-bold"> @SharedResource.notSpecifiedYet</p>
 
                                 <button class="btn btn-success w-100"
                                         onclick="resetModal('@device.Id')">
-                                    <i class="fas fa-plus me-2"></i> تحديد السعر
+                                    <i class="fas fa-plus me-2"></i> @SharedResource.setThePrice
                                 </button>
                             }
                         </div>
                     </div>
                 </div>
             }
+            <div class="d-flex justify-content-center gap-3 mb-4">
+                <a asp-controller="Employer" asp-action="Dashboard" class="btn btn-soft-info me-2">@SharedResource.backToHomeScreen</a>
+            </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="addDevicePriceModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content ">
                 <div class="modal-header border-bottom border-light">
-                    <h5 class="modal-title fw-bold" id="modalLabel">إضافة سعر جديد</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                    <h5 class="modal-title fw-bold" id="modalLabel">@SharedResource.addNewPrice</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
                 </div>
                 <div class="modal-body">
                     <form asp-controller="Employer" asp-action="AddOrUpdateDevicePrice" method="post">
                         <input type="hidden" id="deviceTypeId" name="deviceTypeId">
 
                         <div class="mb-3">
-                            <label class="form-label">سعر الساعة</label>
-                            <input type="number" class="form-control border-light" id="PricePerHour" name="pricePerHour" required placeholder="أدخل السعر">
+                            <label class="form-label">@SharedResource.hourlyRate</label>
+                            <input type="number" class="form-control border-light" id="PricePerHour" name="pricePerHour" required placeholder="ليرة سورية - Syrian Lira">
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary w-100">حفظ السعر</button>
+                            <button type="submit" class="btn btn-primary w-100">@SharedResource.save</button>
                         </div>
                     </form>
                 </div>
@@ -73,7 +73,7 @@
         function resetModal(deviceTypeId, price = '') {
             document.getElementById('deviceTypeId').value = deviceTypeId;
             document.getElementById('PricePerHour').value = price;
-            document.getElementById('modalLabel').innerText = price ? 'تحديث سعر الجهاز' : 'إضافة سعر جديد';
+            document.getElementById('modalLabel').innerText = price ? @Html.Raw(Json.Serialize(SharedResource.updatePrice)) : @Html.Raw(Json.Serialize(SharedResource.addNewPrice));
 
             var modal = new bootstrap.Modal(document.getElementById('addDevicePriceModal'));
             modal.show();
