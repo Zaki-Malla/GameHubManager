@@ -436,13 +436,15 @@
 
             @if (Model.DeviceTypes != null && Model.DeviceTypes.Any())
             {
-                <div class="row">
+                <div class="row gap-2 justify-content-center">
                     @foreach (var deviceType in Model.DeviceTypes)
                     {
+                        @if (deviceType.IsActive)
+                        {
                         <div class="col-md-2 mb-4">
                             <div class="card border-0 shadow-sm text-center">
                                 <div class="card-body">
-                                    <img src="@deviceType.DevicePrice?.DeviceType?.ImagePath" class="rounded-circle mx-auto mb-2" alt="@deviceType.Name" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <img src="@deviceType.ImagePath" class="rounded-circle mx-auto mb-2" alt="@deviceType.Name" style="width: 80px; height: 80px; object-fit: cover;">
                                     <h6 class="card-title mb-1">@deviceType.Name</h6>
                                     @if (deviceType.DevicePrice != null && deviceType.DevicePrice.PricePerHour > 0)
                                     {
@@ -450,11 +452,12 @@
                                     }
                                     else
                                     {
-                                        <span class="badge bg-warning text-dark">@SharedResource.hourlyRateNotSet</span>
+                                        <span class="badge bg-warning">@SharedResource.hourlyRateNotSet</span>
                                     }
                                 </div>
                             </div>
                         </div>
+                        }
                     }
                 </div>
             }
@@ -465,7 +468,7 @@
                 </div>
             }
 
-            <div class="my-4 d-flex flex-wrap gap-2 justify-content-start">
+            <div class="my-4 d-flex flex-wrap gap-4 justify-content-center">
                 <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#sellItemModal">
                     <i class="fas fa-cash-register me-2"></i> @SharedResource.sellNewItemFromFridge
                 </button>
@@ -489,6 +492,8 @@
     {
         foreach (var device in Model.Devices)
         {
+            @if(device.Device.DeviceType.IsActive && device.Device.IsActive)
+            {
             <div class="col-md-4">
                 <div class="card device-card shadow-sm h-100 @(device.ActiveReservation != null ? "reserved-card" : "")">
                     <img src="@device.Device.DeviceType.ImagePath" class="card-img-top cropped-img" alt="@device.Device.Name" loading="lazy">
@@ -552,6 +557,7 @@
                     </div>
                 </div>
             </div>
+                        }
         }
     }
     else
@@ -584,7 +590,7 @@
                     playNotificationSound();
                     const deviceName = element.closest('.device-card').querySelector('.card-title').innerText;
                     setTimeout(() => {
-                        alert(`@Html.Raw(Json.Serialize(SharedResource.deviceReservationEnded)) ${deviceName}`);
+                        alert('@Html.Raw(Json.Serialize(SharedResource.deviceReservationEnded)) ${deviceName}');
                         location.reload();
                     }, 100);
                 } else if (now < endTime) {

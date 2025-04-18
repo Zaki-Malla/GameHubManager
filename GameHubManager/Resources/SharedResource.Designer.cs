@@ -61,6 +61,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Activate.
+        /// </summary>
+        public static string activate {
+            get {
+                return ResourceManager.GetString("activate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Another Item.
         /// </summary>
         public static string AddAnotherItem {

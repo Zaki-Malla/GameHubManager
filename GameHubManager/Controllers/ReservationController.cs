@@ -114,6 +114,22 @@ namespace GameHubManager.Controllers
             reservation.AmountDue = (decimal)amountDue;
 
             await _reservationRepository.UpdateReservationAsync(reservation);
+
+            if(reservation.GroupReservation != null)
+            { 
+            reservation.GroupReservation.Reservations.Remove(reservation);
+
+            if (reservation.GroupReservation.Reservations.Count == 0)
+            {
+                reservation.GroupReservation.EndTime = DateTime.Now;
+            }
+            else
+            {
+                reservation.GroupReservation.TotalDevices -= 1;
+            }
+
+            await _groupReservationRepository.UpdateReservationAsync(reservation.GroupReservation);
+            }
             return Json(new { status = "OK", message = "تمت العملية بنجاح" });
         }
 
@@ -190,8 +206,7 @@ namespace GameHubManager.Controllers
         {
             var group = await _groupReservationRepository.GetGroupReservationsByIdAsync(request.GroupReservationId);
 
-            if (group == null)
-                return NotFound();
+            if (group == null) return NotFound();
 
             var now = DateTime.Now;
 

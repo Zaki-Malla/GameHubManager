@@ -41,12 +41,13 @@ namespace GameHubManager.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteDeviceTypeAsync(int id)
+        public async Task ToggleDeviceTypeStatusAsync(int id)
         {
             var deviceType = await _context.DeviceTypes.FindAsync(id);
             if (deviceType != null)
             {
-                _context.DeviceTypes.Remove(deviceType);
+                deviceType.IsActive = !deviceType.IsActive;
+                _context.DeviceTypes.Update(deviceType);
                 await _context.SaveChangesAsync();
             }
         }

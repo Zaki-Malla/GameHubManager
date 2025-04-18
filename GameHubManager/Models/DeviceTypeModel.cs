@@ -19,6 +19,8 @@ namespace GameHubManager.Models
 
         [Display(Name = "يحتوي على قبضات؟")]
         public bool HasControllers { get; set; }
+        [Required]
+        public bool IsActive { get; set; } = true;
         public virtual List<DeviceModel> Devices { get; set; }
         public virtual DevicePriceModel DevicePrice { get; set; }
     }

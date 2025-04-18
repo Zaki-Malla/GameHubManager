@@ -49,13 +49,24 @@
                                         onclick="editDeviceType(@deviceType.Id, '@deviceType.Name', '@deviceType.ImagePath', @deviceType.DevicePrice?.PricePerHour, @(deviceType.HasControllers.ToString().ToLower()))">
                                     @SharedResource.edit
                                 </button>
-                                <form asp-controller="Employer" asp-action="DeleteDeviceType" method="post" class="d-inline">
+                                <form asp-controller="Employer" asp-action="ToggleDeviceTypeStatus" method="post" class="d-inline">
                                     <input type="hidden" name="DeviceId" value="@deviceType.Id" />
-                                    <button type="submit" class="btn btn-soft-danger btn-sm"
-                                            onclick="return confirm('@SharedResource.deleteDeviceTypeConfirmation')">
-                                        @SharedResource.delete
-                                    </button>
+
+                                    @if (deviceType.IsActive)
+                                    {
+                                        <button type="submit" class="btn btn-soft-danger btn-sm"
+                                                onclick="return confirm('@SharedResource.deleteDeviceTypeConfirmation')">
+                                            @SharedResource.delete
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-soft-primary btn-sm">
+                                            @SharedResource.activate
+                                        </button>
+                                    }
                                 </form>
+
                             </td>
                         </tr>
                     }
