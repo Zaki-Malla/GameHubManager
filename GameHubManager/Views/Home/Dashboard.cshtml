@@ -494,7 +494,7 @@
         {
             @if(device.Device.DeviceType.IsActive && device.Device.IsActive)
             {
-            <div class="col-md-4">
+                            <div class="col-md-4 justify-content-center">
                 <div class="card device-card shadow-sm h-100 @(device.ActiveReservation != null ? "reserved-card" : "")">
                     <img src="@device.Device.DeviceType.ImagePath" class="card-img-top cropped-img" alt="@device.Device.Name" loading="lazy">
                     <div class="card-body">

@@ -22,13 +22,18 @@ builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 builder.Services.AddScoped<IGroupReservationRepository, GroupReservationRepository>();
 builder.Services.AddScoped<IStatisticsRepository, StatisticsRepository>();
 
-
-builder.Services.AddDbContext<DSContext>(options =>
+var dbFolder = Path.Combine(builder.Environment.ContentRootPath, "DB");
+if (!Directory.Exists(dbFolder))
 {
-    var wwwrootPath = Path.Combine(builder.Environment.WebRootPath, "DB");
-    var dbPath = Path.Combine(wwwrootPath, "databaseByZakiMalla.db");
-
-    Directory.CreateDirectory(wwwrootPath); 
+    Directory.CreateDirectory(dbFolder);
+}
+var dbPath = Path.Combine(dbFolder, "databaseByZakiMalla.db");
+if (!File.Exists(dbPath))
+{
+    using (var fs = File.Create(dbPath)) { }
+}
+builder.Services.AddDbContext<DSContext>(options =>
+{   
     options.UseSqlite($"Data Source={dbPath}");
 });
 
@@ -107,6 +112,16 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine($"Initialization error: {ex.Message}");
     }
 }
+
+var backupFolder = Path.Combine(builder.Environment.ContentRootPath, "AppData_backup");
+if (!Directory.Exists(backupFolder))
+    Directory.CreateDirectory(backupFolder);
+
+var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+var backupFileName = $"databaseByZakiMalla_{timestamp}.db";
+var backupPath = Path.Combine(backupFolder, backupFileName);
+
+File.Copy(dbPath, backupPath, overwrite: true);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

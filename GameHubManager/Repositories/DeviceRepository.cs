@@ -19,6 +19,7 @@ namespace GameHubManager.Repositories
         .Include(d => d.DeviceType)
             .ThenInclude(dt => dt.DevicePrice)
         .Include(d => d.Reservations)
+        .OrderBy(d => d.DeviceType)
         .Select(d => new DeviceViewModel
         {
             Device = new DeviceModel
