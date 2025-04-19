@@ -15,7 +15,7 @@ namespace GameHubManager.Repositories
        
         Task UpdateDeviceAsync(DeviceModel device);
        
-        Task DeleteDeviceAsync(int id);
+        Task ToggleDeviceStatusAsync(int id);
 
     }
 }

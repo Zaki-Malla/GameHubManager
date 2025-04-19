@@ -13,7 +13,7 @@ namespace GameHubManager.Models
 
         public int DeviceTypeId { get; set; }
         [ForeignKey("DeviceTypeId")]
-
+        public bool IsActive { get; set; } = true;
         public virtual DeviceTypeModel DeviceType { get; set; }
         public virtual List<ReservationModel> Reservations { get; set; }
     }

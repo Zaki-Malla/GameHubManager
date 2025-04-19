@@ -1,7 +1,7 @@
 ﻿@model AddDeviceViewModel
 
 @{
-    ViewData["Title"] = "قائمة الأجهزة || GameHub Manager";
+    ViewData["Title"] = SharedResource.deviceList + " || GameHub Manager";
 }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
@@ -9,15 +9,15 @@
 <body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
 
     <div class="container mt-5 flex-grow-1">
-
-        <div class="d-flex justify-content-center gap-3 mb-4">
-            <button class="btn btn-soft-success px-4" data-bs-toggle="modal" data-bs-target="#addDeviceModal" onclick="resetModal()">
-                <i class="bi bi-plus-circle me-1"></i> إضافة جهاز جديد
-            </button>
-            <a asp-controller="Employer" asp-action="Dashboard" class="btn btn-soft-info me-2">العودة للشاشة الرئيسية</a>
+        <div class="position-relative mb-4">
+            <h3 class="section-title text-center m-0">@SharedResource.deviceList</h3>
+            <div class="position-absolute end-0 top-50 translate-middle-y">
+                <button class="btn btn-soft-success px-4" data-bs-toggle="modal" data-bs-target="#addDeviceModal" onclick="resetModal()">
+                    <i class="bi bi-plus-circle me-1"></i> @SharedResource.addNewDevice
+                </button>
+            </div>
         </div>
 
-        <h3 class="section-title text-center mb-4">قائمة الأجهزة</h3>
 
         <div id="deviceTable" data-list='{"valueNames":["index","image","name","type","price"],"page":10,"pagination":{"innerWindow":2,"left":1,"right":1}}'>
             <div class="table-responsive">
@@ -25,11 +25,11 @@
                     <thead>
                         <tr>
                             <th class="sort border-top" data-sort="index">#</th>
-                            <th class="border-top">الصورة</th>
-                            <th class="sort border-top" data-sort="name">اسم الجهاز</th>
-                            <th class="sort border-top" data-sort="type">نوع الجهاز</th>
-                            <th class="sort border-top" data-sort="price">سعر ساعة اللعب</th>
-                            <th class="border-top text-end">خيارات</th>
+                            <th class="border-top">@SharedResource.image</th>
+                            <th class="sort border-top" data-sort="name">@SharedResource.DeviceName</th>
+                            <th class="sort border-top" data-sort="type">@SharedResource.deviceType</th>
+                            <th class="sort border-top" data-sort="price">@SharedResource.gameHourPrice</th>
+                            <th class="border-top text-end">@SharedResource.options</th>
                         </tr>
                     </thead>
                     <tbody class="list">
@@ -47,20 +47,29 @@
                                 <td class="type align-middle">@device.DeviceType.Name</td>
                                 <td class="price align-middle">
                                     @(device.DeviceType.DevicePrice?.PricePerHour != null
-                                        ? device.DeviceType.DevicePrice.PricePerHour + " لكل ساعة"
-                                        : "لم يحدد بعد")
+                                        ? device.DeviceType.DevicePrice.PricePerHour + " " + SharedResource.perHour : SharedResource.notSpecifiedYet)
                                 </td>
                                 <td class="align-middle text-end">
                                     <button class="btn btn-soft-warning btn-sm me-1"
                                             onclick="editDevice(@device.Id, '@device.Name', '@device.DeviceType.ImagePath', @device.DeviceType.DevicePrice?.PricePerHour)">
-                                        تعديل
+                                        @SharedResource.edit
                                     </button>
-                                    <form asp-controller="Employer" asp-action="DeleteDevice" method="post" class="d-inline">
+                                    <form asp-controller="Employer" asp-action="ToggleDeviceStatus" method="post" class="d-inline">
                                         <input type="hidden" name="DeviceId" value="@device.Id" />
-                                        <button type="submit" class="btn btn-soft-danger btn-sm"
-                                                onclick="return confirm('هل أنت متأكد من حذف هذا الجهاز؟')">
-                                            حذف
-                                        </button>
+
+                                        @if (device.IsActive)
+                                        {
+                                            <button type="submit" class="btn btn-soft-danger btn-sm"
+                                                    onclick="return confirm('@SharedResource.areYouSureYouWantToDeleteThisDevice')">
+                                                @SharedResource.delete
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button type="submit" class="btn btn-soft-primary btn-sm">
+                                                @SharedResource.activate
+                                            </button>
+                                        }
                                     </form>
                                 </td>
                             </tr>
@@ -73,6 +82,9 @@
                 <ul class="mb-0 pagination"></ul>
                 <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
             </div>
+            <div class="d-flex justify-content-center gap-3 mt-3 mb-4">
+                <a asp-controller="Employer" asp-action="Dashboard" class="btn btn-soft-info me-2">@SharedResource.backToHomeScreen</a>
+            </div>
         </div>
     </div>
 
@@ -81,19 +93,19 @@
             <div class="modal-content shadow-sm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
                 </div>
                 <div class="modal-body">
                     <form asp-controller="Employer" asp-action="AddOrUpdateDevice" id="deviceForm" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="deviceId" name="Id">
                         <div class="mb-3">
-                            <label class="form-label">اسم الجهاز</label>
+                            <label class="form-label">@SharedResource.DeviceName</label>
                             <input type="text" class="form-control" id="deviceName" name="Name" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">نوع الجهاز</label>
+                            <label class="form-label">@SharedResource.deviceType</label>
                             <select class="form-select" name="DeviceTypeId" required>
-                                <option value="">اختر نوع الجهاز</option>
+                                <option value="">@SharedResource.chooseDeviceType</option>
                                 @foreach (var deviceType in Model.DeviceTypes)
                                 {
                                     <option value="@deviceType.Id">@deviceType.Name</option>
@@ -101,7 +113,7 @@
                             </select>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">حفظ</button>
+                            <button type="submit" class="btn btn-primary">@SharedResource.save</button>
                         </div>
                     </form>
                 </div>
@@ -113,13 +125,13 @@
         function resetModal() {
             document.getElementById('deviceId').value = '';
             document.getElementById('deviceName').value = '';
-            document.getElementById('modalLabel').innerText = 'إضافة جهاز جديد';
+            document.getElementById('modalLabel').innerText = @Html.Raw(Json.Serialize(SharedResource.addNewDevice));
         }
 
         function editDevice(id, name, imagePath, price) {
             document.getElementById('deviceId').value = id;
             document.getElementById('deviceName').value = name;
-            document.getElementById('modalLabel').innerText = 'تعديل جهاز';
+            document.getElementById('modalLabel').innerText = @Html.Raw(Json.Serialize(SharedResource.editDevice));
             var modal = new bootstrap.Modal(document.getElementById('addDeviceModal'));
             modal.show();
         }

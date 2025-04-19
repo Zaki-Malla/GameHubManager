@@ -118,7 +118,7 @@ namespace GameHubManager.Controllers
             {
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_GameHubManager";
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -160,7 +160,7 @@ namespace GameHubManager.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> DeleteDeviceType(int DeviceId)
+        public async Task<IActionResult> ToggleDeviceTypeStatus(int DeviceId)
         {
             var deviceType = await _deviceTypeRepository.GetDevicesTypesByIdAsync(DeviceId);
             if (deviceType == null)
@@ -168,7 +168,7 @@ namespace GameHubManager.Controllers
                 return NotFound();
             }
 
-            await _deviceTypeRepository.DeleteDeviceTypeAsync(DeviceId); 
+            await _deviceTypeRepository.ToggleDeviceTypeStatusAsync(DeviceId); 
             return RedirectToAction("DevicesTypes");
         }
 
@@ -304,7 +304,7 @@ namespace GameHubManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteDevice(int DeviceId)
+        public async Task<IActionResult> ToggleDeviceStatus(int DeviceId)
         {
             var device = await _deviceRepository.GetDevicesByIdAsync(DeviceId);
             if (device == null)
@@ -312,7 +312,7 @@ namespace GameHubManager.Controllers
                 return NotFound();
             }
 
-            await _deviceRepository.DeleteDeviceAsync(DeviceId);
+            await _deviceRepository.ToggleDeviceStatusAsync(DeviceId);
             return RedirectToAction("Devices");
         }
 
