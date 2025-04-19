@@ -69,7 +69,61 @@
 
   const doughnutChartInit=()=>{const{getColor:e,getData:t}=window.phoenix.utils,o=document.querySelector(".echart-doughnut-chart-example");if(o){const r=t(o,"echarts"),a=window.echarts.init(o);echartSetOption(a,r,(()=>({legend:{left:"left",textStyle:{color:e("gray-600")}},series:[{type:"pie",radius:["40%","70%"],center:["50%","55%"],avoidLabelOverlap:!1,label:{show:!1,position:"center"},labelLine:{show:!1},data:[{value:1200,name:"Facebook",itemStyle:{color:e("primary")}},{value:1e3,name:"Youtube",itemStyle:{color:e("danger")}},{value:800,name:"Twitter",itemStyle:{color:e("info")}},{value:600,name:"Linkedin",itemStyle:{color:e("success")}},{value:400,name:"Github",itemStyle:{color:e("warning")}}]}],tooltip:{trigger:"item",padding:[7,10],backgroundColor:e("gray-100"),borderColor:e("gray-300"),textStyle:{color:e("dark")},borderWidth:1,transitionDuration:0,axisPointer:{type:"none"}}})));}};
 
-  const doughnutRoundedChartInit=()=>{const{getColor:e,getData:t}=window.phoenix.utils,r=document.querySelector(".echart-doughnut-rounded-chart-example");if(r){const o=t(r,"echarts"),i=window.echarts.init(r);echartSetOption(i,o,(()=>({legend:{orient:"vertical",left:"left",textStyle:{color:e("gray-600")}},series:[{type:"pie",radius:["40%","70%"],center:window.innerWidth<530?["65%","55%"]:["50%","55%"],avoidLabelOverlap:!1,itemStyle:{borderRadius:10,borderColor:e("gray-100"),borderWidth:2},label:{show:!1,position:"center"},labelLine:{show:!1},data:[{value:1200,name:"Starter",itemStyle:{color:e("primary")}},{value:1e3,name:"Basic",itemStyle:{color:e("danger")}},{value:800,name:"Optimal",itemStyle:{color:e("info")}},{value:600,name:"Business",itemStyle:{color:e("success")}},{value:400,name:"Premium",itemStyle:{color:e("warning")}}]}],tooltip:{trigger:"item",padding:[7,10],backgroundColor:e("gray-100"),borderColor:e("gray-300"),textStyle:{color:e("dark")},borderWidth:1,transitionDuration:0,axisPointer:{type:"none"}}})),{xs:{series:[{center:["65%","55%"]}]},sm:{series:[{center:["50%","55%"]}]}});}};
+    const doughnutRoundedChartInit = () => {
+        const { getColor } = window.phoenix.utils;
+        const chartElement = document.querySelector('.echart-doughnut-rounded-chart-example');
+
+        if (chartElement) {
+            const chartInstance = window.echarts.init(chartElement);
+
+            const options = {
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    textStyle: {
+                        color: getColor('gray-600')
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        radius: ['40%', '70%'],
+                        center: window.innerWidth < 530 ? ['65%', '55%'] : ['50%', '55%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: getColor('gray-100'),
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: myData // Use your custom data here
+                    }
+                ],
+                tooltip: {
+                    trigger: 'item',
+                    padding: [7, 10],
+                    backgroundColor: getColor('gray-100'),
+                    borderColor: getColor('gray-300'),
+                    textStyle: {
+                        color: getColor('dark')
+                    },
+                    borderWidth: 1,
+                    transitionDuration: 0,
+                    axisPointer: {
+                        type: 'none'
+                    }
+                }
+            };
+
+            chartInstance.setOption(options);
+        }
+    };
 
   const pieMultipleChartInit=()=>{const{getColor:e,getData:t}=window.phoenix.utils,i=document.querySelector(".echart-pie-multiple-chart-example"),r=[{value:1048,name:"Starter",itemStyle:{color:e("danger")}},{value:735,name:"Basic",itemStyle:{color:e("primary")}},{value:580,name:"Optimal",itemStyle:{color:e("secondary")}},{value:484,name:"Business",itemStyle:{color:e("warning")}},{value:300,name:"Premium",itemStyle:{color:e("success")}},{value:300,name:"Platinum",itemStyle:{color:e("info")}}],a=[{value:1048,name:"Facebook",itemStyle:{color:e("primary")}},{value:735,name:"Youtube",itemStyle:{color:e("danger")}},{value:580,name:"Twitter",itemStyle:{color:e("info")}},{value:484,name:"Linkedin",itemStyle:{color:e("success")}},{value:300,name:"Github",itemStyle:{color:e("warning")}}];if(i){const o=t(i,"echarts"),l=window.echarts.init(i);echartSetOption(l,o,(()=>({title:[{text:"Pie Multiple Chart",left:"center",textStyle:{color:e("gray-600")}}],tooltip:{trigger:"item",padding:[7,10],backgroundColor:e("gray-100"),borderColor:e("gray-300"),textStyle:{color:e("dark")},borderWidth:1,transitionDuration:0,axisPointer:{type:"none"}},series:[{type:"pie",radius:window.innerWidth<450?"48%":"55%",center:["25%","50%"],data:r,label:{show:!1}},{type:"pie",radius:window.innerWidth<450?"48%":"55%",center:["75%","50%"],avoidLabelOverlap:!1,label:{show:!1},data:a}]})),{xs:{series:[{radius:"48%"},{radius:"48%"}]},sm:{series:[{radius:"55%"},{radius:"55%"}]}});}};
 

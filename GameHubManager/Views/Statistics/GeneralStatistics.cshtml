@@ -1,186 +1,284 @@
-﻿@{
+﻿@model StatisticsViewModel
+@{
 }
-<title>إحصائيات النظام</title>
-<style>
-    :root {
-        --primary-color: #0d6efd;
-        --info-color: #0dcaf0;
-        --success-color: #198754;
-    }
+<head>
+    
+</head>
+<body>
 
-    body {
-        font-family: Arial, sans-serif;
-    }
+    <div class="container-fluid flex-xxl-grow-1">
+        <div class="d-flex justify-content-center my-4">
+            <a asp-controller="Statistics" asp-action="StatisticSelection" class="btn btn-soft-info me-2 fs--1">
+                <i class="bi bi-arrow-left-circle me-1"></i> العودة للقائمة
+            </a>
+        </div>
 
-    .container {
-        max-width: 1200px;
-        padding-bottom: 60px;
-    }
-
-    .stats-header {
-        text-align: center;
-        margin-bottom: 30px;
-        color: #333;
-    }
-
-    .card-group {
-        display: grid;
-        gap: 20px;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    .card {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        overflow: hidden;
-    }
-
-    .card-header {
-        background-color: var(--info-color);
-        color: white;
-        padding: 12px 20px;
-        font-size: 1.1rem;
-    }
-
-        .card-header.success {
-            background-color: var(--success-color);
-        }
-
-    .btn-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 15px;
-    }
-
-    .btn {
-        display: block;
-        padding: 8px 15px;
-        text-decoration: none;
-        color: white;
-        border-radius: 5px;
-        transition: all 0.2s;
-        font-size: 0.9rem;
-    }
-
-    .btn-info {
-        background-color: var(--info-color);
-        border: 1px solid #0dcaf0;
-    }
-
-    .btn-infos {
-        background-color: var(--info-color);
-        border: 1px solid;
-        color: khaki;
-    }
-
-    .btn-success {
-        background-color: var(--success-color);
-        border: 1px solid #198754;
-    }
-
-    .btn:hover {
-        filter: brightness(90%);
-        transform: translateX(-3px);
-    }
-
-    footer {
-        margin-top: auto;
-    }
-
-</style>
-
-
-<div class="container">
-    <h2 class="stats-header">إحصائيات النظام</h2>
-    <a href="/Statistics/GeneralStatistics" class="btn btn-infos">احصائيات عامة</a>
-
-    <div class="card-group">
-        <!-- Profit Statistics -->
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-chart-line"></i> إحصائيات الأرباح
-            </div>
-            <div class="btn-list">
-
-                <a href="/Statistics/ProfitByCurrentMonth" class="btn btn-info">ربح هذا الشهر</a>
-                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ProfitByCertainPeroid">ربح خلال فترة معينة</a>
-                <a href="/Statistics/ProfitByToday" class="btn btn-info">ربح اليوم</a>
+        <div class="col-xl-6">
+            <div class="card shadow-none border border-300" data-component-card="data-component-card">
+                <div class="card-header p-4 border-bottom border-300 bg-soft">
+                    <div class="row g-3 justify-content-between align-items-center">
+                        <div class="col-12 col-md">
+                            <h4 class="text-900 mb-0" data-anchor="data-anchor" id="doughnut-rounded-chart">Doughnut rounded chart<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#doughnut-rounded-chart" style="padding-left: 0.375em;"></a></h4>
+                        </div>
+                        <div class="col col-md-auto">
+                            <nav class="nav nav-underline justify-content-end doc-tab-nav align-items-center" role="tablist"><button class="btn btn-link px-2 text-900 copy-code-btn" type="button"><svg class="svg-inline--fa fa-copy me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="copy" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M384 96L384 0h-112c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48H464c26.51 0 48-21.49 48-48V128h-95.1C398.4 128 384 113.6 384 96zM416 0v96h96L416 0zM192 352V128h-144c-26.51 0-48 21.49-48 48v288c0 26.51 21.49 48 48 48h192c26.51 0 48-21.49 48-48L288 416h-32C220.7 416 192 387.3 192 352z"></path></svg><!-- <span class="fas fa-copy me-1"></span> Font Awesome fontawesome.com -->Copy Code</button><a class="btn btn-sm btn-phoenix-primary code-btn ms-2 collapsed" data-bs-toggle="collapse" href="#doughnut-rounded-chart-code" role="button" aria-controls="doughnut-rounded-chart-code" aria-expanded="false"> <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-code me-2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>View code</a><a class="btn btn-sm btn-phoenix-primary preview-btn ms-2"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye me-2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>Preview</a></nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="collapse code-collapse" id="doughnut-rounded-chart-code">
+                        <pre class="scrollbar language-html" style="max-height:420px" tabindex="0"><code class="language-html"><span class="token comment">&lt;!-- Find the JS file for the following chart at: src/js/charts/echarts/examples/doughnut-rounded-chart.js--&gt;</span>
+<span class="token comment">&lt;!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/echarts-example.js--&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>echart-doughnut-rounded-chart-example<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">min-height</span><span class="token punctuation">:</span>320px</span><span class="token punctuation">"</span></span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+                    </div>
+                    <div class="p-4 code-to-copy">
+                        <!-- Find the JS file for the following chart at: src/js/charts/echarts/examples/doughnut-rounded-chart.js-->
+                        <!-- If you are not using gulp based workflow, you can find the transpiled code at: public/assets/js/echarts-example.js-->
+                        <div class="echart-doughnut-rounded-chart-example" style="min-height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); position: relative;" _echarts_instance_="ec_1745069570747"><div style="position: relative; width: 711px; height: 320px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="1066" height="480" style="position: absolute; left: 0px; top: 0px; width: 711px; height: 320px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div class="" style="position: absolute; display: block; border-style: solid; white-space: nowrap; z-index: 9999999; box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; background-color: rgb(34, 40, 52); border-width: 1px; border-radius: 4px; color: rgb(239, 242, 246); font: 14px / 21px &quot;Microsoft YaHei&quot;; padding: 7px 10px; top: 0px; left: 0px; transform: translate3d(427px, 215px, 0px); border-color: rgb(55, 62, 83); pointer-events: none; visibility: hidden; opacity: 0;"><div style="margin: 0px 0 0;line-height:1;"><div style="margin: 0px 0 0;line-height:1;"><span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:#85a9ff;"></span><span style="font-size:14px;color:#eff2f6;font-weight:400;margin-left:2px">Starter</span><span style="float:right;margin-left:20px;font-size:14px;color:#eff2f6;font-weight:900">1,200</span><div style="clear:both"></div></div><div style="clear:both"></div></div></div></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Reservation Statistics -->
-        <div class="card">
-            <div class="card-header success">
-                <i class="fas fa-calendar-check"></i> إحصائيات الحجوزات
-            </div>
-            <div class="btn-list">
-                <a href="/Statistics/ReservationByCurrentMonth" class="btn btn-success">حجوزات هذا الشهر</a>
-                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reservationPeriodModal"> حجوزات خلال فترة معينة </a>
-                <a href="/Statistics/ReservationByToday" class="btn btn-success">حجوزات اليوم</a>
+        <!-- TODAY RESERVATIONS -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="table-container" id="todayReservaionTable">
+                    <h5 class="table-title">حجوزات اليوم</h5>
+                    <div class="table-wrapper" data-list='{"valueNames":["Name","startTime","Due","Paid"],"page":6,"pagination":true}'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm fs--1 mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="sort text-center" data-sort="Name">اسم الجهاز</th>
+                                        <th class="sort text-center" data-sort="startTime">تاريخ الحجز</th>
+                                        <th class="sort text-center" data-sort="Due">سعر الحجز</th>
+                                        <th class="sort text-center" data-sort="Paid">المبلغ المأخوذ</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    @for (int i = 0; i < Model.ReservationsByToday.Count; i++)
+                                    {
+                                        var item = Model.ReservationsByToday[i];
+                                        var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                                        <tr class="@rowClass text-center">
+                                            <td class="Name">@item.Device.Name</td>
+                                            <td class="startTime">@item.StartTime.ToString("yyyy/MM/dd HH:mm")</td>
+                                            <td class="Due">@item.AmountDue</td>
+                                            <td class="Paid">@item.AmountPaid</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-active">
+                                        <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                                        <td class="text-danger fw-bold text-center">@Model.ReservationsByToday.Sum(s => s.AmountDue)</td>
+                                        <td class="text-danger fw-bold text-center">@Model.ReservationsByToday.Sum(s => s.AmountPaid)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-center small text-muted">تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="page-link" data-list-pagination="prev">
+                                <span class="fas fa-chevron-left"></span>
+                            </button>
+                            <ul class="pagination mb-0"></ul>
+                            <button class="page-link" data-list-pagination="next">
+                                <span class="fas fa-chevron-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- MONTHLY RESERVATIONS -->
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="table-container" id="monthlyReservationTable">
+                    <h5 class="table-title">حجوزات هذا الشهر</h5>
+                    <div class="table-wrapper" data-list='{"valueNames":["Name","startTime","Due","Paid"],"page":6,"pagination":true}'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm fs--1 mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="sort text-center" data-sort="Name">اسم الجهاز</th>
+                                        <th class="sort text-center" data-sort="startTime">تاريخ الحجز</th>
+                                        <th class="sort text-center" data-sort="Due">سعر الحجز</th>
+                                        <th class="sort text-center" data-sort="Paid">المبلغ المأخوذ</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    @for (int i = 0; i < Model.ReservationsByCurrentMonth.Count; i++)
+                                    {
+                                        var item = Model.ReservationsByCurrentMonth[i];
+                                        var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                                        <tr class="@rowClass text-center">
+                                            <td class="Name">@item.Device.Name</td>
+                                            <td class="startTime">@item.StartTime.ToString("yyyy/MM/dd HH:mm")</td>
+                                            <td class="Due">@item.AmountDue</td>
+                                            <td class="Paid">@item.AmountPaid</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-active">
+                                        <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                                        <td class="text-danger fw-bold">@Model.ReservationsByCurrentMonth.Sum(s => s.AmountDue)</td>
+                                        <td class="text-danger fw-bold">@Model.ReservationsByCurrentMonth.Sum(s => s.AmountPaid)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4" class="text-center small text-muted">تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                            <ul class="pagination mb-0"></ul>
+                            <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TODAY SALES -->
+            <div class="col-lg-6 mb-4">
+                <div class="table-container" id="salesTodayTable">
+                    <h5 class="table-title">مبيعات اليوم</h5>
+                    <div class="table-wrapper" data-list='{"valueNames":["item","date","price"],"page":6,"pagination":true}'>
+                        <table class="table table-striped table-sm fs--1 mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="sort text-center" data-sort="item">اسم المنتج</th>
+                                    <th class="sort text-center" data-sort="date">تاريخ الشراء</th>
+                                    <th class="sort text-center" data-sort="price">سعر المنتج</th>
+                                </tr>
+                            </thead>
+                            <tbody class="list">
+                                @for (int i = 0; i < Model.SalesByToday.Count; i++)
+                                {
+                                    var sale = Model.SalesByToday[i];
+                                    var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                                    <tr class="@rowClass text-center">
+                                        <td class="item">@sale.ItemName</td>
+                                        <td class="date">@sale.SaleDate.ToString("yyyy/MM/dd HH:mm")</td>
+                                        <td class="price">@sale.SoldPrice</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-active">
+                                    <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                                    <td class="text-danger fw-bold">@Model.SalesByToday.Sum(s => s.SoldPrice)</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-center small text-muted">تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                            <ul class="pagination mb-0"></ul>
+                            <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MONTHLY SALES -->
+        <div class="row">
+            <div class="col-12">
+                <div class="table-container" id="monthlySalesTable">
+                    <h5 class="table-title">مبيعات هذا الشهر</h5>
+                    <div class="table-wrapper" data-list='{"valueNames":["item","date","price"],"page":6,"pagination":true}'>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm fs--1 mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="sort text-center" data-sort="item">اسم المنتج</th>
+                                        <th class="sort text-center" data-sort="date">تاريخ الشراء</th>
+                                        <th class="sort text-center" data-sort="price">سعر المنتج</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list">
+                                    @for (int i = 0; i < Model.SalesByCurrentMonth.Count; i++)
+                                    {
+                                        var sale = Model.SalesByCurrentMonth[i];
+                                        var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                                        <tr class="@rowClass text-center">
+                                            <td class="item">@sale.ItemName</td>
+                                            <td class="date">@sale.SaleDate.ToString("yyyy/MM/dd HH:mm")</td>
+                                            <td class="price">@sale.SoldPrice</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-active">
+                                        <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                                        <td class="text-danger fw-bold">@Model.SalesByCurrentMonth.Sum(s => s.SoldPrice)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="text-center small text-muted">تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                            <ul class="pagination mb-0"></ul>
+                            <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                        </div>
+                         </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tables = [
+                { id: 'todayReservaionTable', names: ['Name', 'startTime', 'Due', 'Paid'] },
+                { id: 'monthlyReservationTable', names: ['Name', 'startTime', 'Due', 'Paid'] },
+                { id: 'salesTodayTable', names: ['item', 'date', 'price'] },
+                { id: 'monthlySalesTable', names: ['item', 'date', 'price'] }
+            ];
+            tables.forEach(table => {
+                new List(table.id, {
+                    valueNames: table.names,
+                    page: 6,
+                    pagination: true
+                });
+            });
+        });
+    </script>
+  
+     <script>  const myData = [
+                    { value: @Model.SalesByToday.Sum(s =>s.SoldPrice), name: 'مبيعات اليوم', itemStyle: { color: '#FFD700' } }
+                             ];
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          doughnutRoundedChartInit();
+        });
+    </script>
 
-<div class="modal fade" id="reservationPeriodModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-            </div>
-            <div class="modal-body">
-                <form asp-controller="Statistics" asp-action="ReservationByCertainPeriod" method="post" enctype="multipart/form-data">
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">تاريخ الأول:</label>
-                        <input type="datetime-local" class="form-control" name="firstDate">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">تاريخ ثاني:</label>
-                        <input type="datetime-local" class="form-control" name="SecondDate">
-                    </div>
-
-                    <div class="col-md-4 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-filter me-2"></i>إظهار
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="ProfitByCertainPeroid" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-            </div>
-            <div class="modal-body">
-                <form asp-controller="Statistics" asp-action="ProfitByCertainPeroid" method="post" enctype="multipart/form-data">
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">تاريخ الأول:</label>
-                        <input type="datetime-local" class="form-control" name="firstDate">
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">تاريخ ثاني:</label>
-                        <input type="datetime-local" class="form-control" name="SecondDate">
-                    </div>
-
-                    <div class="col-md-4 d-flex align-items-end">
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-filter me-2"></i>إظهار
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Required scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="../../vendors/popper/popper.min.js"></script>
+    <script src="../../vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="../../vendors/anchorjs/anchor.min.js"></script>
+    <script src="../../vendors/fontawesome/all.min.js"></script>
+    <script src="../../vendors/lodash/lodash.min.js"></script>
+    <script src="../../vendors/feather-icons/feather.min.js"></script>
+    <script src="../../vendors/dayjs/dayjs.min.js"></script>
+    <script src="../../vendors/prism/prism.js"></script>
+    <script src="../../assets/js/phoenix.js"></script>
+    <script src="../../assets/js/echarts-example.js"></script>
+    <script src="../../vendors/echarts/echarts.min.js"></script>
+</body>

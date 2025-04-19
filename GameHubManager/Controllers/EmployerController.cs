@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using System.Threading.Tasks;
 
 namespace GameHubManager.Controllers
 {
@@ -33,9 +35,14 @@ namespace GameHubManager.Controllers
             _devicePriceRepository = devicePriceRepository;
         }
 
-        public IActionResult Dashboard()
+        public async Task<IActionResult> Dashboard()
         {
-            return View();
+            EmployerDashboardViewModel model = new EmployerDashboardViewModel() { 
+            SaleItems = await _saleRepository.GetAllSalesAsync(),
+            Users = await _userManager.Users.ToListAsync(),
+            Devices = await _deviceRepository.GetAllDevicesAsync()
+            };
+            return View(model);
         }
 
         [HttpPost]

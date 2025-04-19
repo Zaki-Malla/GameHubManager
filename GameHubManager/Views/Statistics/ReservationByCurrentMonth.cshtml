@@ -1,43 +1,71 @@
 ﻿@model List<ReservationModel>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+   
 }
-<div class="table-responsive">
-    <table class="table table-striped table-hover table-bordered">
-        <thead class="table-dark" id="table">
-            <tr>
-                <th class="text-center">اسم الجهاز</th>
-                <th class="text-center">تاريخ الحجز</th>
-                <th class="text-center">سعر الحجز</th>
-                <th class="text-center">المبلغ المأخوذ</th>
-            </tr>
-        </thead>
 
-        <tbody id="table">
-            @foreach (var Reservations in Model)
-            {
-                <tr>
-                    <td>@Reservations.Device.Name</td>
-                    <td>@Reservations.StartTime.ToString("yyyy/MM/dd HH:mm")</td>
-                    <td>@Reservations.AmountDue</td>
-                    <td>@Reservations.AmountPaid</td>
-                </tr>
-            }
-        </tbody>
-        <tfoot class="table-group-divider" id="table">
-            <tr class="table-active">
-                <td colspan="2" class="text-end fw-bold">المجموع:</td>
-                <td class="fw-bold text-danger">@Model.Sum(s => s.AmountDue)</td>
-                <td class="fw-bold text-danger">@Model.Sum(s => s.AmountPaid)</td>
+<body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
+    <div class="container mt-4 flex-grow-1">
 
-            </tr>
-            <tr>
-                <td colspan="4" class="text-center small text-muted">
-                    تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+        <div class="d-flex justify-content-center gap-3 mb-4">
+            <a asp-controller="Statistics" asp-action="StatisticSelection" class="btn btn-soft-info me-2 fs--1">
+                <i class="bi bi-arrow-left-circle me-1"></i> العودة للقائمة
+            </a>
+        </div>
+
+    <!-- Title -->
+    <h3 class="section-title text-center mb-4">تقرير الحجوزات</h3>
+
+    <!-- Table -->
+    <div id="reservationsTable" data-list='{"valueNames":["device","date","price","paid"],"page":10}'>
+        <div class="table-responsive">
+            <table class="table table-striped table-sm fs--1 mb-0">
+                <thead>
+                    <tr>
+                        <th class="sort border-top py-2 text-center" data-sort="device">اسم الجهاز</th>
+                        <th class="sort border-top py-2 text-center" data-sort="date">تاريخ الحجز</th>
+                        <th class="sort border-top py-2 text-center" data-sort="price">سعر الحجز</th>
+                        <th class="sort border-top py-2 text-center" data-sort="paid">المبلغ المأخوذ</th>
+                    </tr>
+                </thead>
+
+                <tbody class="list">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                        <tr class="@rowClass">
+                            <td class="device align-middle text-center">@Model[i].Device.Name</td>
+                            <td class="date align-middle text-center">@Model[i].StartTime.ToString("yyyy/MM/dd HH:mm")</td>
+                            <td class="price align-middle text-center">@Model[i].AmountDue</td>
+                            <td class="paid align-middle text-center">@Model[i].AmountPaid</td>
+                        </tr>
+                    }
+                </tbody>
+
+                    <tfoot>
+                        <tr class="bg-white bg-opacity-10">
+                            <td colspan="2" class="text-end fw-bold">المجموع:</td>
+                            <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountDue)</td>
+                            <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountPaid)</td>
+                        </tr>
+                        
+                        <tr>
+                            <td colspan="3" class="small text-muted text-center">
+                                <i class="bi bi-clock-history me-2"></i>
+                                تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
+                            </td>
+                        </tr>
+                    </tfoot>
+
+            </table>
+        </div>
+
+            <div class="d-flex justify-content-center mt-3">
+                <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                <ul class="mb-0 pagination"></ul>
+                <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+            </div>
+    </div>
 </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+</body>
