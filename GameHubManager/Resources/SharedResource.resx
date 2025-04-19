@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="activate" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="AddAnotherItem" xml:space="preserve">
+    <value>Add Another Item</value>
+  </data>
+  <data name="addNewDevice" xml:space="preserve">
+    <value>Add New Device</value>
+  </data>
+  <data name="addNewDeviceType" xml:space="preserve">
+    <value>Add New Device Type</value>
+  </data>
+  <data name="addNewItem" xml:space="preserve">
+    <value>Add New Item</value>
+  </data>
+  <data name="addNewPrice" xml:space="preserve">
+    <value>Add New Price</value>
+  </data>
+  <data name="adminDashboard" xml:space="preserve">
+    <value>Admin Dashboard</value>
+  </data>
+  <data name="AmountDue" xml:space="preserve">
+    <value>Amount Due</value>
+  </data>
+  <data name="amountDueForEachDevice" xml:space="preserve">
+    <value>Amount due for each device:</value>
+  </data>
+  <data name="AmountDuePerDevice" xml:space="preserve">
+    <value>Amount Due Per Device</value>
+  </data>
+  <data name="AmountPaid" xml:space="preserve">
+    <value>Amount Paid</value>
+  </data>
+  <data name="amountPaidForAllDevices" xml:space="preserve">
+    <value>Amount paid for all devices:</value>
+  </data>
+  <data name="amountPaidForEachDevice" xml:space="preserve">
+    <value>Amount paid for each device:</value>
+  </data>
+  <data name="amountToBeRefunded" xml:space="preserve">
+    <value>Amount to be refunded:</value>
+  </data>
+  <data name="amountToBeRefundedForAllDevices" xml:space="preserve">
+    <value>Amount to be refunded for all devices:</value>
+  </data>
+  <data name="amountToBeRefundedPerDevice" xml:space="preserve">
+    <value>Amount to be refunded per device:</value>
+  </data>
+  <data name="areYouSureYouWantToDeleteThisDevice" xml:space="preserve">
+    <value>Are you sure you want to delete this device?</value>
+  </data>
+  <data name="audioNotPlayedReason" xml:space="preserve">
+    <value>Audio was not played because:</value>
+  </data>
+  <data name="availableDevices" xml:space="preserve">
+    <value>Available Devices:</value>
+  </data>
+  <data name="AvailableQuantity" xml:space="preserve">
+    <value>Available Quantity:</value>
+  </data>
+  <data name="backToHomeScreen" xml:space="preserve">
+    <value>Back to Home Screen</value>
+  </data>
+  <data name="biscuits" xml:space="preserve">
+    <value>Biscuits</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="chooseCategory" xml:space="preserve">
+    <value>Choose Category</value>
+  </data>
+  <data name="chooseDeviceType" xml:space="preserve">
+    <value>Choose Device Type</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="closeReservation" xml:space="preserve">
+    <value>Close Reservation</value>
+  </data>
+  <data name="coldDrinks" xml:space="preserve">
+    <value>Cold Drinks</value>
+  </data>
+  <data name="colorScheme" xml:space="preserve">
+    <value>Color Scheme</value>
+  </data>
+  <data name="completeReservationNow" xml:space="preserve">
+    <value>Complete the reservation now</value>
+  </data>
+  <data name="ConfirmClose" xml:space="preserve">
+    <value>Confirm Close</value>
+  </data>
+  <data name="ConfirmGroupReservation" xml:space="preserve">
+    <value>Confirm Group Reservation</value>
+  </data>
+  <data name="ConfirmReservation" xml:space="preserve">
+    <value>Confirm Reservation</value>
+  </data>
+  <data name="ConfirmSale" xml:space="preserve">
+    <value>Confirm Sale</value>
+  </data>
+  <data name="containsControllers" xml:space="preserve">
+    <value>Does it contain controllers?</value>
+  </data>
+  <data name="controllers" xml:space="preserve">
+    <value>Controllers</value>
+  </data>
+  <data name="copyrightNotice" xml:space="preserve">
+    <value>© 2025 Zaki Malla. All rights reserved. Unauthorized use or distribution is prohibited.</value>
+  </data>
+  <data name="currentQuantity" xml:space="preserve">
+    <value>Current Quantity</value>
+  </data>
+  <data name="customize" xml:space="preserve">
+    <value>customize</value>
+  </data>
+  <data name="dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="deleteDeviceTypeConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete this type?</value>
+  </data>
+  <data name="deviceList" xml:space="preserve">
+    <value>Device List</value>
+  </data>
+  <data name="DeviceName" xml:space="preserve">
+    <value>Device Name</value>
+  </data>
+  <data name="devicePriceList" xml:space="preserve">
+    <value>Device Price List</value>
+  </data>
+  <data name="deviceReservationEnded" xml:space="preserve">
+    <value>Device reservation has ended:</value>
+  </data>
+  <data name="devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="deviceType" xml:space="preserve">
+    <value>Device Type</value>
+  </data>
+  <data name="deviceTypeList" xml:space="preserve">
+    <value>Device Type List</value>
+  </data>
+  <data name="deviceTypeName" xml:space="preserve">
+    <value>Device Type Name</value>
+  </data>
+  <data name="deviceTypes" xml:space="preserve">
+    <value>Device Types</value>
+  </data>
+  <data name="edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="editDevice" xml:space="preserve">
+    <value>Edit Device</value>
+  </data>
+  <data name="editDeviceType" xml:space="preserve">
+    <value>Edit Device Type</value>
+  </data>
+  <data name="editPrice" xml:space="preserve">
+    <value>Edit Price</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="endTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="errorClosingReservation" xml:space="preserve">
+    <value>An error occurred while closing the reservation.</value>
+  </data>
+  <data name="errorCompletingReservation" xml:space="preserve">
+    <value>An error occurred while completing the reservation.</value>
+  </data>
+  <data name="errorConnectingToServer" xml:space="preserve">
+    <value>An error occurred while connecting to the server.</value>
+  </data>
+  <data name="errorDuringSale" xml:space="preserve">
+    <value>An error occurred during the sale!</value>
+  </data>
+  <data name="errorPriceMessage" xml:space="preserve">
+    <value>You must enter a price greater than 0</value>
+  </data>
+  <data name="errorQuantityMessage" xml:space="preserve">
+    <value>You must enter a quantity greater than 0</value>
+  </data>
+  <data name="exploreStyles" xml:space="preserve">
+    <value>Explore different styles according to your preferences</value>
+  </data>
+  <data name="gameHourPrice" xml:space="preserve">
+    <value>Game Hour Price</value>
+  </data>
+  <data name="groupReservationForPCs" xml:space="preserve">
+    <value>Group Reservation for PCs</value>
+  </data>
+  <data name="hotDrinks" xml:space="preserve">
+    <value>Hot Drinks</value>
+  </data>
+  <data name="hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="hourlyRate" xml:space="preserve">
+    <value>Hourly Rate</value>
+  </data>
+  <data name="hourlyRateForDevice" xml:space="preserve">
+    <value>Hourly rate for the device:</value>
+  </data>
+  <data name="hourlyRateNotSet" xml:space="preserve">
+    <value>Hourly rate not set</value>
+  </data>
+  <data name="image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="indomi" xml:space="preserve">
+    <value>Indomi</value>
+  </data>
+  <data name="IsReservationOpen" xml:space="preserve">
+    <value>Is the reservation open?</value>
+  </data>
+  <data name="ItemName" xml:space="preserve">
+    <value>Item Name</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="lira" xml:space="preserve">
+    <value>Lira</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="loginAccessDashboard" xml:space="preserve">
+    <value>Log in to access your dashboard.</value>
+  </data>
+  <data name="loginWithEmail" xml:space="preserve">
+    <value>Login with email</value>
+  </data>
+  <data name="logOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="manageMenuItemTypes" xml:space="preserve">
+    <value>Manage Menu Item Types</value>
+  </data>
+  <data name="mealName" xml:space="preserve">
+    <value>Meal Name</value>
+  </data>
+  <data name="minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="mustSelectAtLeastOneDevice" xml:space="preserve">
+    <value>You must select at least one device.</value>
+  </data>
+  <data name="newQuantity" xml:space="preserve">
+    <value>Enter the quantity to be added</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoAvailableDevices" xml:space="preserve">
+    <value>No Available Devices</value>
+  </data>
+  <data name="noControllers" xml:space="preserve">
+    <value>No Controllers</value>
+  </data>
+  <data name="noDevicesAvailable" xml:space="preserve">
+    <value>No devices are currently available.</value>
+  </data>
+  <data name="notSpecifiedYet" xml:space="preserve">
+    <value>Not Specified Yet</value>
+  </data>
+  <data name="noTypesRegistered" xml:space="preserve">
+    <value>No types registered</value>
+  </data>
+  <data name="NumberOfAvailableDevices" xml:space="preserve">
+    <value>Number of Available Devices:</value>
+  </data>
+  <data name="NumberOfControllers" xml:space="preserve">
+    <value>Number Of Controllers</value>
+  </data>
+  <data name="numberOfDevices" xml:space="preserve">
+    <value>Number of devices:</value>
+  </data>
+  <data name="numberOfMinutesPlayedSoFar" xml:space="preserve">
+    <value>Number of minutes played so far:</value>
+  </data>
+  <data name="numberOfMinutesReserved" xml:space="preserve">
+    <value>Number of minutes reserved:</value>
+  </data>
+  <data name="NumberOfMinutesUsed" xml:space="preserve">
+    <value>Number Of Minutes Used:</value>
+  </data>
+  <data name="NumberOfPlayMinutes" xml:space="preserve">
+    <value>Number of Play Minutes</value>
+  </data>
+  <data name="NumberOfSelectedControllers" xml:space="preserve">
+    <value>Number Of Selected Controllers:</value>
+  </data>
+  <data name="NumberOfUnits" xml:space="preserve">
+    <value>Number of Units</value>
+  </data>
+  <data name="openReservation" xml:space="preserve">
+    <value>Open Reservation</value>
+  </data>
+  <data name="operationFailed" xml:space="preserve">
+    <value>The operation failed!</value>
+  </data>
+  <data name="operationSuccessful" xml:space="preserve">
+    <value>The operation was successful!</value>
+  </data>
+  <data name="options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="perHour" xml:space="preserve">
+    <value>Per Hour</value>
+  </data>
+  <data name="pleaseEnterValidPaymentAmount" xml:space="preserve">
+    <value>Please enter a valid amount for the payment.</value>
+  </data>
+  <data name="price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="priceListOfDeviceTypes" xml:space="preserve">
+    <value>Price List of Device Types</value>
+  </data>
+  <data name="PricePerUnit" xml:space="preserve">
+    <value>Price per Unit:</value>
+  </data>
+  <data name="quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="quantityAfterAddition" xml:space="preserve">
+    <value>Quantity After Addition</value>
+  </data>
+  <data name="remainingTime" xml:space="preserve">
+    <value>Remaining Time:</value>
+  </data>
+  <data name="renewQuantity" xml:space="preserve">
+    <value>Renew Quantity</value>
+  </data>
+  <data name="reservationIsOpen" xml:space="preserve">
+    <value>Reservation is open</value>
+  </data>
+  <data name="ReserveDevice" xml:space="preserve">
+    <value>Reserve Device</value>
+  </data>
+  <data name="reserveNow" xml:space="preserve">
+    <value>Reserve Now</value>
+  </data>
+  <data name="resetToDefault" xml:space="preserve">
+    <value>Reset to default</value>
+  </data>
+  <data name="saleCompletedSuccessfully" xml:space="preserve">
+    <value>Sale completed successfully!</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectAvailableDevices" xml:space="preserve">
+    <value>Please select the available devices (unreserved PCs):</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Select Category</value>
+  </data>
+  <data name="selectedReservationDetails" xml:space="preserve">
+    <value>Selected reservation details:</value>
+  </data>
+  <data name="selectGroupReservation" xml:space="preserve">
+    <value>Select Group Reservation</value>
+  </data>
+  <data name="SelectItem" xml:space="preserve">
+    <value>Select Item</value>
+  </data>
+  <data name="SellMultipleItems" xml:space="preserve">
+    <value>Sell Multiple Items</value>
+  </data>
+  <data name="sellNewItemFromFridge" xml:space="preserve">
+    <value>Sell New Item from Fridge</value>
+  </data>
+  <data name="setPlayPriceFirst" xml:space="preserve">
+    <value>You must set the play price before making a reservation.</value>
+  </data>
+  <data name="setThePrice" xml:space="preserve">
+    <value>Set the price</value>
+  </data>
+  <data name="startTime" xml:space="preserve">
+    <value>Start Time:</value>
+  </data>
+  <data name="themeCustomizer" xml:space="preserve">
+    <value>Theme Customizer</value>
+  </data>
+  <data name="thereAreControllers" xml:space="preserve">
+    <value>There Are Controllers</value>
+  </data>
+  <data name="TotalAmountDueForAllDevices" xml:space="preserve">
+    <value>Total Amount Due for All Devices</value>
+  </data>
+  <data name="totalAmountForAllDevices" xml:space="preserve">
+    <value>Total amount for all devices:</value>
+  </data>
+  <data name="updatePrice" xml:space="preserve">
+    <value>Update Price</value>
+  </data>
+  <data name="uploadImage" xml:space="preserve">
+    <value>Upload Image</value>
+  </data>
+  <data name="viewGroupReservations" xml:space="preserve">
+    <value>View Group Reservations</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Welcome back! 🎉😊</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+</root>

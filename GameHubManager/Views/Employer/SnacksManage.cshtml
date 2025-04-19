@@ -1,52 +1,149 @@
 ﻿@model List<MenuItemModel>
-
 @{
-    ViewData["Title"] = "إدارة أنواع الوجبات || GameHub Manager";
+    ViewData["Title"] = SharedResource.manageMenuItemTypes + " || GameHub Manager";
 }
 
 <body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
     <div class="container mt-5 flex-grow-1">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addMenuItemModal">إضافة عنصر جديد</button>
-
-            <a href="/Employer/Dashboard" class="btn btn-secondary">العودة إلى الشاشة الرئيسية</a>
+        <div class="position-relative mb-4">
+            <h3 class="section-title text-center m-0">@SharedResource.manageMenuItemTypes</h3>
+            <div class="position-absolute end-0 top-50 translate-middle-y">
+                <button class="btn btn-soft-success px-4" data-bs-toggle="modal" data-bs-target="#addMenuItemModal">
+                    <i class="bi bi-plus-circle me-1"></i> @SharedResource.AddAnotherItem
+                </button>
+            </div>
         </div>
 
-        <table class="table table-striped table-hover text-center">
-            <thead>
-                <tr>
-                    <th>اسم الوجبة</th>
-                    <th>التصنيف</th>
-                    <th>الكمية</th>
-                    <th>السعر</th>
-                    <th>خيارات</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var menuItem in Model)
-                {
-                    <tr>
-                        <td>@menuItem.Name</td>
-                        <td>@menuItem.Category</td>
-                        <td id="quantity-@menuItem.Id">@menuItem.Quantity</td>
-                        <td id="price-@menuItem.Id">@menuItem.Price</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" onclick="openUpdateQuantityModal(@menuItem.Id, @menuItem.Quantity)">تجديد الكمية</button>
+        <div id="snackTable" data-list='{"valueNames":["index","name","category","quantity","price"],"page":15,"pagination":{"innerWindow":2,"left":1,"right":1}}'>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm fs--1 mb-0">
+                    <thead>
+                        <tr>
+                            <th class="sort border-top" data-sort="index">#</th>
+                            <th class="sort border-top" data-sort="name">@SharedResource.mealName</th>
+                            <th class="sort border-top" data-sort="category">@SharedResource.Category</th>
+                            <th class="sort border-top" data-sort="quantity">@SharedResource.quantity</th>
+                            <th class="sort border-top" data-sort="price">@SharedResource.price</th>
+                            <th class="border-top text-end">@SharedResource.options</th>
+                        </tr>
+                    </thead>
+                    <tbody class="list text-center">
+                        @for (int i = 0; i < Model.Count; i++)
+                        {
+                            var item = Model[i];
+                            var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
+                            <tr class="@rowClass">
+                                <td class="index align-middle">@((i + 1))</td>
+                                <td class="name align-middle">@item.Name</td>
+                                <td class="category align-middle">@item.Category</td>
+                                <td class="quantity align-middle">@item.Quantity</td>
+                                <td class="price align-middle">@item.Price</td>
+                                <td class="align-middle text-end">
+                                    <button class="btn btn-soft-warning btn-sm me-1" onclick="openUpdateQuantityModal(@item.Id, @item.Quantity)">@SharedResource.renewQuantity</button>
+                                    <button class="btn btn-soft-info btn-sm" onclick="openPriceModal(@item.Id, @item.Price)">@SharedResource.editPrice</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                <ul class="mb-0 pagination"></ul>
+                <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+            </div>
 
-                            <button class="btn btn-info btn-sm" onclick="openPriceModal(@menuItem.Id, @menuItem.Price)">تعديل السعر</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            <div class="d-flex justify-content-center gap-3 mt-3 mb-4">
+                <a href="/Employer/Dashboard" class="btn btn-soft-info me-2">@SharedResource.backToHomeScreen</a>
+            </div>
+        </div>
     </div>
 
-    <div class="modal fade" id="updatePriceModal" tabindex="-1" aria-labelledby="priceModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addMenuItemModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content shadow-sm">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="priceModalLabel">تعديل السعر</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                    <h5 class="modal-title">@SharedResource.addNewItem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Employer" asp-action="AddMenuItem" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.mealName</label>
+                            <input type="text" class="form-control" name="Name" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.Category</label>
+                            <select class="form-select" name="Category" required>
+                                <option value="">@SharedResource.chooseCategory</option>
+                                <option value="hotDrinks">@SharedResource.hotDrinks</option>
+                                <option value="coldDrinks">@SharedResource.coldDrinks</option>
+                                <option value="biscuits">@SharedResource.biscuits</option>
+                                <option value="indomi">@SharedResource.indomi</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.quantity</label>
+                            <input type="number" class="form-control" name="Quantity" required min="0" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.price</label>
+                            <input type="number" class="form-control" name="Price" required min="0" step="0.01" />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">@SharedResource.save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updateQuantityModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content shadow-sm">
+                <div class="modal-header">
+                    <h5 class="modal-title">@SharedResource.renewQuantity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateQuantityForm" method="post" asp-controller="Employer" asp-action="UpdateQuantity">
+                        <input type="hidden" id="menuItemId2" name="menuItemId2" />
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.newQuantity</label>
+                            <input type="number" id="newQuantity" class="form-control" name="newQuantity" required min="1" oninput="calculateUpdatedQuantity()" />
+                            <div id="error-message" class="text-danger d-none">@SharedResource.errorQuantityMessage</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.currentQuantity</label>
+                            <p id="currentQuantity" class="form-control bg-light text-dark"></p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">@SharedResource.quantityAfterAddition</label>
+                            <p id="updatedQuantity" class="form-control bg-danger text-white fw-bold"></p>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">@SharedResource.save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updatePriceModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content shadow-sm">
+                <div class="modal-header">
+                    <h5 class="modal-title">@SharedResource.updatePrice</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="updatePriceForm" method="post" asp-controller="Employer" asp-action="UpdatePrice">
@@ -54,9 +151,12 @@
                         <div class="mb-3">
                             <label class="form-label">السعر الجديد</label>
                             <input type="number" id="newPrice" class="form-control" name="newPrice" required min="500" />
-                            <div id="price-error-message" class="text-danger" style="display: none;">يجب إدخال سعر أكبر من 0</div>
+                            <div id="price-error-message" class="text-danger d-none">@SharedResource.errorPriceMessage</div>
                         </div>
-                        <button type="submit" class="btn btn-primary">حفظ</button>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">@SharedResource.save</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -72,116 +172,14 @@
             var modal = new bootstrap.Modal(document.getElementById('updatePriceModal'));
             modal.show();
         }
-    </script>
 
-    <div class="modal fade" id="addMenuItemModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">إضافة عنصر جديد</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-                </div>
-                <div class="modal-body">
-                    <form asp-controller="Employer" asp-action="AddMenuItem" method="post">
-                        <div class="mb-3">
-                            <label class="form-label">اسم الوجبة</label>
-                            <input type="text" class="form-control" name="Name" required />
-                            @if (ViewData.ModelState.ContainsKey("Name") && ViewData.ModelState["Name"]?.Errors.Count > 0)
-                            {
-                                <div class="text-danger">
-                                    @ViewData.ModelState["Name"]?.Errors[0]?.ErrorMessage
-                                </div>
-                            }
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">التصنيف</label>
-                            <select class="form-select" name="Category" required>
-                                <option value="">اختر التصنيف</option>
-                                <option value="hotDrinks">مشاريب ساخنة</option>
-                                <option value="coldDrinks">مشاريب باردة</option>
-                                <option value="biscuits">بسكويت</option>
-                                <option value="indomi">اندومي</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">الكمية</label>
-                            <input type="number" class="form-control" name="Quantity" required min="0" />
-                            @if (ViewData.ModelState.ContainsKey("Quantity") && ViewData.ModelState["Quantity"]?.Errors.Count > 0)
-                            {
-                                <div class="text-danger">
-                                    @ViewData.ModelState["Quantity"]?.Errors[0]?.ErrorMessage
-                                </div>
-                            }
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">السعر</label>
-                            <input type="number" class="form-control" name="Price" required min="0" step="0.01" />
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">حفظ</button>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        @if (ViewData.ModelState.ContainsKey("Name") && ViewData.ModelState["Name"]?.Errors.Count > 0 ||
-            ViewData.ModelState.ContainsKey("Quantity") && ViewData.ModelState["Quantity"]?.Errors.Count > 0)
-        {
-            <text>
-                        $(document).ready(function() {
-                            $('#addMenuItemModal').modal('show');
-                        });
-            </text>
-        }
-    </script>
-
-    <div class="modal fade" id="updateQuantityModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">تجديد الكمية</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="updateQuantityForm" method="post" asp-controller="Employer" asp-action="UpdateQuantity">
-                        <input type="hidden" id="menuItemId2" name="menuItemId2" />
-                        <div class="mb-3">
-                            <label class="form-label">أدخل الكمية المراد إضافتها</label>
-                            <input type="number" id="newQuantity" class="form-control" name="newQuantity" required min="1" oninput="calculateUpdatedQuantity()" />
-                            <div id="error-message" class="text-danger" style="display: none;">يجب إدخال كمية أكبر من 0</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">الكمية الحالية</label>
-                            <p id="currentQuantity" class="form-control bg-light text-dark"></p>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">الكمية بعد الإضافة</label>
-                            <p id="updatedQuantity" class="form-control bg-danger text-white fw-bold"></p>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">حفظ</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
         function openUpdateQuantityModal(id, currentQuantity) {
             document.getElementById("menuItemId2").value = id;
             document.getElementById("currentQuantity").textContent = currentQuantity;
             document.getElementById("currentQuantity").dataset.value = currentQuantity;
-            document.getElementById("updatedQuantity").textContent = currentQuantity; 
-            document.getElementById("newQuantity").value = ""; 
-            document.getElementById("error-message").style.display = "none"; 
+            document.getElementById("updatedQuantity").textContent = currentQuantity;
+            document.getElementById("newQuantity").value = "";
+            document.getElementById("error-message").style.display = "none";
 
             var modal = new bootstrap.Modal(document.getElementById('updateQuantityModal'));
             modal.show();
@@ -195,11 +193,10 @@
             document.getElementById("updatedQuantity").textContent = updatedQuantity;
 
             if (newQuantity < 1) {
-                document.getElementById("error-message").style.display = "block";
+                document.getElementById("error-message").classList.remove("d-none");
             } else {
-                document.getElementById("error-message").style.display = "none";
+                document.getElementById("error-message").classList.add("d-none");
             }
         }
     </script>
-
 </body>

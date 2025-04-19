@@ -19,6 +19,7 @@ namespace GameHubManager.Repositories
         .Include(d => d.DeviceType)
             .ThenInclude(dt => dt.DevicePrice)
         .Include(d => d.Reservations)
+        .OrderBy(d => d.DeviceType)
         .Select(d => new DeviceViewModel
         {
             Device = new DeviceModel
@@ -26,6 +27,7 @@ namespace GameHubManager.Repositories
                 Id = d.Id,
                 Name = d.Name,
                 DeviceType = d.DeviceType,
+                IsActive = d.IsActive,
                 Reservations = d.Reservations
             },
             ActiveReservation = d.Reservations
@@ -64,12 +66,13 @@ namespace GameHubManager.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteDeviceAsync(int id)
+        public async Task ToggleDeviceStatusAsync(int id)
         {
             var device = await _context.Devices.FindAsync(id);
             if (device != null)
             {
-                _context.Devices.Remove(device);
+                device.IsActive = !device.IsActive;
+                _context.Devices.Update(device);
                 await _context.SaveChangesAsync();
             }
         }

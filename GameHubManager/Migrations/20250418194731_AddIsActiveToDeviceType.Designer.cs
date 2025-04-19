@@ -3,6 +3,7 @@ using System;
 using GameHubManager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DSV2.Migrations
 {
     [DbContext(typeof(DSContext))]
-    partial class DSContextModelSnapshot : ModelSnapshot
+    [Migration("20250418194731_AddIsActiveToDeviceType")]
+    partial class AddIsActiveToDeviceType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -24,9 +27,6 @@ namespace DSV2.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("DeviceTypeId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
@@ -462,8 +462,7 @@ namespace DSV2.Migrations
 
                     b.HasOne("GameHubManager.Models.GroupReservationModel", "GroupReservation")
                         .WithMany("Reservations")
-                        .HasForeignKey("GroupReservationId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("GroupReservationId");
 
                     b.HasOne("GameHubManager.Models.UserModel", "User")
                         .WithMany()

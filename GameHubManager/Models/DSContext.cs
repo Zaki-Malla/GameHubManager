@@ -58,7 +58,11 @@ namespace GameHubManager.Models
                 .HasForeignKey(r => r.DeviceId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
+            modelBuilder.Entity<ReservationModel>()
+       .HasOne(r => r.GroupReservation)
+       .WithMany(g => g.Reservations)
+       .HasForeignKey(r => r.GroupReservationId)
+       .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
