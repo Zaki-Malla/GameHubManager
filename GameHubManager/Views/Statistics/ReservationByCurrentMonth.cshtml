@@ -47,14 +47,14 @@
                             <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountDue)</td>
                             <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountPaid)</td>
                         </tr>
-                        
                         <tr>
-                            <td colspan="3" class="small text-muted text-center">
+                            <td colspan="4" class="small text-muted text-center">
                                 <i class="bi bi-clock-history me-2"></i>
                                 تاريخ التحديث: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
                             </td>
                         </tr>
                     </tfoot>
+
 
             </table>
         </div>
@@ -66,6 +66,5 @@
             </div>
     </div>
 </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+   
 </body>
