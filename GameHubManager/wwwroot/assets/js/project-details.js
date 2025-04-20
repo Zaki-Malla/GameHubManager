@@ -12,4 +12,3 @@
   const{docReady:docReady}=window.phoenix.utils;docReady(completedTaskChartInit),docReady(topCouponsChartInit);
 
 }));
-//# sourceMappingURL=project-details.js.map

@@ -20,18 +20,6 @@ namespace GameHubManager.Repositories
             return await _context.Reservations
            .Where(r => r.StartTime >= FirstDate && r.StartTime <= SecondDate)
            .Include(r => r.Device)
-            .Select(d => new ReservationModel
-            {
-                Device = new DeviceModel
-                {
-                    Name = d.Device.Name
-                },
-                AmountPaid = d.AmountPaid,
-                AmountDue = d.AmountDue,
-                StartTime = d.StartTime
-
-
-            })
            .ToListAsync();
         }
 
@@ -39,13 +27,6 @@ namespace GameHubManager.Repositories
         {
             return await _context.MenuSales
            .Where(r => r.SaleDate >= FirstDate && r.SaleDate <= SecondDate)
-           .Select(d => new SaleModel
-           {
-               SoldPrice = d.SoldPrice,
-               SaleDate = d.SaleDate,
-               ItemName = d.ItemName
-
-           })
            .ToListAsync();
         }
 
@@ -54,16 +35,8 @@ namespace GameHubManager.Repositories
             var TodayDate = DateTime.Now;
             return await _context.Reservations
            .Where(r => r.StartTime.Date == TodayDate.Date)
-           .Select(d => new ReservationModel
-           {
-               Device = new DeviceModel
-               {
-                   Name = d.Device.Name
-               },
-               AmountPaid = d.AmountPaid,
-               AmountDue = d.AmountDue
-
-           })
+           .Include(x => x.Device)
+           .ThenInclude(y => y.DeviceType)
             .ToListAsync();
         }
 
@@ -73,15 +46,8 @@ namespace GameHubManager.Repositories
 
             return await _context.Reservations
            .Where(r => r.StartTime.Month == TodayDate.Month)
-           .Select(d => new ReservationModel
-           {
-               Device = new DeviceModel
-               {
-                   Name = d.Device.Name
-               },
-               AmountPaid = d.AmountPaid,
-               AmountDue = d.AmountDue
-           })
+           .Include(x => x.Device)
+           .ThenInclude(y => y.DeviceType)
            .ToListAsync();
         }
 
@@ -90,13 +56,6 @@ namespace GameHubManager.Repositories
             var TodayDate = DateTime.Now;
             return await _context.MenuSales
            .Where(r => r.SaleDate.Date == TodayDate.Date)
-           .Select(s => new SaleModel
-           {
-               ItemName = s.ItemName,
-               SaleDate = s.SaleDate,
-               SoldPrice = s.SoldPrice
-
-           })
            .ToListAsync();
         }
 
@@ -106,14 +65,6 @@ namespace GameHubManager.Repositories
 
             return await _context.MenuSales
            .Where(r => r.SaleDate.Month == TodayDate.Month)
-           .Select(s => new SaleModel
-           {
-               ItemName = s.ItemName,
-               SaleDate = s.SaleDate,
-               SoldPrice = s.SoldPrice
-
-
-           })
            .ToListAsync();
         }
 
