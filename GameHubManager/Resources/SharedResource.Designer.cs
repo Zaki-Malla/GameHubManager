@@ -61,6 +61,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Settings.
+        /// </summary>
+        public static string accountSettings {
+            get {
+                return ResourceManager.GetString("accountSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activate.
         /// </summary>
         public static string activate {
@@ -75,6 +84,15 @@ namespace GameHubManager.Resources {
         public static string AddAnotherItem {
             get {
                 return ResourceManager.GetString("AddAnotherItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Account.
+        /// </summary>
+        public static string addNewAccount {
+            get {
+                return ResourceManager.GetString("addNewAccount", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace GameHubManager.Resources {
         public static string addNewPrice {
             get {
                 return ResourceManager.GetString("addNewPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin Control Panel.
+        /// </summary>
+        public static string adminControlPanel {
+            get {
+                return ResourceManager.GetString("adminControlPanel", resourceCulture);
             }
         }
         
@@ -174,6 +201,15 @@ namespace GameHubManager.Resources {
         public static string amountPaidForEachDevice {
             get {
                 return ResourceManager.GetString("amountPaidForEachDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount Taken.
+        /// </summary>
+        public static string amountTaken {
+            get {
+                return ResourceManager.GetString("amountTaken", resourceCulture);
             }
         }
         
@@ -250,6 +286,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back To List.
+        /// </summary>
+        public static string backToList {
+            get {
+                return ResourceManager.GetString("backToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Biscuits.
         /// </summary>
         public static string biscuits {
@@ -259,11 +304,29 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy Date.
+        /// </summary>
+        public static string buyDate {
+            get {
+                return ResourceManager.GetString("buyDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certain Period Profit Report.
+        /// </summary>
+        public static string CertainPeriodProfitReport {
+            get {
+                return ResourceManager.GetString("CertainPeriodProfitReport", resourceCulture);
             }
         }
         
@@ -493,6 +556,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Devices List.
+        /// </summary>
+        public static string devicesList {
+            get {
+                return ResourceManager.GetString("devicesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device Type.
         /// </summary>
         public static string deviceType {
@@ -574,6 +646,24 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee List.
+        /// </summary>
+        public static string employeeList {
+            get {
+                return ResourceManager.GetString("employeeList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employee Name.
+        /// </summary>
+        public static string employeeName {
+            get {
+                return ResourceManager.GetString("employeeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Time.
         /// </summary>
         public static string endTime {
@@ -646,11 +736,38 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string filter {
+            get {
+                return ResourceManager.GetString("filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Date.
+        /// </summary>
+        public static string firstDate {
+            get {
+                return ResourceManager.GetString("firstDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game Hour Price.
         /// </summary>
         public static string gameHourPrice {
             get {
                 return ResourceManager.GetString("gameHourPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Statistics.
+        /// </summary>
+        public static string generalStatistics {
+            get {
+                return ResourceManager.GetString("generalStatistics", resourceCulture);
             }
         }
         
@@ -745,6 +862,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item Price.
+        /// </summary>
+        public static string itemPrice {
+            get {
+                return ResourceManager.GetString("itemPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string language {
@@ -831,6 +957,15 @@ namespace GameHubManager.Resources {
         public static string minute {
             get {
                 return ResourceManager.GetString("minute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly earnings report.
+        /// </summary>
+        public static string Monthlyearningreport {
+            get {
+                return ResourceManager.GetString("Monthlyearningreport", resourceCulture);
             }
         }
         
@@ -988,6 +1123,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number Of Users.
+        /// </summary>
+        public static string numberOfUsers {
+            get {
+                return ResourceManager.GetString("numberOfUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open Reservation.
         /// </summary>
         public static string openReservation {
@@ -1042,6 +1186,24 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        public static string phoneNumber {
+            get {
+                return ResourceManager.GetString("phoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Playing Rate List.
+        /// </summary>
+        public static string playingrateList {
+            get {
+                return ResourceManager.GetString("playingrateList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a valid amount for the payment..
         /// </summary>
         public static string pleaseEnterValidPaymentAmount {
@@ -1074,6 +1236,42 @@ namespace GameHubManager.Resources {
         public static string PricePerUnit {
             get {
                 return ResourceManager.GetString("PricePerUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profit By Certain Period.
+        /// </summary>
+        public static string profitByCertainPeriod {
+            get {
+                return ResourceManager.GetString("profitByCertainPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profit By Current Month.
+        /// </summary>
+        public static string profitByCurrentMonth {
+            get {
+                return ResourceManager.GetString("profitByCurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profit By Today.
+        /// </summary>
+        public static string profitByToday {
+            get {
+                return ResourceManager.GetString("profitByToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profit Statistics.
+        /// </summary>
+        public static string profitStatistics {
+            get {
+                return ResourceManager.GetString("profitStatistics", resourceCulture);
             }
         }
         
@@ -1114,11 +1312,74 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reservation By Certaion Period.
+        /// </summary>
+        public static string reservationByCertainPeriod {
+            get {
+                return ResourceManager.GetString("reservationByCertainPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservation By Current Month.
+        /// </summary>
+        public static string reservationByCurrentMonth {
+            get {
+                return ResourceManager.GetString("reservationByCurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservation By Today.
+        /// </summary>
+        public static string reservationByToday {
+            get {
+                return ResourceManager.GetString("reservationByToday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservation Date.
+        /// </summary>
+        public static string reservationDate {
+            get {
+                return ResourceManager.GetString("reservationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reservation is open.
         /// </summary>
         public static string reservationIsOpen {
             get {
                 return ResourceManager.GetString("reservationIsOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservaion Price.
+        /// </summary>
+        public static string reservationPrice {
+            get {
+                return ResourceManager.GetString("reservationPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservation Report.
+        /// </summary>
+        public static string reservationReoport {
+            get {
+                return ResourceManager.GetString("reservationReoport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reservation Statistics.
+        /// </summary>
+        public static string reservationStatistics {
+            get {
+                return ResourceManager.GetString("reservationStatistics", resourceCulture);
             }
         }
         
@@ -1164,6 +1425,15 @@ namespace GameHubManager.Resources {
         public static string save {
             get {
                 return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second Date.
+        /// </summary>
+        public static string secondDate {
+            get {
+                return ResourceManager.GetString("secondDate", resourceCulture);
             }
         }
         
@@ -1249,11 +1519,38 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Snacks List.
+        /// </summary>
+        public static string snacksList {
+            get {
+                return ResourceManager.GetString("snacksList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Time:.
         /// </summary>
         public static string startTime {
             get {
                 return ResourceManager.GetString("startTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics.
+        /// </summary>
+        public static string statistics {
+            get {
+                return ResourceManager.GetString("statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System Statistics 📊 .
+        /// </summary>
+        public static string systemStatistics {
+            get {
+                return ResourceManager.GetString("systemStatistics", resourceCulture);
             }
         }
         
@@ -1276,6 +1573,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string total {
+            get {
+                return ResourceManager.GetString("total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Amount Due for All Devices.
         /// </summary>
         public static string TotalAmountDueForAllDevices {
@@ -1290,6 +1596,24 @@ namespace GameHubManager.Resources {
         public static string totalAmountForAllDevices {
             get {
                 return ResourceManager.GetString("totalAmountForAllDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Sales In Current Month.
+        /// </summary>
+        public static string totalSalesInCurrentMonth {
+            get {
+                return ResourceManager.GetString("totalSalesInCurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Date.
+        /// </summary>
+        public static string updateDate {
+            get {
+                return ResourceManager.GetString("updateDate", resourceCulture);
             }
         }
         

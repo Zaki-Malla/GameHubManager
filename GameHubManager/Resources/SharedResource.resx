@@ -117,12 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+ 
+  <data name="accountSettings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
   <data name="activate" xml:space="preserve">
     <value>Activate</value>
   </data>
   <data name="AddAnotherItem" xml:space="preserve">
     <value>Add Another Item</value>
   </data>
+  <data name="addNewAccount" xml:space="preserve">
+    <value>Add New Account</value>
+  </data>
+ 
+  <data name="AddAnotherItem" xml:space="preserve">
+    <value>Add Another Item</value>
+  </data>
+
   <data name="addNewDevice" xml:space="preserve">
     <value>Add New Device</value>
   </data>
@@ -135,6 +147,12 @@
   <data name="addNewPrice" xml:space="preserve">
     <value>Add New Price</value>
   </data>
+ 
+  <data name="adminControlPanel" xml:space="preserve">
+    <value>Admin Control Panel</value>
+  </data>
+ 
+
   <data name="adminDashboard" xml:space="preserve">
     <value>Admin Dashboard</value>
   </data>
@@ -156,6 +174,12 @@
   <data name="amountPaidForEachDevice" xml:space="preserve">
     <value>Amount paid for each device:</value>
   </data>
+ 
+  <data name="amountTaken" xml:space="preserve">
+    <value>Amount Taken</value>
+  </data>
+ 
+
   <data name="amountToBeRefunded" xml:space="preserve">
     <value>Amount to be refunded:</value>
   </data>
@@ -180,12 +204,30 @@
   <data name="backToHomeScreen" xml:space="preserve">
     <value>Back to Home Screen</value>
   </data>
+ 
+  <data name="backToList" xml:space="preserve">
+    <value>Back To List</value>
+  </data>
+  <data name="biscuits" xml:space="preserve">
+    <value>Biscuits</value>
+  </data>
+  <data name="buyDate" xml:space="preserve">
+    <value>Buy Date</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CertainPeriodProfitReport" xml:space="preserve">
+    <value>Certain Period Profit Report</value>
+  </data>
+ 
   <data name="biscuits" xml:space="preserve">
     <value>Biscuits</value>
   </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
+
   <data name="chooseCategory" xml:space="preserve">
     <value>Choose Category</value>
   </data>
@@ -261,6 +303,12 @@
   <data name="devices" xml:space="preserve">
     <value>Devices</value>
   </data>
+ 
+  <data name="devicesList" xml:space="preserve">
+    <value>Devices List</value>
+  </data>
+ 
+
   <data name="deviceType" xml:space="preserve">
     <value>Device Type</value>
   </data>
@@ -288,6 +336,15 @@
   <data name="email" xml:space="preserve">
     <value>Email</value>
   </data>
+ 
+  <data name="employeeList" xml:space="preserve">
+    <value>Employee List</value>
+  </data>
+  <data name="employeeName" xml:space="preserve">
+    <value>Employee Name</value>
+  </data>
+ 
+
   <data name="endTime" xml:space="preserve">
     <value>End Time</value>
   </data>
@@ -312,9 +369,24 @@
   <data name="exploreStyles" xml:space="preserve">
     <value>Explore different styles according to your preferences</value>
   </data>
+ 
+  <data name="filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="firstDate" xml:space="preserve">
+    <value>First Date</value>
+  </data>
   <data name="gameHourPrice" xml:space="preserve">
     <value>Game Hour Price</value>
   </data>
+  <data name="generalStatistics" xml:space="preserve">
+    <value>General Statistics</value>
+  </data>
+ 
+  <data name="gameHourPrice" xml:space="preserve">
+    <value>Game Hour Price</value>
+  </data>
+
   <data name="groupReservationForPCs" xml:space="preserve">
     <value>Group Reservation for PCs</value>
   </data>
@@ -345,6 +417,12 @@
   <data name="ItemName" xml:space="preserve">
     <value>Item Name</value>
   </data>
+ 
+  <data name="itemPrice" xml:space="preserve">
+    <value>Item Price</value>
+  </data>
+ 
+
   <data name="language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -375,6 +453,12 @@
   <data name="minute" xml:space="preserve">
     <value>Minute</value>
   </data>
+ 
+  <data name="Monthlyearningreport" xml:space="preserve">
+    <value>Monthly earnings report</value>
+  </data>
+ 
+
   <data name="mustSelectAtLeastOneDevice" xml:space="preserve">
     <value>You must select at least one device.</value>
   </data>
@@ -426,6 +510,12 @@
   <data name="NumberOfUnits" xml:space="preserve">
     <value>Number of Units</value>
   </data>
+ 
+  <data name="numberOfUsers" xml:space="preserve">
+    <value>Number Of Users</value>
+  </data>
+ 
+
   <data name="openReservation" xml:space="preserve">
     <value>Open Reservation</value>
   </data>
@@ -444,6 +534,15 @@
   <data name="perHour" xml:space="preserve">
     <value>Per Hour</value>
   </data>
+ 
+  <data name="phoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="playingrateList" xml:space="preserve">
+    <value>Playing Rate List</value>
+  </data>
+ 
+
   <data name="pleaseEnterValidPaymentAmount" xml:space="preserve">
     <value>Please enter a valid amount for the payment.</value>
   </data>
@@ -456,6 +555,21 @@
   <data name="PricePerUnit" xml:space="preserve">
     <value>Price per Unit:</value>
   </data>
+ 
+  <data name="profitByCertainPeriod" xml:space="preserve">
+    <value>Profit By Certain Period</value>
+  </data>
+  <data name="profitByCurrentMonth" xml:space="preserve">
+    <value>Profit By Current Month</value>
+  </data>
+  <data name="profitByToday" xml:space="preserve">
+    <value>Profit By Today</value>
+  </data>
+  <data name="profitStatistics" xml:space="preserve">
+    <value>Profit Statistics</value>
+  </data>
+ 
+
   <data name="quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
@@ -468,9 +582,36 @@
   <data name="renewQuantity" xml:space="preserve">
     <value>Renew Quantity</value>
   </data>
+ 
+  <data name="reservationByCertainPeriod" xml:space="preserve">
+    <value>Reservation By Certaion Period</value>
+  </data>
+  <data name="reservationByCurrentMonth" xml:space="preserve">
+    <value>Reservation By Current Month</value>
+  </data>
+  <data name="reservationByToday" xml:space="preserve">
+    <value>Reservation By Today</value>
+  </data>
+  <data name="reservationDate" xml:space="preserve">
+    <value>Reservation Date</value>
+  </data>
   <data name="reservationIsOpen" xml:space="preserve">
     <value>Reservation is open</value>
   </data>
+  <data name="reservationPrice" xml:space="preserve">
+    <value>Reservaion Price</value>
+  </data>
+  <data name="reservationReoport" xml:space="preserve">
+    <value>Reservation Report</value>
+  </data>
+  <data name="reservationStatistics" xml:space="preserve">
+    <value>Reservation Statistics</value>
+  </data>
+ 
+  <data name="reservationIsOpen" xml:space="preserve">
+    <value>Reservation is open</value>
+  </data>
+
   <data name="ReserveDevice" xml:space="preserve">
     <value>Reserve Device</value>
   </data>
@@ -486,6 +627,12 @@
   <data name="save" xml:space="preserve">
     <value>Save</value>
   </data>
+ 
+  <data name="secondDate" xml:space="preserve">
+    <value>Second Date</value>
+  </data>
+ 
+
   <data name="SelectAvailableDevices" xml:space="preserve">
     <value>Please select the available devices (unreserved PCs):</value>
   </data>
@@ -513,21 +660,51 @@
   <data name="setThePrice" xml:space="preserve">
     <value>Set the price</value>
   </data>
+ 
+  <data name="snacksList" xml:space="preserve">
+    <value>Snacks List</value>
+  </data>
   <data name="startTime" xml:space="preserve">
     <value>Start Time:</value>
   </data>
+  <data name="statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="systemStatistics" xml:space="preserve">
+    <value>System Statistics 📊 </value>
+  </data>
+ 
+  <data name="startTime" xml:space="preserve">
+    <value>Start Time:</value>
+  </data>
+
   <data name="themeCustomizer" xml:space="preserve">
     <value>Theme Customizer</value>
   </data>
   <data name="thereAreControllers" xml:space="preserve">
     <value>There Are Controllers</value>
   </data>
+ 
+  <data name="total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+ 
+
   <data name="TotalAmountDueForAllDevices" xml:space="preserve">
     <value>Total Amount Due for All Devices</value>
   </data>
   <data name="totalAmountForAllDevices" xml:space="preserve">
     <value>Total amount for all devices:</value>
   </data>
+ 
+  <data name="totalSalesInCurrentMonth" xml:space="preserve">
+    <value>Total Sales In Current Month</value>
+  </data>
+  <data name="updateDate" xml:space="preserve">
+    <value>Update Date</value>
+  </data>
+ 
+
   <data name="updatePrice" xml:space="preserve">
     <value>Update Price</value>
   </data>
