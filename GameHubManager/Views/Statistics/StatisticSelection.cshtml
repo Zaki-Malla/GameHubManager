@@ -1,125 +1,125 @@
 ﻿<style>
     :root {
-    --primary-color: #0d6efd;
-    --info-color: #17a2b8;
-    --section-bg: #ffffff;
+        --primary-color: #0d6efd;
+        --info-color: #17a2b8;
+        --section-bg: #ffffff;
     }
 
     html, body {
-    height: 100%;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        height: 100%;
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
 
 
     body {
-    display: flex;
-    flex-direction: column;
+        display: flex;
+        flex-direction: column;
     }
 
     main {
-    flex: 1 0 auto;
+        flex: 1 0 auto;
     }
 
     .container {
-    max-width: 1100px;
-    margin: auto;
-    padding-bottom: 60px;
+        max-width: 1100px;
+        margin: auto;
+        padding-bottom: 60px;
     }
 
     .stats-header {
-    text-align: center;
-    margin: 40px 0 30px;
-    font-size: 2rem;
-    color: darkslategray;
-    font-weight: bold;
+        text-align: center;
+        margin: 40px 0 30px;
+        font-size: 2rem;
+        color: darkslategray;
+        font-weight: bold;
     }
 
     .stats-section {
-    background-color: ActiveBorder;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    padding: 25px 30px;
-    margin-bottom: 30px;
+        background-color: ActiveBorder;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        padding: 25px 30px;
+        margin-bottom: 30px;
     }
 
     .stats-title {
-    font-size: 1.3rem;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: darkslategray;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: darkslategray;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     .stats-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
     }
 
-    .stats-buttons .btn {
-    flex: 1 1 200px;
-    font-size: 1rem;
-    }
+        .stats-buttons .btn {
+            flex: 1 1 200px;
+            font-size: 1rem;
+        }
 
     .btn-info {
-    background-color: cadetblue;
-    color: white;
-    border: none;
+        background-color: cadetblue;
+        color: white;
+        border: none;
     }
 
 
 
     .btn:hover {
-    opacity: 0.9;
-    transform: scale(1.02);
-    transition: 0.2s ease-in-out;
+        opacity: 0.9;
+        transform: scale(1.02);
+        transition: 0.2s ease-in-out;
     }
 
 
     .full-width-btn {
-    width: 100%;
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-    padding: 10px;
-    text-align: center;
-    border-radius: 8px;
-    font-weight: 500;
+        width: 100%;
+        margin-bottom: 30px;
+        font-size: 1.1rem;
+        padding: 10px;
+        text-align: center;
+        border-radius: 8px;
+        font-weight: 500;
     }
 
     footer {
-    flex-shrink: 0;
+        flex-shrink: 0;
     }
 </style>
 
 <main>
     <div class="text-center my-3">
-        <a asp-controller="Employer" asp-action="Dashboard" class="btn btn-soft-info me-2">العودة للشاشة الرئيسية</a>
+        <a asp-controller="Employer" asp-action="Dashboard" class="btn btn-soft-info me-2">@SharedResource.backToHomeScreen</a>
     </div>
 
     <div class="container">
-        <h2 class="stats-header">📊 إحصائيات النظام</h2>
+        <h2 class="stats-header">@SharedResource.systemStatistics</h2>
 
-        <a href="/Statistics/GeneralStatistics" class="btn btn-soft-info me-2 full-width-btn">احصائيات عامة</a>
+        <a href="/Statistics/GeneralStatistics" class="btn btn-soft-info me-2 full-width-btn">@SharedResource.generalStatistics</a>
 
         <div class="stats-section">
-            <div class="stats-title"><i class="fas fa-chart-line"></i> إحصائيات الأرباح</div>
+            <div class="stats-title"><i class="fas fa-chart-line"></i> @SharedResource.profitStatistics</div>
             <div class="stats-buttons">
-                <a href="/Statistics/ProfitByCurrentMonth" class="btn btn-soft-info me-2">ربح هذا الشهر</a>
-                <a href="#" class="btn btn-soft-info me-2" data-bs-toggle="modal" data-bs-target="#ProfitByCertainPeroid">ربح خلال فترة معينة</a>
-                <a href="/Statistics/ProfitByToday" class="btn btn-soft-info me-2">ربح اليوم</a>
+                <a href="/Statistics/ProfitByCurrentMonth" class="btn btn-soft-info me-2">@SharedResource.profitByCurrentMonth</a>
+                <a href="#" class="btn btn-soft-info me-2" data-bs-toggle="modal" data-bs-target="#ProfitByCertainPeroid">@SharedResource.profitByCertainPeriod</a>
+                <a href="/Statistics/ProfitByToday" class="btn btn-soft-info me-2">@SharedResource.profitByToday</a>
             </div>
         </div>
 
         <div class="stats-section">
-            <div class="stats-title"><i class="fas fa-calendar-check"></i> إحصائيات الحجوزات</div>
+            <div class="stats-title"><i class="fas fa-calendar-check"></i> @SharedResource.reservationStatistics</div>
             <div class="stats-buttons">
-                <a href="/Statistics/ReservationByCurrentMonth" class="btn btn-soft-info me-2">حجوزات هذا الشهر</a>
-                <a href="#" class="btn btn-soft-info me-2" data-bs-toggle="modal" data-bs-target="#reservationPeriodModal">حجوزات خلال فترة معينة</a>
-                <a href="/Statistics/ReservationByToday" class="btn btn-soft-info me-2">حجوزات اليوم</a>
+                <a href="/Statistics/ReservationByCurrentMonth" class="btn btn-soft-info me-2">@SharedResource.reservationByCurrentMonth</a>
+                <a href="#" class="btn btn-soft-info me-2" data-bs-toggle="modal" data-bs-target="#reservationPeriodModal">@SharedResource.reservationByCertainPeriod</a>
+                <a href="/Statistics/ReservationByToday" class="btn btn-soft-info me-2">@SharedResource.reservationByToday</a>
             </div>
         </div>
     </div>
@@ -129,24 +129,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
                 </div>
                 <div class="modal-body">
                     <form asp-controller="Statistics" asp-action="ReservationByCertainPeriod" method="post" enctype="multipart/form-data">
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">تاريخ الأول:</label>
+                            <label class="form-label fw-bold">@SharedResource.firstDate:</label>
                             <input type="datetime-local" class="form-control" name="firstDate">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">تاريخ ثاني:</label>
+                            <label class="form-label fw-bold">@SharedResource.secondDate:</label>
                             <input type="datetime-local" class="form-control" name="SecondDate">
                         </div>
 
                         <div class="col-md-4 d-flex align-items-end">
                             <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-filter me-2"></i>إظهار
+                                <i class="fas fa-filter me-2"></i>@SharedResource.filter
                             </button>
                         </div>
                     </form>
@@ -159,24 +159,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
                 </div>
                 <div class="modal-body">
                     <form asp-controller="Statistics" asp-action="ProfitByCertainPeroid" method="post" enctype="multipart/form-data">
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">تاريخ الأول:</label>
-                            <input type="datetime-local" class="form-control" name="firstDate" value="@DateTime.Today.ToString("yyyy-MM-ddTHH:mm")">
+                            <label class="form-label fw-bold">@SharedResource.firstDate:</label>
+                            <input type="datetime-local" class="form-control" name="firstDate">
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-bold">تاريخ ثاني:</label>
-                            <input type="datetime-local" class="form-control" name="SecondDate" value="@DateTime.Today.ToString("yyyy-MM-ddTHH:mm")">
+                            <label class="form-label fw-bold">@SharedResource.secondDate:</label>
+                            <input type="datetime-local" class="form-control" name="SecondDate">
                         </div>
 
                         <div class="col-md-4 d-flex align-items-end">
                             <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-filter me-2"></i>إظهار
+                                <i class="fas fa-filter me-2"></i>@SharedResource.filter
                             </button>
                         </div>
                     </form>
