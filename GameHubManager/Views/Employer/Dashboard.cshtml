@@ -1,36 +1,38 @@
 ﻿@model EmployerDashboardViewModel
- 
+
 @{
     ViewData["Title"] = "Admin Panel || GameHub Manager";
 }
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <style>
+    .section-title {
+        color: #34495e;
+    }
+
     .sidebar a:hover {
-    background-color: #495057;
-    color: #f8f9fa;
+        background-color: #495057;
+        color: #f8f9fa;
     }
 
     .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .sidebar {
-    transition: transform 0.3s ease;
+        transition: transform 0.3s ease;
     }
 
-    .sidebar:hover {
-    transform: translateX(5px);
-    }
+        .sidebar:hover {
+            transform: translateX(5px);
+        }
 
     .nav-item:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .top-bar {
-    padding: 15px 20px;
-    border-radius: 10px;
+        padding: 15px 20px;
+        border-radius: 10px;
     }
 
 </style>
@@ -117,11 +119,11 @@
     "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
     }
     })
-    .then(response => response.text()) 
+    .then(response => response.text())
     .then(message => {
-    alert(message); 
+    alert(message);
     if (message.includes("تم التحديث بنجاح")) {
-    setTimeout(() => location.reload(), 1000); 
+    setTimeout(() => location.reload(), 1000);
     }
     })
     .catch(() => alert("حدث خطأ أثناء المعالجة!"));
@@ -181,40 +183,40 @@
     <div class="d-flex">
 
         <nav class="sidebar bg-gray-800 text-white vh-100 p-3 shadow-lg">
-            <h4 class="text-center mb-4 text-warning">GameHub Manager</h4>
+            <h4 class="text-center mb-4 section-title">GameHub Manager</h4>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2">
                     <a href="#" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105" data-bs-toggle="modal" data-bs-target="#addAccountModal">
-                        <i class="bi bi-person-plus"></i> إضافة حساب جديد
+                        <i class="bi bi-person-plus section-title"></i> @SharedResource.addNewAccount
                     </a>
                 </li>
                 <li class="nav-item mb-2">
                     <a asp-controller="Employer" asp-action="Devices" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105">
-                        <i class="bi bi-laptop"></i> قائمة الأجهزة
+                        <i class="bi bi-laptop"></i> @SharedResource.deviceList
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a asp-controller="Employer" asp-action="DevicesPrices" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> قائمة اسعار اللعب</a>
+                    <a asp-controller="Employer" asp-action="DevicesPrices" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i>@SharedResource.playingrateList</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a asp-controller="Employer" asp-action="DevicesTypes" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-box-seam"></i> قائمة أنواع الأجهزة</a>
+                    <a asp-controller="Employer" asp-action="DevicesTypes" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-box-seam"></i>@SharedResource.deviceType</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a asp-controller="Statistics" asp-action="StatisticSelection" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-bar-chart"></i> الإحصائيات</a>
+                    <a asp-controller="Statistics" asp-action="StatisticSelection" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-bar-chart"></i> @SharedResource.statistics</a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a asp-controller="Employer" asp-action="SnacksManage" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> مبيعات المأكولات والمشروبات</a>
+                    <a asp-controller="Employer" asp-action="SnacksManage" class="nav-link text-black hover:bg-gray-700 p-2 rounded transition-all duration-300 ease-in-out hover:scale-105"><i class="bi bi-cup"></i> @SharedResource.snacksList</a>
                 </li>
             </ul>
         </nav>
 
         <div class="content flex-grow-1 p-4">
             <div class="top-bar d-flex justify-content-between align-items-center">
-                <h4 class="m-0 text-warning">لوحة تحكم الأدمن</h4>
+                <h4 class="m-0 section-title">@SharedResource.adminControlPanel</h4>
                 <div>
-                    <a asp-controller="Home" asp-action="Dashboard" class="btn btn-outline-primary m-2">Back to DASHBOARD</a>
+                    <a asp-controller="Home" asp-action="Dashboard" class="btn btn-outline-primary m-2">@SharedResource.backToHomeScreen</a>
                     <button class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                        <i class="bi bi-person-circle"></i> إعدادات الحساب
+                        <i class="bi bi-person-circle"></i> @SharedResource.accountSettings
                     </button>
                 </div>
             </div>
@@ -223,38 +225,38 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card bg-gray-800 text-black shadow-lg p-3 hover:scale-105 transition-transform duration-300 ease-in-out">
-                            <h5 class="text-warning"> إجمالي المبيعات هذا الشهر</h5>
+                            <h5 class="section-title"> @SharedResource.totalSalesInCurrentMonth</h5>
                             <p class="fs-4">@Model.SaleItems.Sum(s => s.SoldPrice)</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card bg-gray-800 text-black shadow-lg p-3 hover:scale-105 transition-transform duration-300 ease-in-out">
-                            <h5 class="text-warning">عدد الأجهزة</h5>
+                            <h5 class="section-title">@SharedResource.numberOfDevices</h5>
                             <p class="fs-4">@Model.Devices.Count()</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card bg-gray-800 text-black shadow-lg p-3 hover:scale-105 transition-transform duration-300 ease-in-out">
-                            <h5 class="text-warning">عدد المستخدمين</h5>
+                            <h5 class="section-title">@SharedResource.numberOfUsers</h5>
                             <p class="fs-4">@Model.Users.Count()</p>
                         </div>
                     </div>
                 </div>
 
-                
+
                 <div class="row mt-5 mb-4">
                     <div class="col-12">
                         <div class="table-container">
-                            <h5 class="table-title mb-3">قائمة الموظفين</h5>
+                            <h5 class="table-title mb-3 section-title">@SharedResource.employeeList</h5>
                             <div id="EmployersTable" data-list='{"valueNames":["Name","Gmail","PhoeNumber"],"page":10,"pagination":{"innerWindow":2,"left":1,"right":1}}'>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-sm fs-2 mb-0">
-                                       
+
                                         <thead>
                                             <tr>
-                                                <th class="sort border-top text-center " data-sort="Name">اسم الموظف</th>
-                                                <th class="sort border-top text-center " data-sort="Gmail">الإيميل</th>
-                                                <th class="sort border-top text-center " data-sort="PhoeNumber">رقم الهاتف</th>
+                                                <th class="sort border-top text-center " data-sort="Name">@SharedResource.employeeName</th>
+                                                <th class="sort border-top text-center " data-sort="Gmail">@SharedResource.email</th>
+                                                <th class="sort border-top text-center " data-sort="PhoeNumber">@SharedResource.phoneNumber</th>
                                             </tr>
                                         </thead>
                                         <tbody class="list">
@@ -272,7 +274,7 @@
                                     </table>
                                 </div>
 
-                                
+
                                 <div class="d-flex justify-content-center mt-3">
                                     <button class="page-link" data-list-pagination="prev">
                                         <span class="fas fa-chevron-left"></span>
@@ -291,5 +293,5 @@
 
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
 </body>
