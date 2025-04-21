@@ -1,5 +1,6 @@
 ﻿using GameHubManager.Models;
 using GameHubManager.Models.HelperModel;
+using GameHubManager.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +18,13 @@ namespace GameHubManager.Controllers
             _userManager = userManager;
         }
         [HttpGet]
+        
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard", "Home"); 
+            }
             return View();
         }
 
@@ -28,6 +34,11 @@ namespace GameHubManager.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard", "Home");
             }
 
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
@@ -42,7 +53,7 @@ namespace GameHubManager.Controllers
                 }
             }
 
-            ModelState.AddModelError(string.Empty, "بيانات الدخول غير صحيحة");
+            ModelState.AddModelError(string.Empty, SharedResource.InvalidLoginCredentials);
             return View(model);
         }
 
@@ -54,6 +65,11 @@ namespace GameHubManager.Controllers
             HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View(); 
         }
     }
 }

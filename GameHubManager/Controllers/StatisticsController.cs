@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace GameHubManager.Controllers
 
 {
+    [Authorize(Roles = "Employer")]
     public class StatisticsController : Controller
     {
         private readonly IStatisticsRepository _statisticsRepository;

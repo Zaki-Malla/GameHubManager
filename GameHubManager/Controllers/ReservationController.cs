@@ -1,12 +1,15 @@
 ﻿using GameHubManager.Models;
 using GameHubManager.Models.HelperModel;
 using GameHubManager.Repositories;
+using GameHubManager.Resources;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameHubManager.Controllers
 {
+    [Authorize]
     public class ReservationController : Controller
     {
         private readonly UserManager<UserModel> _userManager;
@@ -101,7 +104,7 @@ namespace GameHubManager.Controllers
 
             if (reservation == null)
             {
-                return Json(new { status = "Error", message = "الجهاز غير موجود" });
+                return Json(new { status = "Error", message = SharedResource.DeviceNotFound });
             }
 
             reservation.EndTime = DateTime.Now;
@@ -130,7 +133,7 @@ namespace GameHubManager.Controllers
 
             await _groupReservationRepository.UpdateReservationAsync(reservation.GroupReservation);
             }
-            return Json(new { status = "OK", message = "تمت العملية بنجاح" });
+            return Json(new { status = "OK", message = SharedResource.OperationCompletedSuccessfully });
         }
 
         [HttpPost]
@@ -151,7 +154,7 @@ namespace GameHubManager.Controllers
 
             if (string.IsNullOrWhiteSpace(model.SelectedDeviceIds))
             {
-                TempData["Message"] = "لم يتم اختيار أي جهاز.";
+                TempData["Message"] = SharedResource.NoDeviceSelected;
                 return RedirectToAction("Dashboard", "Home");
             }
 
@@ -162,7 +165,7 @@ namespace GameHubManager.Controllers
 
             if (!deviceIds.Any())
             {
-                TempData["Message"] = "يجب اختيار جهاز واحد على الأقل.";
+                TempData["Message"] = SharedResource.SelectAtLeastOneDevice;
                 return RedirectToAction("Dashboard", "Home");
             }
 

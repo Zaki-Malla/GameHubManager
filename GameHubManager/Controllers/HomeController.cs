@@ -58,6 +58,8 @@ namespace GameHubManager.Controllers
             return Redirect(Request.GetTypedHeaders().Referer?.ToString() ?? "/");
         }
 
+        public IActionResult Error404()
+        { return View(); }
 
     }
 }

@@ -3,9 +3,11 @@ using GameHubManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using GameHubManager.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GameHubManager.Controllers
 {
+    [Authorize]
     public class SaleController : Controller
     {
         private readonly UserManager<UserModel> _userManager;

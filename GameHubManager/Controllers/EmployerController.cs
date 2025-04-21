@@ -24,9 +24,7 @@ namespace GameHubManager.Controllers
 
         public EmployerController(UserManager<UserModel> userManager, SignInManager<UserModel> signInManager, IDeviceTypeRepository deviceTypeRepository, ISaleRepository saleRepository, IMenuItemRepository menuItemRepository, IDeviceRepository deviceRepository, IDevicePriceRepository devicePriceRepository)
         {
-
-            
-                _userManager = userManager;
+            _userManager = userManager;
             _deviceTypeRepository = deviceTypeRepository;
             _saleRepository = saleRepository;
             _menuItemRepository = menuItemRepository;

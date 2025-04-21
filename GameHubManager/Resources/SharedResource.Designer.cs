@@ -61,6 +61,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access Forbidden!.
+        /// </summary>
+        public static string accessForbidden {
+            get {
+                return ResourceManager.GetString("accessForbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account Settings.
         /// </summary>
         public static string accountSettings {
@@ -538,6 +547,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device not found.
+        /// </summary>
+        public static string DeviceNotFound {
+            get {
+                return ResourceManager.GetString("DeviceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device Price List.
         /// </summary>
         public static string devicePriceList {
@@ -682,6 +700,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page Missing!.
+        /// </summary>
+        public static string error404 {
+            get {
+                return ResourceManager.GetString("error404", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while closing the reservation..
         /// </summary>
         public static string errorClosingReservation {
@@ -759,6 +786,15 @@ namespace GameHubManager.Resources {
         public static string firstDate {
             get {
                 return ResourceManager.GetString("firstDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forbidden.
+        /// </summary>
+        public static string forbidden {
+            get {
+                return ResourceManager.GetString("forbidden", resourceCulture);
             }
         }
         
@@ -853,6 +889,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid login credentials.
+        /// </summary>
+        public static string InvalidLoginCredentials {
+            get {
+                return ResourceManager.GetString("InvalidLoginCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is the reservation open?.
         /// </summary>
         public static string IsReservationOpen {
@@ -943,6 +988,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to But no worries! Our ostrich is looking everywhere.
+        /// </summary>
+        public static string lookingEverywhere {
+            get {
+                return ResourceManager.GetString("lookingEverywhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Menu Item Types.
         /// </summary>
         public static string manageMenuItemTypes {
@@ -1029,6 +1083,24 @@ namespace GameHubManager.Resources {
         public static string noDevicesAvailable {
             get {
                 return ResourceManager.GetString("noDevicesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No device selected..
+        /// </summary>
+        public static string NoDeviceSelected {
+            get {
+                return ResourceManager.GetString("NoDeviceSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Halt! Thou art endeavouring to trespass upon a realm not granted unto thee..
+        /// </summary>
+        public static string notGrantedUntoThee {
+            get {
+                return ResourceManager.GetString("notGrantedUntoThee", resourceCulture);
             }
         }
         
@@ -1146,6 +1218,15 @@ namespace GameHubManager.Resources {
         public static string openReservation {
             get {
                 return ResourceManager.GetString("openReservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The operation was successful.
+        /// </summary>
+        public static string OperationCompletedSuccessfully {
+            get {
+                return ResourceManager.GetString("OperationCompletedSuccessfully", resourceCulture);
             }
         }
         
@@ -1474,6 +1555,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must select at least one device..
+        /// </summary>
+        public static string SelectAtLeastOneDevice {
+            get {
+                return ResourceManager.GetString("SelectAtLeastOneDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select the available devices (unreserved PCs):.
         /// </summary>
         public static string SelectAvailableDevices {
@@ -1785,6 +1875,15 @@ namespace GameHubManager.Resources {
         public static string viewGroupReservations {
             get {
                 return ResourceManager.GetString("viewGroupReservations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to while you wait safely..
+        /// </summary>
+        public static string waitSafely {
+            get {
+                return ResourceManager.GetString("waitSafely", resourceCulture);
             }
         }
         
