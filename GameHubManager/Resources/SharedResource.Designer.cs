@@ -538,6 +538,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device not found.
+        /// </summary>
+        public static string DeviceNotFound {
+            get {
+                return ResourceManager.GetString("DeviceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Device Price List.
         /// </summary>
         public static string devicePriceList {
@@ -853,6 +862,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid login credentials.
+        /// </summary>
+        public static string InvalidLoginCredentials {
+            get {
+                return ResourceManager.GetString("InvalidLoginCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is the reservation open?.
         /// </summary>
         public static string IsReservationOpen {
@@ -1033,6 +1051,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No device selected..
+        /// </summary>
+        public static string NoDeviceSelected {
+            get {
+                return ResourceManager.GetString("NoDeviceSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not Specified Yet.
         /// </summary>
         public static string notSpecifiedYet {
@@ -1146,6 +1173,15 @@ namespace GameHubManager.Resources {
         public static string openReservation {
             get {
                 return ResourceManager.GetString("openReservation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The operation was successful.
+        /// </summary>
+        public static string OperationCompletedSuccessfully {
+            get {
+                return ResourceManager.GetString("OperationCompletedSuccessfully", resourceCulture);
             }
         }
         
@@ -1470,6 +1506,15 @@ namespace GameHubManager.Resources {
         public static string secondDate {
             get {
                 return ResourceManager.GetString("secondDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must select at least one device..
+        /// </summary>
+        public static string SelectAtLeastOneDevice {
+            get {
+                return ResourceManager.GetString("SelectAtLeastOneDevice", resourceCulture);
             }
         }
         

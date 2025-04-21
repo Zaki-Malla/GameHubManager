@@ -699,4 +699,19 @@
   <data name="totalDueReservationsForTheDay" xml:space="preserve">
     <value>Total due reservations for the day</value>
   </data>
+  <data name="DeviceNotFound" xml:space="preserve">
+    <value>Device not found</value>
+  </data>
+  <data name="OperationCompletedSuccessfully" xml:space="preserve">
+    <value>The operation was successful</value>
+  </data>
+  <data name="NoDeviceSelected" xml:space="preserve">
+    <value>No device selected.</value>
+  </data>
+  <data name="SelectAtLeastOneDevice" xml:space="preserve">
+    <value>You must select at least one device.</value>
+  </data>
+  <data name="InvalidLoginCredentials" xml:space="preserve">
+    <value>Invalid login credentials</value>
+  </data>
 </root>
