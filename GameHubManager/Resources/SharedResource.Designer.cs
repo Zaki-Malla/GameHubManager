@@ -349,6 +349,24 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Certain Period Sales.
+        /// </summary>
+        public static string CertainPeriodSales {
+            get {
+                return ResourceManager.GetString("CertainPeriodSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Certaion Period Reservation Reoport.
+        /// </summary>
+        public static string CertaionPeriodReservationReoport {
+            get {
+                return ResourceManager.GetString("CertaionPeriodReservationReoport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Category.
         /// </summary>
         public static string chooseCategory {
@@ -1033,6 +1051,24 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Reservation Reoport.
+        /// </summary>
+        public static string MonthlyReservationReoport {
+            get {
+                return ResourceManager.GetString("MonthlyReservationReoport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Sales.
+        /// </summary>
+        public static string MonthlySales {
+            get {
+                return ResourceManager.GetString("MonthlySales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must select at least one device..
         /// </summary>
         public static string mustSelectAtLeastOneDevice {
@@ -1519,6 +1555,33 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resrvation By Month Statistics.
+        /// </summary>
+        public static string ResrvationByMonthStatistics {
+            get {
+                return ResourceManager.GetString("ResrvationByMonthStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resrvation By Period Statistics.
+        /// </summary>
+        public static string ResrvationByPeriodStatistics {
+            get {
+                return ResourceManager.GetString("ResrvationByPeriodStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resrvation By Today Statistics.
+        /// </summary>
+        public static string ResrvationByTodayStatistics {
+            get {
+                return ResourceManager.GetString("ResrvationByTodayStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sale completed successfully!.
         /// </summary>
         public static string saleCompletedSuccessfully {
@@ -1713,6 +1776,24 @@ namespace GameHubManager.Resources {
         public static string thereAreControllers {
             get {
                 return ResourceManager.GetString("thereAreControllers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today Reservation Reoport.
+        /// </summary>
+        public static string TodayReservationReoport {
+            get {
+                return ResourceManager.GetString("TodayReservationReoport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today Sales.
+        /// </summary>
+        public static string TodaySales {
+            get {
+                return ResourceManager.GetString("TodaySales", resourceCulture);
             }
         }
         

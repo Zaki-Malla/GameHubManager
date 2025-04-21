@@ -1,6 +1,6 @@
 ﻿@model List<SaleModel>
 @{
-    ViewData["Title"] = SharedResource.profitByToday;
+    ViewData["Title"] = SharedResource.TodaySales + " || GameHub Manager";
 }
 
 <body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
@@ -13,7 +13,7 @@
         </div>
 
         <!-- Title -->
-        <h3 class="section-title text-center mb-4">@SharedResource.profitByToday</h3>
+        <h3 class="section-title text-center mb-4">@SharedResource.TodaySales</h3>
 
         <!-- Table -->
         <div id="todayTable" data-list='{"valueNames":["item","category","date","amountDue","soldPrice"],"page":10}'>

@@ -732,4 +732,31 @@
   <data name="waitSafely" xml:space="preserve">
     <value>بينما تنتظر بأمان.</value>
   </data>
+  <data name="ResrvationByTodayStatistics" xml:space="preserve">
+    <value>احصائيات حجوزات اليوم</value>
+  </data>
+  <data name="ResrvationByMonthStatistics" xml:space="preserve">
+    <value>احصائيات الشهر الحالي</value>
+  </data>
+  <data name="ResrvationByPeriodStatistics" xml:space="preserve">
+    <value>احصائيات الحجوزات خلال فترة</value>
+  </data>
+  <data name="TodaySales" xml:space="preserve">
+    <value>مبيعات اليوم</value>
+  </data>
+  <data name="MonthlySales" xml:space="preserve">
+    <value>مبيعات الشهر</value>
+  </data>
+  <data name="CertainPeriodSales" xml:space="preserve">
+    <value>مبيعات خلال فتر معينة</value>
+  </data>
+  <data name="CertaionPeriodReservationReoport" xml:space="preserve">
+    <value>تقرير الحجوزات خلال فترة معينة</value>
+  </data>
+  <data name="MonthlyReservationReoport" xml:space="preserve">
+    <value>تقرير الحجوزات الشهرية</value>
+  </data>
+  <data name="TodayReservationReoport" xml:space="preserve">
+    <value>تقرير الحجوزات اليوم</value>
+  </data>
 </root>

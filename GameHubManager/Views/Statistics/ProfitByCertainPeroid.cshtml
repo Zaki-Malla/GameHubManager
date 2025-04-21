@@ -1,8 +1,8 @@
 ﻿@model List<SaleModel>
-
 @{
-    ViewData["Title"] = "الأرباح حسب الفترة || GameHub Manager";
+    ViewData["Title"] = SharedResource.CertainPeriodSales + " || GameHub Manager";
 }
+
 
 <body class="bg-gray-900 text-white d-flex flex-column min-vh-100">
     <div class="container mt-4 flex-grow-1">
@@ -13,7 +13,7 @@
             </a>
         </div>
 
-        <h3 class="section-title text-center mb-4">@SharedResource.CertainPeriodProfitReport</h3>
+        <h3 class="section-title text-center mb-4">@SharedResource.CertainPeriodSales</h3>
 
 
         <div id="deviceTable" data-list='{"valueNames":["item","category","date","amountDue","soldPrice"],"page":10,"pagination":{"innerWindow":2,"left":1,"right":1}}'>

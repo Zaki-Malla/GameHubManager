@@ -732,4 +732,31 @@
   <data name="waitSafely" xml:space="preserve">
     <value>while you wait safely.</value>
   </data>
+  <data name="ResrvationByTodayStatistics" xml:space="preserve">
+    <value>Resrvation By Today Statistics</value>
+  </data>
+  <data name="ResrvationByMonthStatistics" xml:space="preserve">
+    <value>Resrvation By Month Statistics</value>
+  </data>
+  <data name="ResrvationByPeriodStatistics" xml:space="preserve">
+    <value>Resrvation By Period Statistics</value>
+  </data>
+  <data name="TodaySales" xml:space="preserve">
+    <value>Today Sales</value>
+  </data>
+  <data name="MonthlySales" xml:space="preserve">
+    <value>Monthly Sales</value>
+  </data>
+  <data name="CertainPeriodSales" xml:space="preserve">
+    <value>Certain Period Sales</value>
+  </data>
+  <data name="CertaionPeriodReservationReoport" xml:space="preserve">
+    <value>Certaion Period Reservation Reoport</value>
+  </data>
+  <data name="MonthlyReservationReoport" xml:space="preserve">
+    <value>Monthly Reservation Reoport</value>
+  </data>
+  <data name="TodayReservationReoport" xml:space="preserve">
+    <value>Today Reservation Reoport</value>
+  </data>
 </root>
