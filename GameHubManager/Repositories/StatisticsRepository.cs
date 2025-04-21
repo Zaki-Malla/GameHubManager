@@ -20,6 +20,8 @@ namespace GameHubManager.Repositories
             return await _context.Reservations
            .Where(r => r.StartTime >= FirstDate && r.StartTime <= SecondDate)
            .Include(r => r.Device)
+            .ThenInclude(y => y.DeviceType)
+           .ThenInclude(z => z.DevicePrice)
            .ToListAsync();
         }
 
@@ -37,6 +39,7 @@ namespace GameHubManager.Repositories
            .Where(r => r.StartTime.Date == TodayDate.Date)
            .Include(x => x.Device)
            .ThenInclude(y => y.DeviceType)
+           .ThenInclude(z=>z.DevicePrice)
             .ToListAsync();
         }
 
@@ -48,6 +51,7 @@ namespace GameHubManager.Repositories
            .Where(r => r.StartTime.Month == TodayDate.Month)
            .Include(x => x.Device)
            .ThenInclude(y => y.DeviceType)
+           .ThenInclude(z => z.DevicePrice)
            .ToListAsync();
         }
 

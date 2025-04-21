@@ -22,7 +22,10 @@
                     <thead>
                         <tr>
                             <th class="sort border-top py-2 text-center" data-sort="device">@SharedResource.DeviceName</th>
-                            <th class="sort border-top py-2 text-center" data-sort="date">@SharedResource.reservationDate</th>
+                            <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.deviceType</th>
+                            <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.gameHourPrice</th>
+                            <th class="sort border-top py-2 text-center" data-sort="date">تاريخ البدء</th>
+                            <th class="sort border-top py-2 text-center" data-sort="paid">تاريخ الانتهاء</th>
                             <th class="sort border-top py-2 text-center" data-sort="price">@SharedResource.reservationPrice</th>
                             <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.amountTaken</th>
                         </tr>
@@ -32,22 +35,24 @@
                         @foreach (var Reservations in Model)
                         {
                             <tr>
-                                <td>@Reservations.Device.Name</td>
-                                <td>@Reservations.StartTime.ToString("yyyy/MM/dd HH:mm")</td>
-                                <td>@Reservations.AmountDue</td>
-                                <td>@Reservations.AmountPaid</td>
+                                <td class="text-center">@Reservations.Device.Name</td>
+                                <td class="text-center">@Reservations.Device.DeviceType.Name</td>
+                                <td class="text-center">@Reservations.Device.DeviceType.DevicePrice.PricePerHour</td>
+                                <td class ="text-center">@Reservations.StartTime.ToString("yyyy/MM/dd HH:mm")</td>
+                                <td class="text-center">@Reservations.EndTime</td>
+                                <td class="text-center">@Reservations.AmountDue</td>
+                                <td class="text-center">@Reservations.AmountPaid</td>
                             </tr>
                         }
                     </tbody>
                     <tfoot class="table-group-divider" id="table">
                         <tr class="table-active">
-                            <td colspan="2" class="text-end fw-bold">@SharedResource.total:</td>
-                            <td class="fw-bold text-danger">@Model.Sum(s => s.AmountDue)</td>
-                            <td class="fw-bold text-danger">@Model.Sum(s => s.AmountPaid)</td>
-
+                            <td colspan="5" class="text-end fw-bold">@SharedResource.total:</td>
+                            <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountDue)</td>
+                            <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountPaid)</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="text-center small text-muted">
+                            <td colspan="7" class="text-center small text-muted">
                                 @SharedResource.updateDate: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
                             </td>
                         </tr>

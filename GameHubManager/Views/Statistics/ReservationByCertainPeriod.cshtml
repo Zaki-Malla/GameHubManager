@@ -22,7 +22,10 @@
                     <thead>
                         <tr>
                             <th class="sort border-top py-2 text-center" data-sort="device">@SharedResource.DeviceName</th>
-                            <th class="sort border-top py-2 text-center" data-sort="date">@SharedResource.reservationDate</th>
+                            <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.deviceType</th>
+                            <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.gameHourPrice</th>
+                            <th class="sort border-top py-2 text-center" data-sort="date">تاريخ البدء</th>
+                            <th class="sort border-top py-2 text-center" data-sort="paid">تاريخ الانتهاء</th>
                             <th class="sort border-top py-2 text-center" data-sort="price">@SharedResource.reservationPrice</th>
                             <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.amountTaken</th>
                         </tr>
@@ -34,22 +37,24 @@
                             var rowClass = i % 2 == 0 ? "bg-white bg-opacity-10" : "bg-white bg-opacity-25";
                             <tr class="@rowClass">
                                 <td class="device align-middle text-center">@Model[i].Device.Name</td>
+                                <td class="device align-middle text-center">@Model[i].Device.DeviceType.Name</td>
+                                <td class="device align-middle text-center">@Model[i].Device.DeviceType.DevicePrice.PricePerHour</td>
                                 <td class="date align-middle text-center">@Model[i].StartTime.ToString("yyyy/MM/dd HH:mm")</td>
+                                <td class="date align-middle text-center">@Model[i].EndTime</td>
                                 <td class="price align-middle text-center">@Model[i].AmountDue</td>
                                 <td class="paid align-middle text-center">@Model[i].AmountPaid</td>
                             </tr>
                         }
                     </tbody>
 
-                    <tfoot>
-                        <tr class="bg-white bg-opacity-10">
-                            <td colspan="2" class="text-end fw-bold">@SharedResource.total:</td>
+                    <tfoot class="table-group-divider" id="table">
+                        <tr class="table-active">
+                            <td colspan="5" class="text-end fw-bold">@SharedResource.total:</td>
                             <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountDue)</td>
-                            <td class="fw-bold text-success text-center">@Model.Sum(r => r.AmountPaid)</td>
+                            <td class="fw-bold text-danger text-center">@Model.Sum(s => s.AmountPaid)</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="small text-muted text-center">
-                                <i class="bi bi-clock-history me-2"></i>
+                            <td colspan="7" class="text-center small text-muted">
                                 @SharedResource.updateDate: @DateTime.Now.ToString("yyyy/MM/dd HH:mm")
                             </td>
                         </tr>
