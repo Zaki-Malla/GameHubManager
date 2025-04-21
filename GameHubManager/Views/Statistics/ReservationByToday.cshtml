@@ -16,16 +16,16 @@
         <h3 class="section-title text-center mb-4">@SharedResource.reservationReoport</h3>
 
         <!-- Table -->
-        <div id="reservationsTable" data-list='{"valueNames":["device","date","price","paid"],"page":10}'>
+        <div id="reservationsTable" data-list='{"valueNames":["device","deviceType","pricePerHour","startdate","endDate","price","paid"],"page":10}'>
             <div class="table-responsive">
                 <table class="table table-striped table-sm fs--1 mb-0">
                     <thead>
                         <tr>
                             <th class="sort border-top py-2 text-center" data-sort="device">@SharedResource.DeviceName</th>
-                            <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.deviceType</th>
-                            <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.gameHourPrice</th>
-                            <th class="sort border-top py-2 text-center" data-sort="date">تاريخ البدء</th>
-                            <th class="sort border-top py-2 text-center" data-sort="paid">تاريخ الانتهاء</th>
+                            <th class="sort border-top py-2 text-center" data-sort="deviceType">@SharedResource.deviceType</th>
+                            <th class="sort border-top py-2 text-center" data-sort="pricePerHour">@SharedResource.gameHourPrice</th>
+                            <th class="sort border-top py-2 text-center" data-sort="startdate">تاريخ البدء</th>
+                            <th class="sort border-top py-2 text-center" data-sort="endDate">تاريخ الانتهاء</th>
                             <th class="sort border-top py-2 text-center" data-sort="price">@SharedResource.reservationPrice</th>
                             <th class="sort border-top py-2 text-center" data-sort="paid">@SharedResource.amountTaken</th>
                         </tr>
