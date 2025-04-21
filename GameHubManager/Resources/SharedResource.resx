@@ -714,4 +714,22 @@
   <data name="InvalidLoginCredentials" xml:space="preserve">
     <value>Invalid login credentials</value>
   </data>
+  <data name="forbidden" xml:space="preserve">
+    <value>Forbidden</value>
+  </data>
+  <data name="accessForbidden" xml:space="preserve">
+    <value>Access Forbidden!</value>
+  </data>
+  <data name="notGrantedUntoThee" xml:space="preserve">
+    <value>Halt! Thou art endeavouring to trespass upon a realm not granted unto thee.</value>
+  </data>
+  <data name="error404" xml:space="preserve">
+    <value>Page Missing!</value>
+  </data>
+  <data name="lookingEverywhere" xml:space="preserve">
+    <value>But no worries! Our ostrich is looking everywhere</value>
+  </data>
+  <data name="waitSafely" xml:space="preserve">
+    <value>while you wait safely.</value>
+  </data>
 </root>

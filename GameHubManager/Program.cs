@@ -125,7 +125,23 @@ File.Copy(dbPath, backupPath, overwrite: true);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+
+app.UseStatusCodePages(context =>
+{
+    if (context.HttpContext.Response.StatusCode == 403)
+    {
+        context.HttpContext.Response.Redirect("/Account/AccessDenied");
+    }
+    if (context.HttpContext.Response.StatusCode == 404)
+    {
+        context.HttpContext.Response.Redirect("/Home/Error404");
+    }
+    return Task.CompletedTask;
+});
+
 app.UseRouting();
+
 app.Use(async (context, next) =>
 {
     string cookie = string.Empty;

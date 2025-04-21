@@ -61,6 +61,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access Forbidden!.
+        /// </summary>
+        public static string accessForbidden {
+            get {
+                return ResourceManager.GetString("accessForbidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account Settings.
         /// </summary>
         public static string accountSettings {
@@ -691,6 +700,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page Missing!.
+        /// </summary>
+        public static string error404 {
+            get {
+                return ResourceManager.GetString("error404", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while closing the reservation..
         /// </summary>
         public static string errorClosingReservation {
@@ -768,6 +786,15 @@ namespace GameHubManager.Resources {
         public static string firstDate {
             get {
                 return ResourceManager.GetString("firstDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forbidden.
+        /// </summary>
+        public static string forbidden {
+            get {
+                return ResourceManager.GetString("forbidden", resourceCulture);
             }
         }
         
@@ -961,6 +988,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to But no worries! Our ostrich is looking everywhere.
+        /// </summary>
+        public static string lookingEverywhere {
+            get {
+                return ResourceManager.GetString("lookingEverywhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Menu Item Types.
         /// </summary>
         public static string manageMenuItemTypes {
@@ -1056,6 +1092,15 @@ namespace GameHubManager.Resources {
         public static string NoDeviceSelected {
             get {
                 return ResourceManager.GetString("NoDeviceSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Halt! Thou art endeavouring to trespass upon a realm not granted unto thee..
+        /// </summary>
+        public static string notGrantedUntoThee {
+            get {
+                return ResourceManager.GetString("notGrantedUntoThee", resourceCulture);
             }
         }
         
@@ -1830,6 +1875,15 @@ namespace GameHubManager.Resources {
         public static string viewGroupReservations {
             get {
                 return ResourceManager.GetString("viewGroupReservations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to while you wait safely..
+        /// </summary>
+        public static string waitSafely {
+            get {
+                return ResourceManager.GetString("waitSafely", resourceCulture);
             }
         }
         

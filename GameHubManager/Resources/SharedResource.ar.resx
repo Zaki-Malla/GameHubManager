@@ -714,4 +714,22 @@
   <data name="InvalidLoginCredentials" xml:space="preserve">
     <value>بيانات الدخول غير صحيحة</value>
   </data>
+  <data name="forbidden" xml:space="preserve">
+    <value>ممنوع</value>
+  </data>
+  <data name="accessForbidden" xml:space="preserve">
+    <value>الوصول ممنوع!</value>
+  </data>
+  <data name="notGrantedUntoThee" xml:space="preserve">
+    <value>توقف! أنت تسعى إلى التعدي على نطاق غير ممنوح لك.</value>
+  </data>
+  <data name="error404" xml:space="preserve">
+    <value>صفحة غير موجودة!</value>
+  </data>
+  <data name="lookingEverywhere" xml:space="preserve">
+    <value>لكن لا تقلق! نعامتنا تبحث في كل مكان</value>
+  </data>
+  <data name="waitSafely" xml:space="preserve">
+    <value>بينما تنتظر بأمان.</value>
+  </data>
 </root>
