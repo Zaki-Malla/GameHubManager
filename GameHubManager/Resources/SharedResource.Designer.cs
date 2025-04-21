@@ -205,6 +205,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amounts due 🧾 .
+        /// </summary>
+        public static string amountsDue {
+            get {
+                return ResourceManager.GetString("amountsDue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount Taken.
         /// </summary>
         public static string amountTaken {
@@ -1168,6 +1177,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paid Amounts 💵 .
+        /// </summary>
+        public static string paidAmounts {
+            get {
+                return ResourceManager.GetString("paidAmounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string password {
@@ -1375,6 +1393,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reservations Department 📆 .
+        /// </summary>
+        public static string reservationsDepartment {
+            get {
+                return ResourceManager.GetString("reservationsDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reservation Statistics.
         /// </summary>
         public static string reservationStatistics {
@@ -1416,6 +1443,15 @@ namespace GameHubManager.Resources {
         public static string saleCompletedSuccessfully {
             get {
                 return ResourceManager.GetString("saleCompletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sales Department 📊 .
+        /// </summary>
+        public static string salesDepartment {
+            get {
+                return ResourceManager.GetString("salesDepartment", resourceCulture);
             }
         }
         
@@ -1528,6 +1564,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Snacks sales.
+        /// </summary>
+        public static string snacksSales {
+            get {
+                return ResourceManager.GetString("snacksSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start Time:.
         /// </summary>
         public static string startTime {
@@ -1542,6 +1587,15 @@ namespace GameHubManager.Resources {
         public static string statistics {
             get {
                 return ResourceManager.GetString("statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistics for the current week.
+        /// </summary>
+        public static string statisticsForCurrentWeek {
+            get {
+                return ResourceManager.GetString("statisticsForCurrentWeek", resourceCulture);
             }
         }
         
@@ -1591,6 +1645,24 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total amount due for the day.
+        /// </summary>
+        public static string totalAmountDueForTheDay {
+            get {
+                return ResourceManager.GetString("totalAmountDueForTheDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total amount due for the week.
+        /// </summary>
+        public static string totalAmountDueForTheWeek {
+            get {
+                return ResourceManager.GetString("totalAmountDueForTheWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total amount for all devices:.
         /// </summary>
         public static string totalAmountForAllDevices {
@@ -1600,11 +1672,83 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Daily Fund.
+        /// </summary>
+        public static string totalDailyFund {
+            get {
+                return ResourceManager.GetString("totalDailyFund", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total due reservations for the day.
+        /// </summary>
+        public static string totalDueReservationsForTheDay {
+            get {
+                return ResourceManager.GetString("totalDueReservationsForTheDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total due reservations for this week.
+        /// </summary>
+        public static string totalDueReservationsForWeek {
+            get {
+                return ResourceManager.GetString("totalDueReservationsForWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total reservations.
+        /// </summary>
+        public static string totalReservations {
+            get {
+                return ResourceManager.GetString("totalReservations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total reservations for the day.
+        /// </summary>
+        public static string totalReservationsForTheDay {
+            get {
+                return ResourceManager.GetString("totalReservationsForTheDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total reservations for the week.
+        /// </summary>
+        public static string totalReservationsForTheWeek {
+            get {
+                return ResourceManager.GetString("totalReservationsForTheWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total sales for the week.
+        /// </summary>
+        public static string totalSalesForTheWeek {
+            get {
+                return ResourceManager.GetString("totalSalesForTheWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Total Sales In Current Month.
         /// </summary>
         public static string totalSalesInCurrentMonth {
             get {
                 return ResourceManager.GetString("totalSalesInCurrentMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total sales today.
+        /// </summary>
+        public static string totalSalesToday {
+            get {
+                return ResourceManager.GetString("totalSalesToday", resourceCulture);
             }
         }
         

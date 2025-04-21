@@ -135,22 +135,22 @@ namespace GameHubManager.Controllers
                     .Select(g => (TypeName: g.Key, Total: g.Sum(r => r.AmountDue) ?? 0))
                     .ToList(),
 
-                TotalMonthlyPaidReservations = ReservationsByCurrentMonth
-                    .Where(r => r.EndTime.HasValue)
+                TotalWeeklyPaidReservations = ReservationsByCurrentMonth
+                    .Where(s => s.EndTime.HasValue && s.EndTime.Value.Date >= startOfWeek && s.EndTime.Value.Date <= today)
                     .Sum(r => r.AmountPaid) ?? 0,
 
-                MonthlyPaidReservationsByDevice = ReservationsByCurrentMonth
-                    .Where(r => r.EndTime.HasValue)
+                WeeklyPaidReservationsByDevice = ReservationsByCurrentMonth
+                    .Where(s => s.EndTime.HasValue && s.EndTime.Value.Date >= startOfWeek && s.EndTime.Value.Date <= today)
                     .GroupBy(r => r.Device.DeviceType.Name)
                     .Select(g => (TypeName: g.Key, Total: g.Sum(r => r.AmountPaid) ?? 0))
                     .ToList(),
 
-                TotalMonthlyDueReservations = ReservationsByCurrentMonth
-                    .Where(r => r.EndTime.HasValue)
+                TotalWeeklyDueReservations = ReservationsByCurrentMonth
+                    .Where(s => s.EndTime.HasValue && s.EndTime.Value.Date >= startOfWeek && s.EndTime.Value.Date <= today)
                     .Sum(r => r.AmountDue) ?? 0,
 
-                MonthlyDueReservationsByDevice = ReservationsByCurrentMonth
-                    .Where(r => r.EndTime.HasValue)
+                WeeklyDueReservationsByDevice = ReservationsByCurrentMonth
+                    .Where(s => s.EndTime.HasValue && s.EndTime.Value.Date >= startOfWeek && s.EndTime.Value.Date <= today)
                     .GroupBy(r => r.Device.DeviceType.Name)
                     .Select(g => (TypeName: g.Key, Total: g.Sum(r => r.AmountDue) ?? 0))
                     .ToList(),

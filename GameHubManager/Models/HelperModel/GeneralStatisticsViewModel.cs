@@ -28,10 +28,10 @@ namespace GameHubManager.Models.HelperModel
         public decimal TotalDailyDueReservations { get; set; }
         public List<(string TypeName, decimal Total)> DailyDueReservationsByDevice { get; set; }
 
-        public decimal TotalMonthlyPaidReservations { get; set; }
-        public List<(string TypeName, decimal Total)> MonthlyPaidReservationsByDevice { get; set; }
-        public decimal TotalMonthlyDueReservations { get; set; }
-        public List<(string TypeName, decimal Total)> MonthlyDueReservationsByDevice { get; set; }
+        public decimal TotalWeeklyPaidReservations { get; set; }
+        public List<(string TypeName, decimal Total)> WeeklyPaidReservationsByDevice { get; set; }
+        public decimal TotalWeeklyDueReservations { get; set; }
+        public List<(string TypeName, decimal Total)> WeeklyDueReservationsByDevice { get; set; }
 
 
     }

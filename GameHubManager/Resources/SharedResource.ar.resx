@@ -117,7 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
- 
   <data name="accountSettings" xml:space="preserve">
     <value>إعدادات الحساب</value>
   </data>
@@ -130,11 +129,6 @@
   <data name="addNewAccount" xml:space="preserve">
     <value>إضافة حساب جديد</value>
   </data>
- 
-  <data name="AddAnotherItem" xml:space="preserve">
-    <value>إضافة عنصر آخر</value>
-  </data>
-
   <data name="addNewDevice" xml:space="preserve">
     <value>إضافة جهاز جديد</value>
   </data>
@@ -147,12 +141,9 @@
   <data name="addNewPrice" xml:space="preserve">
     <value>إضافة سعر جديد</value>
   </data>
- 
   <data name="adminControlPanel" xml:space="preserve">
     <value>لوحة تحكم الأدمن</value>
   </data>
- 
-
   <data name="adminDashboard" xml:space="preserve">
     <value>لوحة الآدمن</value>
   </data>
@@ -174,12 +165,12 @@
   <data name="amountPaidForEachDevice" xml:space="preserve">
     <value>المبلغ المدفوع لكل جهاز</value>
   </data>
- 
+  <data name="amountsDue" xml:space="preserve">
+    <value>🧾 المبالغ المستحقة</value>
+  </data>
   <data name="amountTaken" xml:space="preserve">
     <value>المبلغ المأخوذ</value>
   </data>
- 
-
   <data name="amountToBeRefunded" xml:space="preserve">
     <value>المبلغ الواجب إرجاعه:</value>
   </data>
@@ -204,7 +195,6 @@
   <data name="backToHomeScreen" xml:space="preserve">
     <value>العودة للشاشة الرئيسية</value>
   </data>
- 
   <data name="backToList" xml:space="preserve">
     <value>العودة للقائمة</value>
   </data>
@@ -220,14 +210,6 @@
   <data name="CertainPeriodProfitReport" xml:space="preserve">
     <value>تقرير الارباح خلال فترة معينة</value>
   </data>
- 
-  <data name="biscuits" xml:space="preserve">
-    <value>بسكويت</value>
-  </data>
-  <data name="Category" xml:space="preserve">
-    <value>التصنيف</value>
-  </data>
-
   <data name="chooseCategory" xml:space="preserve">
     <value>اختر التصنيف</value>
   </data>
@@ -303,12 +285,9 @@
   <data name="devices" xml:space="preserve">
     <value>الأجهزة</value>
   </data>
- 
   <data name="devicesList" xml:space="preserve">
     <value>قائمة الأجهزة</value>
   </data>
- 
-
   <data name="deviceType" xml:space="preserve">
     <value>نوع الجهاز</value>
   </data>
@@ -336,15 +315,12 @@
   <data name="email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
   </data>
- 
   <data name="employeeList" xml:space="preserve">
     <value>قائمة الموظفين</value>
   </data>
   <data name="employeeName" xml:space="preserve">
     <value>اسم الموظف</value>
   </data>
- 
-
   <data name="endTime" xml:space="preserve">
     <value>وقت النهاية:</value>
   </data>
@@ -369,7 +345,6 @@
   <data name="exploreStyles" xml:space="preserve">
     <value>استكشف الأنماط المختلفة حسب تفضيلاتك</value>
   </data>
- 
   <data name="filter" xml:space="preserve">
     <value>إظهار</value>
   </data>
@@ -382,11 +357,6 @@
   <data name="generalStatistics" xml:space="preserve">
     <value>احصائيات عامة</value>
   </data>
- 
-  <data name="gameHourPrice" xml:space="preserve">
-    <value>سعر ساعة اللعب</value>
-  </data>
-
   <data name="groupReservationForPCs" xml:space="preserve">
     <value>حجز جماعي لأجهزة الكمبيوتر</value>
   </data>
@@ -417,12 +387,9 @@
   <data name="ItemName" xml:space="preserve">
     <value>اسم العنصر</value>
   </data>
- 
   <data name="itemPrice" xml:space="preserve">
     <value>سعر المنتج</value>
   </data>
- 
-
   <data name="language" xml:space="preserve">
     <value>اللغة</value>
   </data>
@@ -453,12 +420,9 @@
   <data name="minute" xml:space="preserve">
     <value>دقيقة</value>
   </data>
- 
   <data name="Monthlyearningreport" xml:space="preserve">
     <value>تقرير الأرباح الشهرية</value>
   </data>
- 
-
   <data name="mustSelectAtLeastOneDevice" xml:space="preserve">
     <value>يجب اختيار جهاز واحد على الأقل.</value>
   </data>
@@ -510,12 +474,9 @@
   <data name="NumberOfUnits" xml:space="preserve">
     <value>عدد القطع</value>
   </data>
- 
   <data name="numberOfUsers" xml:space="preserve">
     <value>عدد المستخدمين</value>
   </data>
- 
-
   <data name="openReservation" xml:space="preserve">
     <value>حجز مفتوح</value>
   </data>
@@ -528,21 +489,21 @@
   <data name="options" xml:space="preserve">
     <value>خيارات</value>
   </data>
+  <data name="paidAmounts" xml:space="preserve">
+    <value>💵 المبالغ المدفوعة</value>
+  </data>
   <data name="password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
   <data name="perHour" xml:space="preserve">
     <value>لكل ساعة</value>
   </data>
- 
   <data name="phoneNumber" xml:space="preserve">
     <value>رقم الهاتف</value>
   </data>
   <data name="playingrateList" xml:space="preserve">
     <value>قائمة اسعار اللعب</value>
   </data>
- 
-
   <data name="pleaseEnterValidPaymentAmount" xml:space="preserve">
     <value>يرجى إدخال قيمة صحيحة للمبلغ المدفوع.</value>
   </data>
@@ -555,7 +516,6 @@
   <data name="PricePerUnit" xml:space="preserve">
     <value>السعر للقطعة:</value>
   </data>
- 
   <data name="profitByCertainPeriod" xml:space="preserve">
     <value>ربح خلال فترة معينة</value>
   </data>
@@ -568,8 +528,6 @@
   <data name="profitStatistics" xml:space="preserve">
     <value>إحصائيات الأرباح</value>
   </data>
- 
-
   <data name="quantity" xml:space="preserve">
     <value>الكمية</value>
   </data>
@@ -582,7 +540,6 @@
   <data name="renewQuantity" xml:space="preserve">
     <value>تجديد الكمية</value>
   </data>
- 
   <data name="reservationByCertainPeriod" xml:space="preserve">
     <value>حجوزات خلال فترة معينة</value>
   </data>
@@ -604,14 +561,12 @@
   <data name="reservationReoport" xml:space="preserve">
     <value>تقرير الحجوزات</value>
   </data>
+  <data name="reservationsDepartment" xml:space="preserve">
+    <value>📆 قسم الحجوزات</value>
+  </data>
   <data name="reservationStatistics" xml:space="preserve">
     <value>إحصائيات الحجوزات</value>
   </data>
- 
-  <data name="reservationIsOpen" xml:space="preserve">
-    <value>الحجز مفتوح</value>
-  </data>
-
   <data name="ReserveDevice" xml:space="preserve">
     <value>حجز الجهاز</value>
   </data>
@@ -624,15 +579,15 @@
   <data name="saleCompletedSuccessfully" xml:space="preserve">
     <value>تم البيع بنجاح!</value>
   </data>
+  <data name="salesDepartment" xml:space="preserve">
+    <value>📊 قسم المبيعات</value>
+  </data>
   <data name="save" xml:space="preserve">
     <value>حفظ</value>
   </data>
- 
   <data name="secondDate" xml:space="preserve">
     <value>التاريخ الثاني</value>
   </data>
- 
-
   <data name="SelectAvailableDevices" xml:space="preserve">
     <value>الرجاء اختيار الأجهزة المتاحة (أجهزة الكمبيوتر غير المحجوزة):</value>
   </data>
@@ -660,9 +615,11 @@
   <data name="setThePrice" xml:space="preserve">
     <value>تحديد السعر</value>
   </data>
- 
   <data name="snacksList" xml:space="preserve">
     <value>مبيعات المأكولات والمشروبات</value>
+  </data>
+  <data name="snacksSales" xml:space="preserve">
+    <value>مبيعات السناكس</value>
   </data>
   <data name="startTime" xml:space="preserve">
     <value>وقت البداية:</value>
@@ -670,41 +627,57 @@
   <data name="statistics" xml:space="preserve">
     <value>الإحصائيات</value>
   </data>
+  <data name="statisticsForCurrentWeek" xml:space="preserve">
+    <value>إحصائيات الأسبوع الحالي</value>
+  </data>
   <data name="systemStatistics" xml:space="preserve">
     <value>📊 إحصائيات النظام</value>
   </data>
- 
-  <data name="startTime" xml:space="preserve">
-    <value>وقت البداية:</value>
-  </data>
-
   <data name="themeCustomizer" xml:space="preserve">
     <value>مخصص المظهر</value>
   </data>
   <data name="thereAreControllers" xml:space="preserve">
     <value>يوجد قبضات</value>
   </data>
- 
   <data name="total" xml:space="preserve">
     <value>المجموع</value>
   </data>
- 
-
+  <data name="totalReservationsForTheDay" xml:space="preserve">
+    <value>إجمالي حجوزات اليوم</value>
+  </data>
   <data name="TotalAmountDueForAllDevices" xml:space="preserve">
     <value>المبلغ المستحق لجميع الأجهزة</value>
+  </data>
+  <data name="totalAmountDueForTheDay" xml:space="preserve">
+    <value>إجمالي المبالغ المستحقة لليوم</value>
+  </data>
+  <data name="totalAmountDueForTheWeek" xml:space="preserve">
+    <value>إجمالي المبالغ المستحقة للأسبوع</value>
   </data>
   <data name="totalAmountForAllDevices" xml:space="preserve">
     <value>المبلغ الكلي لكافة الأجهزة:</value>
   </data>
- 
+  <data name="totalDailyFund" xml:space="preserve">
+    <value>إجمالي الصندوق اليومي</value>
+  </data>
+  <data name="totalReservations" xml:space="preserve">
+    <value>إجمالي الحجوزات</value>
+  </data>
+  <data name="totalReservationsForTheWeek" xml:space="preserve">
+    <value>إجمالي حجوزات الاسبوع</value>
+  </data>
+  <data name="totalSalesForTheWeek" xml:space="preserve">
+    <value>إجمالي مبيعات الأسبوع</value>
+  </data>
   <data name="totalSalesInCurrentMonth" xml:space="preserve">
     <value>إجمالي المبيعات هذا الشهر</value>
+  </data>
+  <data name="totalSalesToday" xml:space="preserve">
+    <value>إجمالي مبيعات اليوم</value>
   </data>
   <data name="updateDate" xml:space="preserve">
     <value>تاريخ التحديث</value>
   </data>
- 
-
   <data name="updatePrice" xml:space="preserve">
     <value>تحديث السعر</value>
   </data>
@@ -719,5 +692,11 @@
   </data>
   <data name="yes" xml:space="preserve">
     <value>نعم</value>
+  </data>
+  <data name="totalDueReservationsForWeek" xml:space="preserve">
+    <value>إجمالي الحجوزات المستحقة لهذا الاسبوع</value>
+  </data>
+  <data name="totalDueReservationsForTheDay" xml:space="preserve">
+    <value>إجمالي الحجوزات المستحقة لليوم</value>
   </data>
 </root>

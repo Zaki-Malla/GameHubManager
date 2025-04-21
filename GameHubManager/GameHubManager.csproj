@@ -45,5 +45,9 @@
 		</None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="AppData_backup\" />
+	</ItemGroup>
+
 
 </Project>
