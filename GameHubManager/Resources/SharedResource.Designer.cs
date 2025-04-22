@@ -709,6 +709,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to End Date.
+        /// </summary>
+        public static string endDate {
+            get {
+                return ResourceManager.GetString("endDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Time.
         /// </summary>
         public static string endTime {
@@ -1722,6 +1731,15 @@ namespace GameHubManager.Resources {
         public static string snacksSales {
             get {
                 return ResourceManager.GetString("snacksSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        public static string startDate {
+            get {
+                return ResourceManager.GetString("startDate", resourceCulture);
             }
         }
         

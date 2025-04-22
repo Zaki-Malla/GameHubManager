@@ -759,4 +759,10 @@
   <data name="TodayReservationReoport" xml:space="preserve">
     <value>Today Reservation Reoport</value>
   </data>
+  <data name="startDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>End Date</value>
+  </data>
 </root>

@@ -759,4 +759,10 @@
   <data name="TodayReservationReoport" xml:space="preserve">
     <value>تقرير الحجوزات اليوم</value>
   </data>
+  <data name="startDate" xml:space="preserve">
+    <value>تاريخ البدء</value>
+  </data>
+  <data name="endDate" xml:space="preserve">
+    <value>تاريخ الإنتهاء</value>
+  </data>
 </root>
