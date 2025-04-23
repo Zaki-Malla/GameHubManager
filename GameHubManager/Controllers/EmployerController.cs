@@ -40,6 +40,7 @@ namespace GameHubManager.Controllers
             Users = await _userManager.Users.ToListAsync(),
             Devices = await _deviceRepository.GetAllDevicesAsync()
             };
+            model.SaleItems = model.SaleItems.Where(s => s.SaleDate.Month == DateTime.Now.Month).ToList();
             return View(model);
         }
 

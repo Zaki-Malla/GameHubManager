@@ -765,4 +765,34 @@
   <data name="endDate" xml:space="preserve">
     <value>End Date</value>
   </data>
+  <data name="choosingModification" xml:space="preserve">
+    <value>Choosing a modification</value>
+  </data>
+  <data name="change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="new" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="current" xml:space="preserve">
+    <value>Current</value>
+  </data>
+  <data name="role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="employer" xml:space="preserve">
+    <value>Employer</value>
+  </data>
+  <data name="employee" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="successfullyUpdated" xml:space="preserve">
+    <value>Successfully updated</value>
+  </data>
+  <data name="errorOccurred" xml:space="preserve">
+    <value>An error occurred during processing!</value>
+  </data>
 </root>

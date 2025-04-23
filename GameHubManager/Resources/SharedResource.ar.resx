@@ -765,4 +765,34 @@
   <data name="endDate" xml:space="preserve">
     <value>تاريخ الإنتهاء</value>
   </data>
+  <data name="choosingModification" xml:space="preserve">
+    <value>اختيار التعديل</value>
+  </data>
+  <data name="change" xml:space="preserve">
+    <value>تغيير</value>
+  </data>
+  <data name="new" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="confirmation" xml:space="preserve">
+    <value>تأكيد</value>
+  </data>
+  <data name="current" xml:space="preserve">
+    <value>الحالية</value>
+  </data>
+  <data name="role" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="employer" xml:space="preserve">
+    <value>مدير</value>
+  </data>
+  <data name="employee" xml:space="preserve">
+    <value>موظف</value>
+  </data>
+  <data name="successfullyUpdated" xml:space="preserve">
+    <value>تم التحديث بنجاح</value>
+  </data>
+  <data name="errorOccurred" xml:space="preserve">
+    <value>حدث خطأ أثناء المعالجة!</value>
+  </data>
 </root>

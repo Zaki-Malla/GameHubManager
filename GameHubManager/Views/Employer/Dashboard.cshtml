@@ -40,7 +40,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-gray-800 text-white">
             <div class="modal-header">
-                <h5 class="modal-title text-warning" id="settingsModalLabel">إعدادات الحساب</h5>
+                <h5 class="modal-title text-warning" id="settingsModalLabel">@SharedResource.edit</h5>
                 <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -48,37 +48,37 @@
                     @Html.AntiForgeryToken()
 
                     <div class="mb-3">
-                        <label for="option" class="form-label">اختيار التعديل</label>
+                        <label for="option" class="form-label">@SharedResource.choosingModification</label>
                         <select class="form-control" id="option" name="Option">
-                            <option value="email">تغيير البريد الإلكتروني</option>
-                            <option value="password">تغيير كلمة المرور</option>
+                            <option value="email">@SharedResource.change @SharedResource.email</option>
+                            <option value="password">@SharedResource.change @SharedResource.password</option>
                         </select>
                     </div>
 
                     <div id="emailSection">
                         <div class="mb-3">
-                            <label for="newEmail" class="form-label">البريد الإلكتروني الجديد</label>
+                            <label for="newEmail" class="form-label">@SharedResource._new @SharedResource.email</label>
                             <input type="email" class="form-control" id="newEmail" name="NewEmail">
                         </div>
                     </div>
 
                     <div id="passwordSection" style="display: none;">
                         <div class="mb-3">
-                            <label for="newPassword" class="form-label">كلمة المرور الجديدة</label>
+                            <label for="newPassword" class="form-label">@SharedResource._new @SharedResource.password</label>
                             <input type="password" class="form-control" id="newPassword" name="NewPassword">
                         </div>
                         <div class="mb-3">
-                            <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                            <label for="confirmPassword" class="form-label">@SharedResource.password @SharedResource.confirmation</label>
                             <input type="password" class="form-control" id="confirmPassword" name="ConfirmPassword">
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="currentPassword" class="form-label">كلمة المرور الحالية</label>
+                        <label for="currentPassword" class="form-label">@SharedResource.current @SharedResource.password</label>
                         <input type="password" class="form-control" id="currentPassword" name="CurrentPassword">
                     </div>
 
-                    <button type="submit" class="btn btn-warning text-dark">حفظ التغييرات</button>
+                    <button type="submit" class="btn btn-warning text-dark">@SharedResource.save</button>
                 </form>
             </div>
         </div>
@@ -122,11 +122,11 @@
     .then(response => response.text())
     .then(message => {
     alert(message);
-    if (message.includes("تم التحديث بنجاح")) {
+    if (message.includes(@Html.Raw(Json.Serialize(SharedResource.successfullyUpdated)))) {
     setTimeout(() => location.reload(), 1000);
     }
     })
-    .catch(() => alert("حدث خطأ أثناء المعالجة!"));
+    .catch(() => alert(@Html.Raw(Json.Serialize(SharedResource.errorOccurred))));
     });
     });
 </script>
@@ -135,29 +135,29 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addAccountModalLabel">إضافة حساب جديد</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+                <h5 class="modal-title" id="addAccountModalLabel">@SharedResource.addNewAccount</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@SharedResource.close"></button>
             </div>
             <div class="modal-body">
                 <form asp-action="AddAccount" asp-controller="Employer" method="post">
                     <div class="mb-3">
-                        <label for="email" class="form-label">البريد الإلكتروني</label>
+                        <label for="email" class="form-label">@SharedResource.email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">كلمة المرور</label>
+                        <label for="password" class="form-label">@SharedResource.password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="mb-3">
-                        <label for="role" class="form-label">الدور</label>
+                        <label for="role" class="form-label">@SharedResource.role</label>
                         <select class="form-select" id="role" name="role" required>
-                            <option value="Employer">مدير</option>
-                            <option value="Employee">مستخدم</option>
+                            <option value="Employer">@SharedResource.employer</option>
+                            <option value="Employee">@SharedResource.employer</option>
                         </select>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">إضافة الحساب</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@SharedResource.close</button>
+                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">@SharedResource.addNewAccount</button>
                     </div>
                 </form>
             </div>

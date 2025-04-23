@@ -61,6 +61,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string _new {
+            get {
+                return ResourceManager.GetString("new", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access Forbidden!.
         /// </summary>
         public static string accessForbidden {
@@ -367,6 +376,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string change {
+            get {
+                return ResourceManager.GetString("change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose Category.
         /// </summary>
         public static string chooseCategory {
@@ -381,6 +399,15 @@ namespace GameHubManager.Resources {
         public static string chooseDeviceType {
             get {
                 return ResourceManager.GetString("chooseDeviceType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choosing a modification.
+        /// </summary>
+        public static string choosingModification {
+            get {
+                return ResourceManager.GetString("choosingModification", resourceCulture);
             }
         }
         
@@ -426,6 +453,15 @@ namespace GameHubManager.Resources {
         public static string completeReservationNow {
             get {
                 return ResourceManager.GetString("completeReservationNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string confirmation {
+            get {
+                return ResourceManager.GetString("confirmation", resourceCulture);
             }
         }
         
@@ -489,6 +525,15 @@ namespace GameHubManager.Resources {
         public static string copyrightNotice {
             get {
                 return ResourceManager.GetString("copyrightNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current.
+        /// </summary>
+        public static string current {
+            get {
+                return ResourceManager.GetString("current", resourceCulture);
             }
         }
         
@@ -691,6 +736,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee.
+        /// </summary>
+        public static string employee {
+            get {
+                return ResourceManager.GetString("employee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Employee List.
         /// </summary>
         public static string employeeList {
@@ -705,6 +759,15 @@ namespace GameHubManager.Resources {
         public static string employeeName {
             get {
                 return ResourceManager.GetString("employeeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Employer.
+        /// </summary>
+        public static string employer {
+            get {
+                return ResourceManager.GetString("employer", resourceCulture);
             }
         }
         
@@ -768,6 +831,15 @@ namespace GameHubManager.Resources {
         public static string errorDuringSale {
             get {
                 return ResourceManager.GetString("errorDuringSale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during processing!.
+        /// </summary>
+        public static string errorOccurred {
+            get {
+                return ResourceManager.GetString("errorOccurred", resourceCulture);
             }
         }
         
@@ -1591,6 +1663,15 @@ namespace GameHubManager.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        public static string role {
+            get {
+                return ResourceManager.GetString("role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sale completed successfully!.
         /// </summary>
         public static string saleCompletedSuccessfully {
@@ -1767,6 +1848,15 @@ namespace GameHubManager.Resources {
         public static string statisticsForCurrentWeek {
             get {
                 return ResourceManager.GetString("statisticsForCurrentWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully updated.
+        /// </summary>
+        public static string successfullyUpdated {
+            get {
+                return ResourceManager.GetString("successfullyUpdated", resourceCulture);
             }
         }
         
